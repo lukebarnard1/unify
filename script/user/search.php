@@ -1,0 +1,37 @@
+<?php
+	include "../util/mysql.php";
+	include "../util/session.php";
+	
+	$dao = new DAO(false);
+	$name = $dao->escape($_POST["q"]);
+	$name = trim(strtolower($name));
+	
+	if ($name != "") {
+		//Find the select the cohort, course and university of the user
+		$query = "SELECT cohort.cohort_id,course.course_id,university.university_id FROM user ".
+				"JOIN cohort ON user.cohort_id=cohort.cohort_id ".
+				"JOIN course ON cohort.course_id=course.course_id ".
+				"JOIN university ON university.university_id=course.university_id ".
+				"WHERE user_id=\"$user->user_id\";";
+		$dao->myquery($query);
+		$row = $dao->fetch_one();
+	
+		$cohort_id = $row["cohort_id"];
+		$course_id = $row["course_id"];
+		$university_id = $row["university_id"];
+		//Take the query and return a json list of courses that might match this one
+
+		$dao->myquery("SELECT user_id,user_name,cohort_start,course_name,university_name,user_picture FROM user ".
+				"JOIN cohort ON user.cohort_id=cohort.cohort_id ".
+				"JOIN course ON cohort.course_id=course.course_id ".
+				"JOIN university ON university.university_id=course.university_id ".
+				"WHERE (cohort.cohort_id=\"$cohort_id\" OR ".
+					   "course.course_id=\"$course_id\" OR ".
+					   "university.university_id=\"$university_id\") AND ".
+					   "LOWER(user_name) LIKE \"%$name%\" AND user_id!=\"$user->user_id\";");
+		
+		echo $dao->fetch_json();
+	} else {
+		echo "[]";
+	}
+?>

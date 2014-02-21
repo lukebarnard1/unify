@@ -1,0 +1,16 @@
+delete from chat_msg;
+delete from cohort;
+delete from comment;
+delete from confirmation;
+delete from connection;
+delete from course;
+delete from error;
+delete from friend_request;
+delete from hidden_post;
+delete from message;
+delete from notification;
+delete from post;
+delete from post_vote;
+delete from reset_request;
+delete from university;
+delete from user;

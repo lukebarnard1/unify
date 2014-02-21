@@ -1,0 +1,586 @@
+
+*{
+	margin:0;
+	padding:0;
+	outline:0;
+	border:0;
+	
+	font-family: Arial, sans-serif;
+	font-size:14px;
+	-webkit-font-smoothing: antialiased;
+}
+
+input, textarea{
+	font-size: 12px; 
+}
+
+h1,h2{
+	font-weight:normal;
+}
+
+h1 {
+	font-size: 14pt;
+}
+
+h2 {
+	font-size: 20px;
+}
+
+html,body {
+	background-color:#fff;
+
+	height: 100%;
+
+	overflow-x:hidden;
+}
+
+body {
+	overflow-x:auto;
+	overflow-y:auto;
+}
+
+a {
+	color:inherit;
+	text-decoration:none;
+}
+
+a:hover{
+	text-decoration:underline;
+}
+
+.nav_bar {
+	background-color:#4AB948;
+	border-bottom:3px solid #3D9A3C;
+	height:37px;
+	width:100%;
+	position:fixed;
+	z-index:1000;
+}
+
+.nav_bar > .inner {
+	max-width:1000px;
+	margin:auto;
+}
+
+.nav_bar > .inner > .nav_button {
+	float:left;
+	min-width:100px;
+	padding:5px 5px 5px 5px;
+	text-align:center;
+	display:block;
+	font-size:23px;
+	line-height:28px;
+	color:#ffffff;
+	cursor:pointer;
+}
+
+.nav_bar > .inner > .nav_button.notif {
+	float:right;
+	width:200px;
+	position:relative;
+}
+
+.nav_bar > .inner > .nav_button.notif * {
+	line-height:1em;
+}
+
+.nav_bar > .inner > .nav_button:hover,
+.nav_bar > .inner > .nav_button.selected {
+	background-color:#3D9A3C;
+}
+
+.notification {
+	margin:0px 0px -1px 0px;
+	background-color: #f0f0f0;
+	color: #000;
+	text-align: left;
+}
+
+.notification.seen {
+	color: #666;
+}
+
+.notification > a:hover {
+	display: block;
+	text-decoration: none;
+	background-color: #fff;
+}
+
+
+.notification h2{
+	background-color: #d0d0d0;
+	border-bottom:3px solid #c0c0c0;
+	font-size:12px;
+	font-weight:normal;
+	padding: 3px;
+}
+.notification p{
+	font-size:12px;
+	padding:3px;
+}
+
+.3dtitle {
+	background-color:#4AB948;
+	border-bottom:3px solid #3D9A3C;
+}
+
+#main {
+	margin:auto;
+	width:100%;
+	max-width:700px;
+
+	height:100%;
+
+	display:table;
+	padding:37px 0px 0px 0px;
+}
+
+
+.bold {
+	font-size: inherit;
+	font-weight:bold;
+	text-decoration: underline;
+}
+
+#column1 {
+	display:table-cell;
+	vertical-align: top;
+	width:200px;
+	height:100%;
+
+	background-color: #fff;
+}
+
+#column1 img {
+	vertical-align:top;
+	display:block;
+}
+
+#column1 h2 {
+	margin:10px 5px 0px 5px;
+}
+
+#logo {
+	padding:10px;
+	width:180px;
+}
+
+#display_picture {
+	vertical-align:bottom;
+	width:200px;
+}
+
+.small_display_picture {
+	width:50px;
+	height:50px;
+}
+
+#prof_pic {
+	position:relative;
+}
+
+#prof_pic_form {
+	display:none;
+}
+
+#prof_pic_button {
+	position:absolute;
+	bottom:10px;
+	left:10px;
+
+	display: none;
+	text-align: center;
+}
+
+#friend_search {
+	padding:5px;
+	width:190px;
+}
+
+.nav_link{
+	padding:3px 5px 3px 5px;
+	margin-bottom:5px;
+	display:block;
+	background-color:#222;
+	color:#fff;
+	border-top:3px solid #aaa;
+	font-size:14px;
+}
+
+#friends {
+	max-height:300px;
+	overflow-y:auto;
+	-webkit-overflow-scrolling : touch;
+	margin-bottom: 5px;
+	padding-top:1px;
+}
+
+.friend {
+	clear:both;
+	position:relative;
+	margin-top:-1px;
+	font-size: 11px;
+	line-height: 16px;
+	
+	color:#444;
+}
+
+.friend:hover{
+	background-color: #444;
+	color: #fff;
+}
+
+.friend .small_display_picture {
+	vertical-align:center;
+	float:left;
+	margin-right:3px;
+	width:32px;
+	height:32px;
+}
+
+#friend_select {
+	display:none;
+	max-height:100px;
+	overflow-y: auto;
+}
+
+#friend_select .friend_select {
+	margin-left:10px;
+}
+
+#feedback_form {
+	background-color:#fdfdfd;
+	margin-top: 5px;
+	padding:3px;
+}
+
+#feedback_form h2 {
+	background-color:#4AB948;
+	border-bottom:3px solid #3D9A3C;
+	color:#fff;
+	margin:-4px -4px 5px -4px;
+	padding:3px 8px 3px 8px;
+}
+
+#feedback_form textarea{
+	display: block;
+	resize:vertical;
+	width: 100%;
+	background-color:inherit;
+	color:#000;
+}
+
+#column2 {
+	display:table-cell;
+	padding:5px 5px 0px 5px;
+	overflow-y:auto;
+	-webkit-overflow-scrolling : touch;
+}
+
+#column2 h1, #column2 h2 {
+	padding:3px 8px 3px 8px;
+	background-color:#4AB948;
+	border-bottom:3px solid #3D9A3C;
+	margin-bottom:5px;
+	color:#fff;
+}
+
+#posts {
+	height:0px;
+}
+
+.user_header {
+	position:relative;
+	margin:0px 0px 5px 0px;
+	background-color:#fff;
+	border-color:#f0f0f0;
+	color:#444;
+	min-height:200px;
+}
+
+.user_header .display_picture {
+	vertical-align:top;
+	width:200px;
+	float:left;
+	margin-right:5px;
+}
+
+.user_header .info {
+	/*padding-right:5px;*/
+}
+
+.user_header .info p {
+	padding: 0px 5px 5px 5px;
+}
+
+#column2 .post {
+	position:relative;
+	
+	min-height:150px;
+
+	padding:5px;
+	margin-bottom: -1px;
+
+	border-width:1px 1px 1px 1px;
+	border-style:solid;
+	border-color:#f4f4f4;
+	background-color:#fdfdfd;
+	font-size:11pt;
+}
+
+#column2 .hidden_post {
+	
+	padding:5px;
+	margin-bottom:-1px;
+	border-width:1px;
+	border-style:solid;
+	border-color:#f4f4f4;
+	background-color:#fdfdfd;
+}
+
+#column2 .hidden_post a {
+	color:#888;
+}
+
+.box {
+/*	background-color:#f8f8f8;
+	border:1px solid #ddd;*/
+	background-color:#f0f0f0;
+	border-top:3px solid #dbdbdb;
+}
+
+#new_post {
+	position:relative;
+	margin:0px 0px 5px 0px;
+	padding-bottom:30px;
+	font-size:11pt;
+}
+
+#new_post .prompt {
+	padding:5px;
+	
+	color:#666;
+	font-size:12pt;
+}
+
+#new_post .post_content_container {
+	padding:5px;
+	padding-right:0px;
+	margin:5px;
+	background-color: #fff;
+}
+
+#new_post #post_content {
+	margin-bottom:-5px;
+	padding-bottom:4px;
+	resize:vertical;
+	overflow:hidden;
+	width:100%;
+	
+	background-color:#fdfdfd;
+	font-size:10pt;
+}
+
+#new_post .button{
+	width:100px;
+	position:absolute;
+	right:5px;
+}
+
+.button {
+	padding:3px;
+	cursor:pointer;
+	background-color:#ccc;
+	font-size:10pt;
+	border:1px solid #aaa;
+}
+
+.pressed {
+	background-color:#888;
+	border:1px solid #aaa;
+}
+
+#column2 .post .top {
+	padding-top:5px;
+	height:45px;
+	
+	color:#000;
+	font-weight:normal;
+}
+
+#column2 .post .top .small_display_picture {
+	float:left;
+	margin-top:-5px;
+	margin-right:5px;
+	
+	vertical-align:top;
+}
+
+#column2 .post .top .name {
+	font-size:18px;
+	margin-top:-5px;
+}
+
+#column2 .post .top .date {
+	color: #444;
+	font-weight:normal;
+	font-size:9pt;
+}
+
+#column2 .post .top .hider {
+	position:absolute;
+	padding:5px;
+	width:16px;
+	right:0px;
+	top:0px;
+}
+
+#column2 .post .right {
+	position:absolute;
+	top:50px;
+	right:0px;
+	width:26px;
+	
+	color:#000;
+	text-align:center;
+}
+
+#column2 .post .right img.voter {
+	padding:5px;
+	width:16px;
+	text-align: bottom;
+}
+
+#column2 .post .score {
+	display:block;
+	font-size:14pt;
+}
+
+#column2 .post .bottom {
+	margin:0px 10px 0px 10px;
+	/*width:500px;*/
+	position:relative;
+	bottom:0px;
+}
+
+#column2 .post .bottom .content {
+	padding:6px 4px 4px 0px;
+	margin-right:20px;
+}
+
+#column2 .post  .comment_form {
+	display:none;
+}
+
+#column2 .post  .comment_link {
+	display:block;
+	color:#777;
+	margin-top:2px;
+	margin-right:20px;
+	font-size:14px;
+}
+
+#column2 .post .comment_input {
+	border:solid 1px #f4f4f4;
+	padding:3px;
+	width:100%;
+}
+
+#column2 .post .comments {
+	margin-right:11px;
+}
+
+#column2 .post .comments .comment {
+	min-height:50px;
+	margin-bottom:-1px;
+	position:relative;
+	padding:3px;
+	/*background-color: #90F000;*/
+	/*border-bottom:5px solid #77DD00;*/
+	/*color:#fff;*/
+	color:#444;
+}
+
+#column2 .post .comments .comment img.small_display_picture {
+	vertical-align:top;
+	float:left;
+	margin-right:3px;
+}
+
+img.delete_comment {
+	width:16px;
+	position:absolute;
+	top:4px;
+	right:4px;
+}
+
+#column2 .post .comments .comment p{
+	margin-left:53px;
+	font-size:9pt;
+}
+
+#column2 .post .comments .comment a {
+	font-size:10pt;
+	font-weight:normal;
+}
+
+#unify_link {
+	background-color:#fff;
+	color:#99ff00;
+	padding:20px;
+	margin:0px;
+	font-size:60pt;
+	text-align:center;
+	height:100%;
+	display:block;
+}
+
+#unify_link.pressed {
+	background-color:#99ff00;
+	color:#fff;
+}
+
+.unify ol {
+	margin:5px 5px 5px 30px;
+}
+
+#column2 .chat_box {
+	margin-bottom:5px;
+}
+
+#column2 .conversation {
+	margin-top:-5px;
+	max-height:100px;
+	padding:0px 3px 1px 3px;
+	overflow-y:scroll;
+}
+
+.chat_msg > p{
+	background-color: #fdfdfd;
+	border:1px solid #eee;
+	margin-bottom:-1px;
+	padding:3px;
+	color:#000;
+}
+
+.chat_msg > p > .name{
+	font-weight:bold;
+	color:#666;
+}
+
+.chat_msg > p > .seen_indication {
+	font-style: italic;
+	color:#CCCCCC;
+}
+
+#column2 .chat_box .conversation_input{
+	/*margin-top:5px;*/
+	border-top-width: 3px;
+	padding:3px;
+}
+
+#column3 {
+	display:table-cell;
+	padding:0px;
+	width:200px;
+}

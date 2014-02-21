@@ -1,0 +1,36 @@
+<div class="post">
+	<div class="top"> 
+		<a href="../user/{user_id}"> 
+			<img class="small_display_picture" src="../profile_pictures/{user_picture}">
+				<p class="name">{user_name}</p></a>
+		<p class="date">{post_time}</p>
+		<a href="javascript:change_feed('script/post/delete_hide.php?post_id={post_id}',{page})">
+			<img class="hider" 
+				alt="{hider_title}" 
+				title="{hider_title}" 
+				src="img/{hider_image}"
+			>
+		</a>
+	</div>
+	<div class="bottom">
+		<div style="min-height:80px;">
+			<p class="content">
+				{post_content}
+			</p>
+			<div class="comments">
+				{post_comments}
+			</div>
+		</div>
+		<a class="comment_link" href="javascript:;" onmousedown="comment_enable(event, {post_id})">Write a comment</a>
+		<div class="comment_form" id="comment_form{post_id}" style="margin-right:50px;">
+			<form onkeydown="if(event.keyCode == 13 && !event.shiftKey)add_comment(event, {post_id}, {page})" >
+				<div class="comment_input" id="comment_input{post_id}" type="text" name="comment_content"></div>
+			</form>
+		</div>
+	</div>
+	<div class="right">
+		<a href="javascript:change_feed('script/post/vote.php?d=u&post_id={post_id}',{page})"><img class="voter" src="img/{upvote_img}"></a>
+		<span class="score">{post_rating}</span>
+		<a href="javascript:change_feed('script/post/vote.php?d=d&post_id={post_id}',{page})"><img class="voter" src="img/{downvote_img}"></a>
+	</div>
+</div>
