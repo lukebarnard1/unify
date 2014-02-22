@@ -8,7 +8,6 @@
 	?>
 	</script>
 	<link rel="stylesheet" href="style/index.css"/>
-	<link rel="stylesheet" href="style/mobile.css" media="only screen and (max-width: 700px)"/>
 	<!--End nav bar and header-->
 	<form id="prof_pic_form" action="script/user/set_profile_picture.php" method="POST" enctype="multipart/form-data">
 		<input type="file" id="prof_pic_file" onchange="sub_prof_pic()" name='file'>
