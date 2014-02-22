@@ -63,7 +63,7 @@
 	<?php 
 		}
 	?>
-	<form id="prof_pic_form" action="script/user_set_profile_picture.php" method="POST" enctype="multipart/form-data">
+	<form id="prof_pic_form" action="script/user/set_profile_picture.php" method="POST" enctype="multipart/form-data">
 		<input type="file" id="prof_pic_file" onchange="sub_prof_pic()" name='file'>
 		<input type="hidden" name="r" value="<?php echo $_SERVER["REQUEST_URI"]; ?>">
 		<input type="hidden" name="MAX_FILE_SIZE" value="5242880">

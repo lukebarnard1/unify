@@ -37,14 +37,14 @@
 			$dao = new DAO(false);
 
 			//Delete the previous profile picture
-			$f_name = "../profile_pictures/".$user->user_picture;
+			$f_name = "../../profile_pictures/".$user->user_picture;
 			if (file_exists($f_name)) {
 				unlink($f_name);
 			}
 
 			$user->user_picture = $user->user_id."-".date("U");
 
-			$r = imagejpeg($im2, "../profile_pictures/".$user->user_picture, 100);
+			$r = imagejpeg($im2, "../../profile_pictures/".$user->user_picture, 100);
 
 			$im3 = imagecreatetruecolor(1,1);
 			imagecopyresampled($im3, $im2, 0, 0, 0, 0,1,1,200,200);
@@ -58,11 +58,11 @@
 
 			$dao->myquery("UPDATE user SET user_picture=\"$user->user_picture\" WHERE user_id=\"$user->user_id\";");
 		} else {
-			echo "Could not create image";
+			echo "Could not create image.";
 		}
 	} else {
 		echo "Bad image type!";
 	}
 	header("Connection: close");
-	redirect($_POST["r"]."?reload");
+	redirect($_POST["r"]);
 ?>
