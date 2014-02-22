@@ -69,11 +69,10 @@ modifier_posts = function (data, input_data) {
 	last_page = page;
 	if( data.length != 0) {
 		can_load_more_posts = true;
-	} else {
-		// page = -1;
 	}
 	return data;
 }
+
 modifier_notifications = function (data, input_data) {
 	for (var index in data) {
 		notification = data[index];
