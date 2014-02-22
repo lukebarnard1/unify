@@ -1,0 +1,30 @@
+#main {
+	margin:auto;
+	/*max-width:700px;*/
+
+	height:100%;
+
+	display:table;
+	padding:37px 0px 0px 0px;
+}
+
+#conversations {
+	max-width:100%;
+	display:table-row;
+	overflow-x:scroll;
+}
+
+#new_conversation {
+	background-color: #ffffff;
+	color:#4AB948;
+	border:3px dashed #4AB948;
+	border-radius:10px;
+	font-size: 22px;
+	padding: 10px;
+}
+
+.conversation {
+	width:300px;
+	height:95%;
+	margin-top:10px;
+}
