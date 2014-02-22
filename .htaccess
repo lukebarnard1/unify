@@ -11,3 +11,5 @@ RewriteRule ^comment/(.*)$ $1
 
 RewriteRule ^post/([0-9]+)$  ?post_id=$1 [S=1]
 RewriteRule ^post/(.*)$ $1
+
+RewriteRule ^chat$ chat.php
