@@ -16,9 +16,13 @@ function Template (file_name) {
 		}
 		parts.push(data.substring(last_match_end));
 		console.log("Loaded template '"+file_name+"'");
+		// console.log("Variables:");
+		// console.log(variables);
 	}
 
 	this.render = function (data) {
+		// console.log("Rendering: ");
+		// console.log(data);
 		result = "";
 		for (var data_index in data) {
 			row = data[data_index];
@@ -52,3 +56,4 @@ function Template (file_name) {
 function view(data, template) {
 	return template.render(data);
 }
+modifier_relay = function (data, content_input_data) {return data;}

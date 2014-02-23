@@ -1,17 +1,20 @@
+
 #main {
 	margin:auto;
-	/*max-width:700px;*/
 
+	/*max-height:500px;*/
+	width:100%;
 	height:100%;
 
-	display:table;
-	padding:37px 0px 0px 0px;
+	overflow-x:auto;
+	overflow-y:hidden;
 }
 
-#conversations {
-	max-width:100%;
-	display:table-row;
-	overflow-x:scroll;
+table#conversations_table {
+	height:100%;
+	margin-left:auto;
+	margin-right:auto;
+	overflow-y:hidden;
 }
 
 #new_conversation {
@@ -23,8 +26,62 @@
 	padding: 10px;
 }
 
+.conversations {
+	/*padding-top:50px;*/
+}
+
+.conversation_cell {
+	position: relative;
+	padding-top:50px;
+	padding-bottom:20px;
+	min-width:400px;
+	vertical-align: top;
+	overflow-y:hidden;
+}
+
 .conversation {
-	width:300px;
-	height:95%;
-	margin-top:10px;
+	position: relative;
+	height:100%;
+}
+
+.conversation > * {
+	position: relative;
+	z-index: 2;
+	background-color: #ffffff;
+}
+
+.conversation_input {
+	position:absolute;
+	bottom:-20px;
+	width:100%;
+	height:20px;
+}
+
+.chat_msg_container {
+	position:absolute;
+	bottom:0px;
+	left:0px;
+	z-index: 1;
+	width:100%;
+	max-height:100%;
+	vertical-align: bottom;
+	overflow:auto;
+}
+
+.chat_msg > p{
+	background-color: #fdfdfd;
+	border:1px solid #eee;
+	margin-bottom:-1px;
+	padding:3px;
+	color:#000;
+}
+
+.chat_msg > p > .name{
+	font-weight:bold;
+	color:#666;
+}
+
+.chat_msg > p > .seen_indication {
+	font-style: italic;
+	color:#CCCCCC;
 }

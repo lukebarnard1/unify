@@ -21,8 +21,6 @@ view_post.render = function (data) {
 	return result;
 }
 
-modifier_relay = function (data, content_input_data) {return data;}
-
 modifier_friend_search = function (data, input_data) {
 	query = input_data.q;
 	for (var data_index in data) {
@@ -96,53 +94,6 @@ function get_args() {
 	}
 	s = {name : arguments.callee.name, arguments : args};
 	return s;
-}
-
-function ajax_request(target, append, view_template, modifier, url, in_data, callback) {
-	var input_data = in_data;
-	$.ajax({
-		url: url,
-		type: "POST",
-		dataType: "json",
-		data: in_data
-	}).done(function(data) {
-		if (data != null) {
-			if (append) {
-				target.innerHTML += view( modifier(data,input_data) , view_template );
-			} else {
-				target.innerHTML = view( modifier(data,input_data) , view_template );
-			}
-			target.style.display = "block";
-		} else {
-			target.style.display = "none";
-		}
-		if(typeof callback !== "undefined") {
-			callback();
-		}
-	})
-}
-
-function ajax_push(url, in_data, callback) {
-	a = {
-		url: url,
-		type: "POST",
-		dataType: "json",
-		data: in_data
-	};
-	if (in_data instanceof FormData) {
-		a.contentType = false;
-		a.processData = false;
-	}
-	$.ajax(a).done(
-		function(data) {
-			// print_json(data);
-			if (data.code == 0) {
-				callback();
-			}else{
-				console.log("ajax_push returned failure: "+data.message);
-			}
-		}
-	);
 }
 
 function choose_friend() {
@@ -234,6 +185,8 @@ function load() {
 	more_posts();
 	id("column2").onmousewheel = update_posts;
 }
+
+window.addEventListener("load",load);
 
 function change_feed(link, p) {
 	ajax_push(link,{},

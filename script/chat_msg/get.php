@@ -11,12 +11,17 @@
 	$latest_pulled = $dao->escape($_POST["latest_pulled"]);
 	$latest_seen_by_u2 = $dao->escape($_POST["latest_seen_by_u2"]);
 
-	$this_conversation = "((user_id1=\"$user->user_id\" AND user_id2=\"$user_id\") OR 
-	 					   (user_id2=\"$user->user_id\" AND user_id1=\"$user_id\"))";
+	if ($user_id == "-1"){
+		$this_conversation = "(user_id1=\"$user->user_id\" OR 
+		 					   user_id2=\"$user->user_id\")";
+	} else {
+		$this_conversation = "((user_id1=\"$user->user_id\" AND user_id2=\"$user_id\") OR 
+		 					   (user_id2=\"$user->user_id\" AND user_id1=\"$user_id\"))";
+	}
 
 	$order_limit = "ORDER BY msg_id ASC LIMIT 100";
 	
-	$properties = array("msg_id","user_id1","user_name","msg_content","msg_seen");
+	$properties = array("msg_id","user_id1","user_id2","user_name","msg_content","msg_seen");
 
 	//Select all messages that have not been pulled by this client 
 		// AND all messages that have been seen by the other user, but this has not yet been observed
@@ -35,12 +40,37 @@
 	}
 	
 	$dao->myquery($query);
-
 	$messages = $dao->fetch_all_obj_part($properties);
+
+	if (connection_aborted()) {
+		echo "Connection aborted";
+	}
+
+	$conversations = array();
 
 	foreach ($messages as $message) {
 		$dao->myquery("UPDATE chat_msg SET msg_seen=1 WHERE msg_id=\"$message->msg_id\" AND user_id2=\"$user->user_id\";");
+		// var_dump($message->user_id2);echo " ";var_dump($user->user_id);
+		if ($message->user_id2 != $user->user_id) {
+			$convo_id = $message->user_id2;
+		} else {
+			$convo_id = $message->user_id1;
+		}
+
+		if ( ! array_key_exists($convo_id, $conversations)) {
+			$user2 = DataObject::select_one($dao,"user",array("user_name"),array("user_id"=>$convo_id));
+
+			$conversation = new stdClass();
+			$conversation->messages = array();
+			$conversation->user_name = $user2->user_name;
+			$conversation->user_id = $convo_id;
+			$conversations[$convo_id] = $conversation;
+		} else {
+			$conversation = $conversations[$convo_id];
+		}
+
+		$conversation->messages[$message->msg_id] = $message;
 	}
 
-	echo json_encode_strip($messages);
+	echo json_encode_strip($conversations);
 ?>

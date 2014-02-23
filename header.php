@@ -4,7 +4,6 @@
 	**/
 	include_once "script/util/session.php";
 	include_once "script/util/constants.php";
-	include_once "script/view/chat_box_json.php";
 
 	include_once "script/util/redirect.php";
 	if (!$logged_in) {
@@ -37,9 +36,10 @@
 	<title>Unify - Bringing students together</title>
 
 	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript" src="Template.js"></script>
 	<script type="text/javascript" src="util.js"></script>
 </head>
-<body onload="load()">
+<body>
 	<?php
 		if ($user->user_id != $DEVELOPER_ID) {
 	?>

@@ -1,7 +1,6 @@
 <?php
 	include "header.php";
 ?>
-	<script type="text/javascript" src="Template.js"></script>
 	<script type="text/javascript">
 	<?php
 		include "index.js";
@@ -50,11 +49,6 @@
 						<p><?php echo $selected_user->user_name;?> is studying <?php echo $selected_user->course_name;?> at <?php echo $selected_user->university_name;?>.</p>
 					</div>
 				</div>
-				<?php
-					if ($user->user_id != $selected_user->user_id && $selected_user->is_friend) {
-						view_chat_box($user, $selected_user);
-					}
-				?>
 				<?php
 					} else if (isset($selected_group)){
 				?>

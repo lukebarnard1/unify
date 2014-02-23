@@ -1,0 +1,14 @@
+<td class="conversation_cell">
+	<div class="conversation">
+		<h1>conversation with {user_name}</h1>
+		
+		<div id="conversation{user_id}" class="chat_msg_container">
+			{rendered_messages}
+		</div>
+		<div id="conversation_input{user_id}" 
+			class="box conversation_input" 
+			contenteditable="true" 
+			onClick="if(this.innerHTML=='Send a message...')this.innerHTML='';" 
+			onkeydown="if(event.keyCode == 13 && !event.shiftKey){conversations[{user_id}].add_message(this.innerText);event.preventDefault()}">Send a message...</div>
+	</div>	
+</td>
