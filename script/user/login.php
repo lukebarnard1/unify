@@ -3,7 +3,7 @@
 	include "../util/redirect.php";
 	include "../util/pwd.php";
 	include "../util/mysql.php";
-	$redirect = "";
+	$redirect = "/";
 	if (isset($_POST["r"]) && $_POST["r"]!="") {
 		$redirect = htmlspecialchars($_POST["r"]);
 	}
@@ -21,7 +21,7 @@
 			$_SESSION["user"] = $dao->fetch_one_obj_part(array("user_id","user_name","user_email","cohort_id","user_picture"));
 			
 			unset($_SESSION["selected_user"]);
-			redirect("/$redirect");//Go to the redirect link
+			redirect($redirect);//Go to the redirect link
 		} else {
 			redirect("../../welcome/?&m=2&r=".$redirect."&user_email=".htmlspecialchars($user_email));
 		}

@@ -3,7 +3,7 @@
 	include "../script/util/session.php";
 	include "../script/util/redirect.php";
 	if ($logged_in) {
-		redirect(".");
+		redirect("../");
 	}
 	include "../script/util/display_message.php";
 
