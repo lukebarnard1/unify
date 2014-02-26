@@ -1,0 +1,1 @@
+INSERT INTO grouping (user_id,group_id) SELECT user.user_id,cohort.group_id FROM user JOIN cohort ON user.cohort_id=cohort.cohort_id;
