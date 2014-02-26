@@ -71,7 +71,7 @@ a:hover{
 	font-size:23px;
 	line-height:28px;
 	color:#ffffff;
-	cursor:pointer;
+	/*cursor:pointer;*/
 }
 
 .nav_bar > .inner > .nav_button.notif {
@@ -80,7 +80,11 @@ a:hover{
 	position:relative;
 }
 
-.nav_bar > .inner > .nav_button.notif * {
+#notif_label {
+	font-size:inherit;
+}
+
+.notification {
 	line-height:1em;
 }
 

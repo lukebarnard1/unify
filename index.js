@@ -74,13 +74,20 @@ modifier_posts = function (data, input_data) {
 }
 
 modifier_notifications = function (data, input_data) {
+	n = data.length;
 	for (var index in data) {
 		notification = data[index];
-		notification.notif_class = notification.notif_seen=="1"?"seen":"";
+		if(notification.notif_seen=="1") {
+			notification.notif_class = "seen";
+			n--;
+		} else {
+			notification.notif_class = "";
+		}
 		notification.notif_read_link = "<?php echo $SITE_URL;?>script/notification/see.php?notif_id=" + notification.notif_id;
 
 		data[index] = notification;
 	}
+	notif_label = id("notif_label").innerHTML = "notifications ("+n+")";
 	return data;
 }
 
@@ -161,9 +168,6 @@ function load_friends() {
 
 function load_notifications_callback() {
 	notifications = id("notifications");
-	if (!notifications.firstChild) {
-		notifications.innerHTML = "<p>No notifications at the moment.</p>";
-	}
 }
 
 function load_notifications() {

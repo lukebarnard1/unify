@@ -61,7 +61,7 @@
 	<div class="nav_bar">
 		<div class="inner">
 			<?php
-				$links = array("unify"=>"/","you"=>"/user/$user->user_id","cohort"=>"/cohort/$user->cohort_id","logout"=>"/script/user/logout.php");
+				$links = array("unify"=>"/","you"=>"/user/$user->user_id","course"=>"/cohort/$user->cohort_id","logout"=>"/script/user/logout.php");
 
 				foreach($links as $text => $link) {
 					$selected = ($link == $_SERVER["REQUEST_URI"]);
@@ -71,7 +71,7 @@
 				}
 			?>
 			<div class="nav_button notif" onmouseover="notif_container.style.display='block'" onmouseout="notif_container.style.display='none'">
-				notifications
+				<span id="notif_label">notifications</span>
 				<div id="notif_container" style="display:none">
 					<div id="notifications" style="max-height:300px;width:100%;overflow:auto;position:absolute;left:0px;top:38px;z-index:1000"></div>
 				</div>
