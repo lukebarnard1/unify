@@ -15,9 +15,6 @@
 	<div id="main">
 		<table id="conversations_table">
 			<tr id="conversations">
-				<td class="conversation_cell">
-					<div id="new_conversation" class="conversation">Start a new conversation</div>
-				</td>
 			</tr>
 		</table>
 	</div>

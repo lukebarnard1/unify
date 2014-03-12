@@ -12,6 +12,8 @@ var conversations = {};
 var view_chat_msg = new Template("../view/chat_msg.html");
 var view_conversation = new Template("../view/conversation.html");
 
+var global_latest_pulled = 0;
+
 modifier_messages = function(data) {
 	for (i in data) {
 		message = data[i];
@@ -24,7 +26,6 @@ modifier_messages = function(data) {
 
 function alert_user() {
 	document.getElementById('snd_msg').play();
-
 }
 
 function Conversation(conversation) {
@@ -32,15 +33,11 @@ function Conversation(conversation) {
 		this[key] = conversation[key];
 	}
 
-	console.log("User id 2 : " + this.user_id);
-
 	convo_html = view_conversation.render([this]);
-	console.log("User id 3 : " + this.user_id);
 	var user_id = this.user_id;
 
 	v = $("#conversations");
-	html = v.html();
-	v.html(html + convo_html);
+	v.append(convo_html);
 
 	var messages_loaded = function (messages, user_id_d, timed_pull) {
 		console.log("messages_loaded for " + user_id);
@@ -65,11 +62,15 @@ function Conversation(conversation) {
 
 		//Append the rendering of new messages
 		convo_div = $("#conversation" + user_id);
-		html = convo_div.html();
-		convo_div.html(html + view_chat_msg.render( modifier_messages(messages) ));
-
+		convo_div.append(view_chat_msg.render( modifier_messages(messages) ));
+  		
 		if (pulled_so_far != latest_pulled) {
-			$(".chat_msg_container").scrollTop(10000000);
+			if (global_latest_pulled < latest_pulled) {
+				global_latest_pulled = latest_pulled;
+	  			convo_div.parent().parent().prependTo(convo_div.parent().parent().parent());
+	  		}
+			console.log("Scrolling..."+user_id);
+			convo_div.delay(timed_pull?0:100).animate({scrollTop: convo_div.prop("scrollHeight")}, 0);
 			if(timed_pull) {
 				alert_user();
 			}
