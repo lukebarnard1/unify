@@ -11,6 +11,7 @@ var conversations = {};
 
 var view_chat_msg = new Template("../view/chat_msg.html");
 var view_conversation = new Template("../view/conversation.html");
+var view_friend_select = new Template("../view/friend_select.html");
 
 var global_latest_pulled = 0;
 
@@ -39,6 +40,9 @@ function Conversation(conversation) {
 	v = $("#conversations");
 	v.append(convo_html);
 
+	this.convo_div = $("#conversation"+user_id);
+	var convo_div = this.convo_div;
+
 	var messages_loaded = function (messages, user_id_d, timed_pull) {
 		console.log("messages_loaded for " + user_id);
 
@@ -61,7 +65,6 @@ function Conversation(conversation) {
 		}
 
 		//Append the rendering of new messages
-		convo_div = $("#conversation" + user_id);
 		convo_div.append(view_chat_msg.render( modifier_messages(messages) ));
   		
 		if (pulled_so_far != latest_pulled) {
@@ -93,8 +96,11 @@ function Conversation(conversation) {
 				latest_seen_by_u2: latest_seen_by_u2
 			}
 		}).done(function (data) {
+			// console.log("Got back this data: " );
+			// console.log(data);
 			//A timed pull results in a sound being played, otherwise no sound is played	
 			if (typeof data[user_id] !== "undefined") {
+				console.log("messages loaded...");
 				messages_loaded(data[user_id].messages, user_id, timed_pull);
 			}
 		});
@@ -138,10 +144,18 @@ function scroll_all() {
 function initial_load(data) {
 	console.log("initial_load");
 	conversations = data;
+
+	conversations_exist = false;
+
 	for (key in conversations) {
+		conversations_exist = true;
 		conversations[key] = new Conversation(conversations[key]);
 	}
-	// scroll_all();
+
+	// if (!conversations_exist) {
+		id("friend_selector").style.display = "block";
+		ajax_request(id("friends"), true, view_friend_select, modifier_relay, "script/user/friends.php");
+	// }
 }
 
 function timed_load() {
@@ -170,28 +184,40 @@ function load_conversations() {
 		}
 	}).done(function (data) {
 		//A timed pull results in a sound being played, otherwise no sound is played
-		initial_load(data, false);
+		initial_load(data);
 	});
-
-	//As for only getting the neccessary messages, this is more difficult as each
-	// conversation will have to maintain "latest_pulled" and "latest_seen_by_u2"
 }
 
 /**
  * Add a conversation with someone to the conversations box.
  */
-function add_conversation(conversation) {
-	
+function add_conversation(user_id) {
+	if (conversations[user_id])return;
+
+	$.ajax({
+		url: "script/chat_msg/get.php",
+		type: "POST",
+		dataType: "json",
+		data: {
+			user_id: user_id,
+			latest_pulled: -1,
+			latest_seen_by_u2: -1
+		}
+	}).done(function (data) {
+		new_convo = new Conversation(data[user_id]);
+		new_convo.load_messages(false);
+		conversations[user_id] = new_convo;
+	  	new_convo.convo_div.parent().parent().prependTo(new_convo.convo_div.parent().parent().parent());
+	});
 }
 
 /**
  * Display a dialogue of the users friends allowing them to
  * select one of them, whose id is then returned.
  */
-function select_friend() {
-	return 45;
+function select_friend(user_id) {
+	add_conversation(user_id);
 }
-
 
 function send_message(event, user_id) {
 	event.preventDefault();
@@ -200,7 +226,6 @@ function send_message(event, user_id) {
 	event.target.innerHTML = "";
 	fd = new FormData();
 	fd.append("user_id",user_id);
-	
 }
 
 window.addEventListener("load",load_conversations);

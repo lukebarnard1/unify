@@ -48,6 +48,18 @@
 
 	$conversations = array();
 
+	//When a request for a specific user is made, include conversation info 
+	// even if there aren't any messages.
+	if ($user_id != "-1") {
+		$user2 = DataObject::select_one($dao,"user",array("user_name"),array("user_id"=>$user_id));
+
+		$conversation = new stdClass();
+		$conversation->messages = array();
+		$conversation->user_name = $user2->user_name;
+		$conversation->user_id = $user_id;
+		$conversations[$user_id] = $conversation;
+	}
+
 	foreach ($messages as $message) {
 		$dao->myquery("UPDATE chat_msg SET msg_seen=1 WHERE msg_id=\"$message->msg_id\" AND user_id2=\"$user->user_id\";");
 		// var_dump($message->user_id2);echo " ";var_dump($user->user_id);

@@ -1,0 +1,19 @@
+.nav_bar > .inner > .nav_button {
+	font-size:12px;
+	min-width:30px;
+}
+
+.nav_bar > .inner > .nav_button.notif {
+	width:100px;
+}
+
+.nav_bar > .inner > .nav_button.notif {
+	width:100px;
+}
+
+.notification h2{
+	font-size:10px;
+}
+.notification p{
+	font-size:10px;
+}

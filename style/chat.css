@@ -12,9 +12,9 @@
 
 table#conversations_table {
 	height:100%;
-	margin-left:auto;
-	margin-right:auto;
+	margin-left:400px;
 	overflow-y:hidden;
+	position:absolute;
 }
 
 #new_conversation {
@@ -59,11 +59,11 @@ table#conversations_table {
 
 .chat_msg_container {
 	position:absolute;
+	padding-bottom:1px;
 	bottom:0px;
 	left:0px;
 	z-index: 1;
 	width:100%;
-	max-height:100%;
 	vertical-align: bottom;
 	overflow:auto;
 }
@@ -84,4 +84,30 @@ table#conversations_table {
 .chat_msg > p > .seen_indication {
 	font-style: italic;
 	color:#CCCCCC;
+}
+
+#friend_selector {
+	display:none;
+	float:left;
+}
+
+#friends {
+	margin-top: 50px;
+	margin-left:auto;
+	margin-right:auto;
+	padding:10px;
+	margin-left:10px;
+	background-color: #ddd;
+	width:360px;
+	border-bottom: 3px solid #aaa;
+}
+
+#friends > h1 {
+
+}
+
+.small_display_picture {
+	width:15%;
+	margin-right: 1px;
+	margin-bottom: 1px;
 }
