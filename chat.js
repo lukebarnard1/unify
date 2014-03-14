@@ -15,6 +15,8 @@ var view_friend_select = new Template("../view/friend_select.html");
 
 var global_latest_pulled = 0;
 
+var current_conversation = 0;
+
 modifier_messages = function(data) {
 	for (i in data) {
 		message = data[i];
@@ -33,6 +35,23 @@ function alert_user() {
 	document.getElementById('snd_msg').play();
 }
 
+function queue_jump(convo_div, user_id, animate) {
+	if (animate) {
+		left = -400 * $(".chat_msg_container").index(convo_div);
+		convo_div.parent().parent().css({position:"relative",zIndex:"10"}).animate({left:left},500);
+		$("#conversations_table").animate({marginLeft:"0px"},500,
+			function () { 
+				convo_div.parent().parent().css({left:"0px",zIndex:"2"});
+				convo_div.parent().parent().prependTo(convo_div.parent().parent().parent());
+				$("#conversations_table").css({marginLeft:"0px"});
+				current_conversation = 0;
+			}
+		);
+	} else {
+		convo_div.parent().parent().prependTo(convo_div.parent().parent().parent());
+	}
+}
+
 function Conversation(conversation) {
 	for (key in conversation) {
 		this[key] = conversation[key];
@@ -47,7 +66,7 @@ function Conversation(conversation) {
 	this.convo_div = $("#conversation"+user_id);
 	var convo_div = this.convo_div;
 
-	var messages_loaded = function (messages, user_id_d, timed_pull) {
+	var messages_loaded = function (messages, user_id_d, timed_pull, animate) {
 		console.log("messages_loaded for " + user_id);
 
 		pulled_so_far = latest_pulled;
@@ -74,7 +93,7 @@ function Conversation(conversation) {
 		if (pulled_so_far != latest_pulled) {
 			if (global_latest_pulled < latest_pulled) {
 				global_latest_pulled = latest_pulled;
-	  			convo_div.parent().parent().prependTo(convo_div.parent().parent().parent());
+				queue_jump(convo_div, user_id, animate);
 	  		}
 			console.log("Scrolling..."+user_id);
 			convo_div.delay(timed_pull?0:100).animate({scrollTop: convo_div.prop("scrollHeight")}, 0);
@@ -87,7 +106,7 @@ function Conversation(conversation) {
 	var latest_pulled = -1;
 	var latest_seen_by_u2 = -1;
 
-	this.load_messages = function (timed_pull) {
+	this.load_messages = function (timed_pull, animate) {
 		console.log("load_messages for " + user_id);
 		var callback = this;
 		$.ajax({
@@ -105,15 +124,17 @@ function Conversation(conversation) {
 			//A timed pull results in a sound being played, otherwise no sound is played	
 			if (typeof data[user_id] !== "undefined") {
 				console.log("messages loaded...");
-				messages_loaded(data[user_id].messages, user_id, timed_pull);
+				messages_loaded(data[user_id].messages, user_id, timed_pull, animate);
 			}
 		});
 	}
 
-	messages_loaded(this.messages, this.user_id, false);
+	messages_loaded(this.messages, this.user_id, false, false);
 
 	this.add_message = function (message) {
 		var user_id = this.user_id;
+		// queue_jump(convo_div,user_id,true);
+		// set_current_conversation(user_id,true);
 		$.ajax({
 			url: "script/chat_msg/add.php",
 			type: "POST",
@@ -132,7 +153,7 @@ function Conversation(conversation) {
 				console.log(data);
 			}
 		});
-		this.load_messages(false);
+		this.load_messages(false, true);
 	}
 }
 
@@ -140,6 +161,33 @@ function scroll_all() {
 	for (key in conversations) {
 		convo_div = $("#conversation" + key);
 		convo_div.scrollTop(convo_div[0].scrollHeight);
+	}
+}
+
+function update_current_conv(animate) {
+	left = -400 * current_conversation;
+
+	$("#conversations_table").animate({marginLeft:left+"px"},animate?500:0);
+}
+
+function set_current_conversation(user_id, animate) {
+	if (user_id > 0) {
+		current_conversation = $(".chat_msg_container").index(conversations[user_id].convo_div);
+		update_current_conv(animate);
+	}
+}
+
+function move_current_conversation_right() {
+	if (current_conversation < Object.keys(conversations).length - 1) {
+		current_conversation++;
+		update_current_conv(true);
+	}
+}
+
+function move_current_conversation_left() {
+	if (current_conversation > 0) {
+		current_conversation--;
+		update_current_conv(true);
 	}
 }
 
@@ -157,15 +205,13 @@ function initial_load(data) {
 		conversations[key] = new Conversation(conversations[key]);
 	}
 
-	// if (!conversations_exist) {
-		id("friend_selector").style.display = "block";
-		ajax_request(id("friends"), true, view_friend_select, modifier_relay, "script/user/friends.php");
-	// }
+	id("friend_selector").style.display = "block";
+	ajax_request(id("friends"), true, view_friend_select, modifier_relay, "script/user/friends.php");
 }
 
 function timed_load() {
 	for (key in conversations) {
-		conversations[key].load_messages(true);
+		conversations[key].load_messages(true,true);
 	}
 	// scroll_all();
 }
@@ -210,7 +256,7 @@ function add_conversation(user_id) {
 		}
 	}).done(function (data) {
 		new_convo = new Conversation(data[user_id]);
-		new_convo.load_messages(false);
+		new_convo.load_messages(false,false);
 		conversations[user_id] = new_convo;
 	  	new_convo.convo_div.parent().parent().prependTo(new_convo.convo_div.parent().parent().parent());
 	});
