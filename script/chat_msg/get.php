@@ -51,11 +51,12 @@
 	//When a request for a specific user is made, include conversation info 
 	// even if there aren't any messages.
 	if ($user_id != "-1") {
-		$user2 = DataObject::select_one($dao,"user",array("user_name"),array("user_id"=>$user_id));
+		$user2 = DataObject::select_one($dao,"user",array("user_name","user_picture"),array("user_id"=>$user_id));
 
 		$conversation = new stdClass();
 		$conversation->messages = array();
 		$conversation->user_name = $user2->user_name;
+		$conversation->user_picture = $user2->user_picture;
 		$conversation->user_id = $user_id;
 		$conversations[$user_id] = $conversation;
 	}
@@ -70,12 +71,13 @@
 		}
 
 		if ( ! array_key_exists($convo_id, $conversations)) {
-			$user2 = DataObject::select_one($dao,"user",array("user_name"),array("user_id"=>$convo_id));
+			$user2 = DataObject::select_one($dao,"user",array("user_name","user_picture"),array("user_id"=>$convo_id));
 
 			$conversation = new stdClass();
 			$conversation->messages = array();
 			$conversation->user_name = $user2->user_name;
 			$conversation->user_id = $convo_id;
+			$conversation->user_picture = $user2->user_picture;
 			$conversations[$convo_id] = $conversation;
 		} else {
 			$conversation = $conversations[$convo_id];

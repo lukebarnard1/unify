@@ -14,14 +14,13 @@
 		<source src="sound/msg1.mp3" preload="auto">
 	</audio>
 	<div id="main">
-		<div id="friend_selector">
-			<div id="friends">
-			<h1>friends</h1></div>
-		</div>
 		<table id="conversations_table">
 			<tr id="conversations">
 			</tr>
 		</table>
+		<div id="friend_selector">
+			<div id="friends"></div>
+		</div>
 	</div>
 </body>
 </html>

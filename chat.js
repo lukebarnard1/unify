@@ -20,6 +20,10 @@ modifier_messages = function(data) {
 		message = data[i];
 		if (message.user_id1 == user.user_id) {
 			data[i].msg_seen_indication = message.msg_seen=="1"?"(seen)":"(unseen)";
+			data[i].user_name = "You";
+			data[i].class_name = "sent";
+		} else {
+			data[i].class_name = "received";
 		}
 	}
 	return data;
@@ -121,8 +125,9 @@ function Conversation(conversation) {
 			}
 		}).done(function (data) {
 			if (data.code == "0") {
-				id("conversation_input" + user_id).innerHTML = "";
-
+				inp_div = id("conversation_input" + user_id);
+				inp_div.innerHTML = "";
+				$(inp_div).focus();
 			} else {
 				console.log(data);
 			}
@@ -229,6 +234,10 @@ function send_message(event, user_id) {
 }
 
 window.addEventListener("load",load_conversations);
+
+$(".chat_msg_container").css({width:"10px"});
+
+// $(".jq_up_hover").onmouseover(function () {$(this).css({position: "relative"}).animate({top: "-10px"},500)});
 
 // function timed_pull() {
 	
