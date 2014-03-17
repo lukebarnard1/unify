@@ -241,10 +241,13 @@ function load_conversations() {
 }
 
 /**
- * Add a conversation with someone to the conversations box.
+ * Add a conversation with someone to the conversations box (or switch to it if it exists).
  */
 function add_conversation(user_id) {
-	if (conversations[user_id])return;
+	if (conversations[user_id]) {
+		set_current_conversation(user_id,true);
+		return;
+	}
 
 	$.ajax({
 		url: "script/chat_msg/get.php",
@@ -260,6 +263,7 @@ function add_conversation(user_id) {
 		new_convo.load_messages(false,false);
 		conversations[user_id] = new_convo;
 	  	new_convo.convo_div.parent().parent().prependTo(new_convo.convo_div.parent().parent().parent());
+		set_current_conversation(user_id,true);
 	});
 }
 

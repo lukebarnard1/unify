@@ -14,7 +14,7 @@
 		<source src="sound/msg1.mp3" preload="auto">
 	</audio>
 	<div id="main">
-		<div style="width:400px;margin:auto">
+		<div style="width:400px;margin:auto;">
 			<table id="conversations_table">
 				<tr id="conversations">
 				</tr>
@@ -24,7 +24,7 @@
 			<div id="friends"></div>
 		</div>
 		<div id="arrows">
-			<div style="position:relative;top:-25px;left:-250px;">
+			<div style="">
 				<a class="arrow left" href="javascript:;" onclick="move_current_conversation_left()"><img src="img/upvote.png"></a>
 				<a class="arrow right" href="javascript:;" onclick="move_current_conversation_right()"><img src="img/downvote.png"></a>
 			</div>

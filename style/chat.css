@@ -2,7 +2,6 @@
 #main {
 	margin:auto;
 
-	/*max-height:500px;*/
 	width:100%;
 	height:100%;
 
@@ -25,10 +24,6 @@ table#conversations_table {
 	padding: 10px;
 }
 
-.conversations {
-	/*padding-top:50px;*/
-}
-
 .conversation_cell {
 	position: relative;
 	padding-top:40px;
@@ -43,9 +38,6 @@ table#conversations_table {
 	height:100%;
 
 	overflow:hidden;
-/*
-	border:1px solid #ddd;
-	padding:5px;*/
 }
 
 .conversation > * {
@@ -72,7 +64,6 @@ table#conversations_table {
 	width:36px;
 	height:36px;
 	margin-top: -6px;
-	/*heigh:16px;*/
 }
 
 .conversation_input {
@@ -141,19 +132,17 @@ table#conversations_table {
 
 #friends {
 	padding:2px;
-	margin-left:10px;
-	background-color: #fff;
-	border: 1px solid #aaa;
+	margin:10px 10px 0px 10px;
+	background-color:#4AB948;
+	border-bottom:3px solid #3D9A3C;
 }
 
 #friends > a:hover {
-
 	text-decoration: none;
 }
 
 .small_display_picture {
 	width:32px;
-	margin-bottom: 0px;
 	vertical-align: bottom;
 }
 
@@ -161,11 +150,13 @@ table#conversations_table {
 	position:absolute;
 	top:50%;
 	left:50%;
+	width:500px;
 }
 
 #arrows > div{
-	min-width:500px;
-	max-width:100%;
+	position:relative;
+	top:-25px;
+	left:-250px;
 	height:50px;
 	z-index:3;
 }
