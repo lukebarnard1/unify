@@ -45,6 +45,7 @@ function queue_jump(convo_div, user_id, animate) {
 				convo_div.parent().parent().prependTo(convo_div.parent().parent().parent());
 				$("#conversations_table").css({marginLeft:"0px"});
 				current_conversation = 0;
+				convo_div.animate({scrollTop: convo_div.prop("scrollHeight")}, 0);
 			}
 		);
 	} else {
