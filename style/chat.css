@@ -12,6 +12,7 @@ html {
 table#conversations_table {
 	height:100%;
 	position:absolute;
+	border-spacing: 0px;
 }
 
 #new_conversation {
@@ -25,9 +26,8 @@ table#conversations_table {
 
 .conversation_cell {
 	position: relative;
-	padding-top:40px;
-	padding-bottom:50px;
-	min-width:400px;
+	padding:45px 2px 100px 2px;
+	min-width:396px;
 	vertical-align: top;
 	overflow-y:hidden;
 }
@@ -68,7 +68,7 @@ table#conversations_table {
 .conversation_input {
 	position:absolute;
 	bottom:0px;
-	width:100%;
+	width:396px;
 	min-height:20px;
 	border-top: 3px solid #aaa;
 	padding:2px 2px 0px 2px;
@@ -131,7 +131,9 @@ table#conversations_table {
 
 #friends {
 	padding:2px;
-	margin:10px 10px 0px 10px;
+	margin:auto;
+	height:80px;
+	width:396px;
 	background-color:#4AB948;
 	border-bottom:3px solid #3D9A3C;
 }

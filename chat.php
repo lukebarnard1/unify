@@ -19,12 +19,13 @@
 				<tr id="conversations">
 				</tr>
 			</table>
-		</div>
-		<div id="friend_selector">
-			<div id="friends"></div>
+			
+			<div id="friend_selector">
+				<div id="friends"></div>
+			</div>
 		</div>
 		<div id="arrows">
-			<div style="">
+			<div>
 				<a class="arrow left" href="javascript:;" onclick="move_current_conversation_left()"><img src="img/upvote.png"></a>
 				<a class="arrow right" href="javascript:;" onclick="move_current_conversation_right()"><img src="img/downvote.png"></a>
 			</div>

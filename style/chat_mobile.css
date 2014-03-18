@@ -11,8 +11,3 @@
 .conversation_cell {
 	padding-bottom:100px;
 }
-
-#friends {
-	height:80px;
-	overflow-y:auto;
-}
