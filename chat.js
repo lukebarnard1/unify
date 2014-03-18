@@ -166,7 +166,7 @@ function scroll_all() {
 }
 
 function update_current_conv(animate) {
-	left = -400 * current_conversation;
+	left = -400 * current_conversation - 1;
 
 	$("#conversations_table").animate({marginLeft:left+"px"},animate?500:0);
 }

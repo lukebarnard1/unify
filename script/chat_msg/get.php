@@ -14,12 +14,13 @@
 	if ($user_id == "-1"){
 		$this_conversation = "(user_id1=\"$user->user_id\" OR 
 		 					   user_id2=\"$user->user_id\")";
+		$order_limit = "ORDER BY msg_id ASC";
 	} else {
 		$this_conversation = "((user_id1=\"$user->user_id\" AND user_id2=\"$user_id\") OR 
 		 					   (user_id2=\"$user->user_id\" AND user_id1=\"$user_id\"))";
+		$order_limit = "ORDER BY msg_id ASC LIMIT 100";
 	}
 
-	$order_limit = "ORDER BY msg_id ASC LIMIT 100";
 	
 	$properties = array("msg_id","user_id1","user_id2","user_name","msg_content","msg_seen");
 
@@ -36,7 +37,7 @@
 	} else {
 		$query = "SELECT ".implode(",",$properties)." FROM
 					chat_msg JOIN user ON user.user_id=user_id1 
-		 			WHERE $this_conversation AND msg_id > (SELECT MAX(msg_id) FROM chat_msg WHERE $this_conversation) - 100 $order_limit ;";
+		 			WHERE $this_conversation $order_limit ;";
 	}
 	
 	$dao->myquery($query);
