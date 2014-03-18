@@ -62,7 +62,11 @@
 	<div class="nav_bar">
 		<div class="inner">
 			<?php
-				$links = array("unify"=>"/","you"=>"/user/$user->user_id","cohort"=>"/cohort/$user->cohort_id","logout"=>"/script/user/logout.php");
+				$links = array("unify"=>"/",
+					"chat"=>"/chat",
+					"you"=>"/user/$user->user_id",
+					"course"=>"/cohort/$user->cohort_id",
+					"logout"=>"/script/user/logout.php");
 
 				foreach($links as $text => $link) {
 					$selected = ($link == $_SERVER["REQUEST_URI"]);

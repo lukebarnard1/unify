@@ -59,12 +59,13 @@ a:hover{
 
 .nav_bar > .inner {
 	max-width:1000px;
+	position:relative;
 	margin:auto;
 }
 
 .nav_bar > .inner > .nav_button {
 	float:left;
-	min-width:100px;
+	min-width:90px;
 	padding:5px 5px 5px 5px;
 	text-align:center;
 	display:block;
@@ -75,9 +76,10 @@ a:hover{
 }
 
 .nav_bar > .inner > .nav_button.notif {
-	float:right;
+	/*float:right;*/
 	width:200px;
-	position:relative;
+	position:absolute;
+	right:0px;
 }
 
 .nav_bar > .inner > .nav_button.notif * {
