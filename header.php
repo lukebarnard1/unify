@@ -37,6 +37,7 @@
 
 	<script type="text/javascript" src="jquery.js"></script>
 	<script type="text/javascript" src="Template.js"></script>
+	<script type="text/javascript" src="header.js"></script>
 	<script type="text/javascript" src="util.js"></script>
 </head>
 <body>
@@ -71,7 +72,7 @@
 				foreach($links as $text => $link) {
 					$selected = ($link == $_SERVER["REQUEST_URI"]);
 					?>
-					<a class="nav_button <?php echo $selected?"selected":""?>" href="<?php echo $link?>"><?php echo $text?></a>
+					<a id="nav_button_<?php echo $text ?>" class="nav_button <?php echo $selected?"selected":""?>" href="<?php echo $link?>"><?php echo $text?></a>
 					<?php
 				}
 			?>
