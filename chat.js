@@ -16,6 +16,14 @@ var view_friend_select = new Template("../view/friend_select.html");
 var global_latest_pulled = 0;
 
 var current_conversation = 0;
+var current_user = 0;
+
+var flashing_interval = 0;
+var animation_interval = 0;
+
+var title_animation = [];
+var title_animation_prefix = "";
+var frame = 0;
 
 modifier_messages = function(data) {
 	for (i in data) {
@@ -31,25 +39,82 @@ modifier_messages = function(data) {
 	return data;
 }
 
-function alert_user() {
-	document.getElementById('snd_msg').play();
+function reset_title() {
+	document.title = original_title;
 }
 
-function queue_jump(convo_div, user_id, animate) {
-	if (animate) {
-		left = -400 * $(".chat_msg_container").index(convo_div);
-		convo_div.parent().parent().css({position:"relative",zIndex:"10"}).animate({left:left},500);
-		$("#conversations_table").animate({marginLeft:"0px"},500,
-			function () { 
-				convo_div.parent().parent().css({left:"0px",zIndex:"2"});
-				convo_div.parent().parent().prependTo(convo_div.parent().parent().parent());
-				$("#conversations_table").css({marginLeft:"0px"});
-				current_conversation = 0;
-				convo_div.animate({scrollTop: convo_div.prop("scrollHeight")}, 0);
-			}
-		);
+function flash_title() {
+	if (!document.hidden) {
+		stop_flashing();
+		return;
+	}
+
+	if (title_flashed) {
+		document.title = "Unify - New Messages";
 	} else {
-		convo_div.parent().parent().prependTo(convo_div.parent().parent().parent());
+		reset_title();
+	}
+	title_flashed = !title_flashed;
+}
+
+function stop_flashing() {
+	clearInterval(flashing_interval);
+	reset_title();
+}
+
+function start_flashing() {
+	original_title = document.title;
+	title_flashed = true;
+	clearInterval(flashing_interval);
+	flashing_interval = setInterval(flash_title,500);
+	flash_title();
+}
+
+function animate_title () {
+	if (!document.hidden) {
+		clearInterval(animation_interval);
+		reset_title();
+	}else{
+		mid_animation = frame<title_animation.length;
+
+		document.title = title_animation_prefix + ": " + title_animation[mid_animation?(frame<0?0:frame):(title_animation.length-1)] + (mid_animation?"...":"");
+		frame = frame + 1; // + 10 for the delay at the end
+		if (frame == title_animation.length + 10) {
+			frame = -10;
+		}
+	}
+}
+
+function start_ticking(prefix, text) {
+	original_title = document.title;
+
+	width = 20;//20 Character-wide animation
+	frames = text.length + 1 - width;
+
+	if (frames < 1)frames = 1;
+
+	title_animation_prefix = prefix;
+	title_animation = [];
+	for (var i = 0; i < frames; i++) {
+		title_animation[i] = text.substring(i, i + 20);
+	}
+
+	frame = -10;
+	clearInterval(animation_interval);
+	animation_interval = setInterval(animate_title, 100);
+}
+
+function alert_user(message_user_name, message_content) {
+	document.getElementById('snd_msg').play();
+	start_ticking(message_user_name, message_content);
+}
+
+function queue_jump(convo_div, follow) {
+	convo_div.parent().parent().prependTo(convo_div.parent().parent().parent());
+	if (follow) {
+		set_current_conversation_first(false);
+	} else {
+		set_current_conversation(current_user, false);
 	}
 }
 
@@ -66,16 +131,16 @@ function Conversation(conversation) {
 
 	this.convo_div = $("#conversation"+user_id);
 	var convo_div = this.convo_div;
+	id("conversation"+user_id).user_id = user_id;
 
-	var messages_loaded = function (messages, user_id_d, timed_pull, animate) {
-		console.log("messages_loaded for " + user_id);
-
+	var messages_loaded = function (messages, timed_pull, animate) {
 		pulled_so_far = latest_pulled;
 
 		for (msg_id in messages) {
 			message = messages[msg_id];
-			if (msg_id > latest_pulled) {
-				latest_pulled = msg_id;
+			msg_int_id = parseInt(msg_id);
+			if (msg_int_id > latest_pulled) {
+				latest_pulled = msg_int_id;
 			}
 			if (message.user_id1 == user.user_id && message.msg_seen == "1") {
 				latest_seen_by_u2 = parseInt(msg_id);
@@ -94,12 +159,15 @@ function Conversation(conversation) {
 		if (pulled_so_far != latest_pulled) {
 			if (global_latest_pulled < latest_pulled) {
 				global_latest_pulled = latest_pulled;
-				queue_jump(convo_div, user_id, animate);
+
+				user_sent = (user_id == user.user_id);
+
+				queue_jump(convo_div, user_sent || current_user == user_id);
 	  		}
-			console.log("Scrolling..."+user_id);
 			convo_div.delay(timed_pull?0:100).animate({scrollTop: convo_div.prop("scrollHeight")}, 0);
 			if(timed_pull) {
-				alert_user();
+				msg = messages[global_latest_pulled];
+				alert_user(msg.user_name, msg.msg_content);
 			}
 		}
 	}
@@ -108,8 +176,8 @@ function Conversation(conversation) {
 	var latest_seen_by_u2 = -1;
 
 	this.load_messages = function (timed_pull, animate) {
-		console.log("load_messages for " + user_id);
 		var callback = this;
+		// console.log("Loading more after "+latest_pulled);
 		$.ajax({
 			url: "script/chat_msg/get.php",
 			type: "POST",
@@ -120,22 +188,18 @@ function Conversation(conversation) {
 				latest_seen_by_u2: latest_seen_by_u2
 			}
 		}).done(function (data) {
-			// console.log("Got back this data: " );
-			// console.log(data);
 			//A timed pull results in a sound being played, otherwise no sound is played	
 			if (typeof data[user_id] !== "undefined") {
-				console.log("messages loaded...");
-				messages_loaded(data[user_id].messages, user_id, timed_pull, animate);
+				messages_loaded(data[user_id].messages, timed_pull, animate);
 			}
 		});
 	}
 
-	messages_loaded(this.messages, this.user_id, false, false);
+	messages_loaded(this.messages, false, false);
 
 	this.add_message = function (message) {
 		var user_id = this.user_id;
-		// queue_jump(convo_div,user_id,true);
-		// set_current_conversation(user_id,true);
+
 		$.ajax({
 			url: "script/chat_msg/add.php",
 			type: "POST",
@@ -166,14 +230,28 @@ function scroll_all() {
 }
 
 function update_current_conv(animate) {
+	console.log("Update to " + current_conversation);
 	left = -400 * current_conversation;
 
 	$("#conversations_table").animate({marginLeft:left+"px"},animate?500:0);
+
+	// console.log("Current user: " +current_user);
+}
+
+function is_current_user(user_id) {
+	return current_conversation == $(".chat_msg_container").index(conversations[user_id].convo_div);
+}
+
+function set_current_conversation_first (animate) {
+	current_conversation = 0;
+	current_user = $(".chat_msg_container")[0].user_id;
+	update_current_conv(animate);
 }
 
 function set_current_conversation(user_id, animate) {
 	if (user_id > 0) {
 		current_conversation = $(".chat_msg_container").index(conversations[user_id].convo_div);
+		current_user = user_id;
 		update_current_conv(animate);
 	}
 }
@@ -181,6 +259,7 @@ function set_current_conversation(user_id, animate) {
 function move_current_conversation_right() {
 	if (current_conversation < Object.keys(conversations).length - 1) {
 		current_conversation++;
+		current_user = $(".chat_msg_container")[current_conversation].user_id;
 		update_current_conv(true);
 	}
 }
@@ -188,6 +267,7 @@ function move_current_conversation_right() {
 function move_current_conversation_left() {
 	if (current_conversation > 0) {
 		current_conversation--;
+		current_user = $(".chat_msg_container")[current_conversation].user_id;
 		update_current_conv(true);
 	}
 }
@@ -286,7 +366,7 @@ function send_message(event, user_id) {
 
 window.addEventListener("load",load_conversations);
 
-$(".chat_msg_container").css({width:"10px"});
+// $(".chat_msg_container").css({width:"10px"});
 
 // $(".jq_up_hover").onmouseover(function () {$(this).css({position: "relative"}).animate({top: "-10px"},500)});
 
@@ -345,34 +425,4 @@ $(".chat_msg_container").css({width:"10px"});
 // 		//A timed pull results in a sound being played, otherwise no sound is played
 // 		messages_loaded(data, user_id, timed_pull);
 // 	});
-// }
-
-// function reset_title() {
-// 	document.title = original_title;
-// }
-
-// function flash_title() {
-// 	if (!document.hidden){//id("conversation_input") == document.activeElement) {
-// 		stop_flashing();
-// 		return;
-// 	}
-
-// 	if (title_flashed) {
-// 		document.title = "New message";
-// 	} else {
-// 		reset_title();
-// 	}
-// 	title_flashed = !title_flashed;
-// }
-
-// function stop_flashing() {
-// 	clearInterval(flashing_interval);
-// 	reset_title();
-// }
-
-// function start_flashing() {
-// 	title_flashed = true;
-// 	clearInterval(flashing_interval);
-// 	flashing_interval = setInterval(flash_title,flashing_interval);
-// 	flash_title();
 // }
