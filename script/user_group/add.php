@@ -3,7 +3,6 @@
 
 	include "../util/session.php";
 	include_once("../util/mysql.php");
-	include_once("../util/status.php");
 	include_once("../util/redirect.php");
 
 	$group_name = $_GET["group_name"];
