@@ -94,6 +94,7 @@ table#conversations_table {
 	padding:3px;
 	color:#000;
 	text-align:justify;
+	word-break:break-word;
 }
 
 .sent {
