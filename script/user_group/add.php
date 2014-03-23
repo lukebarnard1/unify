@@ -6,7 +6,6 @@
 	include_once("../util/status.php");
 	include_once("../util/redirect.php");
 
-
 	$group_name = $_GET["group_name"];
 
 	$dao = new DAO(false);
@@ -20,9 +19,9 @@
 		if ($grouping) {
 			redirect("/group/".$grouping->group_id);
 		} else {
-			redirect("/?m=0");
+			redirect("/?m=11");//Could not add you to the group after creating it!
 		}
 	} else {
-		redirect("/?m=0");
+		redirect("/?m=12");//Could not create the group, sorry!
 	}
 ?>
