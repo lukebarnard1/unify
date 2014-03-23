@@ -1,7 +1,7 @@
 #!/usr/bin/php -q
 <?php
 	//Scan database for notifications that have not been seen and are ready for departure
-	include "../util/mysql.php";
+	include_once("../util/mysql.php");
 	include "../mail/send.php";
 	include "../util/constants.php";
 

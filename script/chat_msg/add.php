@@ -2,7 +2,7 @@
 	//Send a message in chat
 	
 	include "../util/session.php";
-	include "../util/mysql.php";
+	include_once("../util/mysql.php");
 	include "../util/status.php"; 
 	
 	$dao = new DAO();

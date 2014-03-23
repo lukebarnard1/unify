@@ -2,7 +2,7 @@
 	//Add a comment to a post on a cohort/user's feed
 	
 	include "../util/session.php";
-	include "../util/mysql.php";
+	include_once("../util/mysql.php");
 	include "../util/status.php";
 	include "../notification/add.php";
 	

@@ -1,6 +1,6 @@
 <?php
 	include "../util/session.php";
-	include "../util/mysql.php";
+	include_once("../util/mysql.php");
 	
 	$dao = new DAO(false);
 	

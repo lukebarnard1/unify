@@ -2,7 +2,7 @@
 	//Get any chat messages available by polling database
 	
 	include "../util/session.php";
-	include "../util/mysql.php";
+	include_once("../util/mysql.php");
 	
 	$dao = new DAO(false);
 
@@ -52,7 +52,7 @@
 	//When a request for a specific user is made, include conversation info 
 	// even if there aren't any messages.
 	if ($user_id != "-1") {
-		$user2 = DataObject::select_one($dao,"user",array("user_name","user_picture"),array("user_id"=>$user_id));
+		$user2 = DataObject::select_one($dao,"user",array("user_id","user_name","user_picture"),array("user_id"=>$user_id));
 
 		$conversation = new stdClass();
 		$conversation->messages = array();
@@ -72,7 +72,7 @@
 		}
 
 		if ( ! array_key_exists($convo_id, $conversations)) {
-			$user2 = DataObject::select_one($dao,"user",array("user_name","user_picture"),array("user_id"=>$convo_id));
+			$user2 = DataObject::select_one($dao,"user",array("user_id","user_name","user_picture"),array("user_id"=>$convo_id));
 
 			$conversation = new stdClass();
 			$conversation->messages = array();
