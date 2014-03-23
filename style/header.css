@@ -65,24 +65,29 @@ a:hover{
 
 .nav_bar > .inner > .nav_button {
 	float:left;
-	min-width:90px;
+	min-width:70px;
 	padding:5px 5px 5px 5px;
 	text-align:center;
 	display:block;
-	font-size:23px;
+	font-size:20px;
 	line-height:28px;
 	color:#ffffff;
 	/*cursor:pointer;*/
 }
 
 .nav_bar > .inner > .nav_button.notif {
-	/*float:right;*/
 	width:200px;
 	position:absolute;
 	right:0px;
 }
 
-#notif_label {
+.nav_bar > .inner > .nav_button.groups {
+	width:100px;
+	position:absolute;
+	right:200px;
+}
+
+#notif_label, #groups_label {
 	font-size:inherit;
 }
 

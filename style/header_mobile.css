@@ -7,8 +7,9 @@
 	width:100px;
 }
 
-.nav_bar > .inner > .nav_button.notif {
+.nav_bar > .inner > .nav_button.groups {
 	width:100px;
+	right:100px;
 }
 
 .notification h2{
