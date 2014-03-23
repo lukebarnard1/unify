@@ -5,7 +5,7 @@
 		if (isset($_GET["group_id"])) {
 			$group_request = $dao->escape($_GET["group_id"]);
 
-			$user_in_group = (NULL != DataObject::select_one($dao, "grouping", array("group_id"),array("group_id" => $group_request, "user_id" => $user->user_id)));
+			$user_in_group = (NULL != DataObject::select_one($dao, "grouping", array("grouping_id"),array("group_id" => $group_request, "user_id" => $user->user_id)));
 
 			if ($user_in_group) {
 				$row = DataObject::select_one($dao, "user_group", array("group_id","group_name"), array("group_id"=>$group_request));

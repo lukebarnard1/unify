@@ -1,5 +1,5 @@
 <?php
-	include_once("no_errors.php");
+	// include_once("no_errors.php");
 
 	function json_encode_strip($data) {
 		return str_replace('\\\\','',json_encode($data));

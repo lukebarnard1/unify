@@ -15,12 +15,12 @@
 	include "script/cohort_select.php";
 	include "script/group_select.php";
 
-	// if (! (isset($_GET["user_id"]) || isset($_GET["cohort_id"]))) {
-	// 	unset($selected_user);
-	// 	unset($_SESSION["selected_user"]);
-	// 	unset($selected_group);
-	// 	unset($_SESSION["selected_group"]);
-	// }
+	if (! (isset($_GET["user_id"]) || isset($_GET["cohort_id"]) || isset($_GET["group_id"]))) {
+		unset($selected_user);
+		unset($_SESSION["selected_user"]);
+		unset($selected_group);
+		unset($_SESSION["selected_group"]);
+	}
 
 	//Reload variables again
 	include "script/util/session_var.php";
