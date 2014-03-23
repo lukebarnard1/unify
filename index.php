@@ -53,7 +53,7 @@
 				<?php
 					} else if (isset($selected_group)){
 				?>
-					<h1><?php echo $selected_group->university_name;?> / <?php echo $selected_group->course_name;?> / <?php echo $selected_group->cohort_start;?></h1>
+					<h1><?php echo $selected_group->group_name;?></h1>
 				<?php
 					} else if (!isset($_GET["post_id"])){
 				?>

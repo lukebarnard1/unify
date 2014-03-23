@@ -21,7 +21,6 @@
 	$can_vote = "!(post.post_id in(SELECT post_id FROM post_vote WHERE user_id=\"$user->user_id\"))";
 
 	$properties = "post.post_id,user.user_id,post.post_time,post.post_content,post.post_rating_up,post.post_rating_dn,user.user_name,user.user_picture,$hidden AS post_is_hidden,$can_vote AS can_vote";
-
 	if (isset($_POST["comment_id"])) {
 		$comment = DataObject::select_one($dao,"comment",
 			array("comment_id","post_id"),

@@ -1,5 +1,4 @@
 <?php
-	if (isset($selected_cohort))unset($selected_cohort);
 	if ($logged_in) {
 		$dao = new DAO(false);
 		if (isset($_GET["cohort_id"])) {
@@ -17,7 +16,7 @@
 					$selected_group->course_name = $row->course_name;
 					$selected_group->university_name = $row->university_name;
 					$selected_group->group_id = $row->group_id;
-					$selected_group->group_name = $row->group_name;
+					$selected_group->group_name = $row->course_name . " at " . $row->university_name . " from ".$row->cohort_start;
 
 					$d = new DateTime($row->cohort_start);
 					$selected_group->cohort_start = $d->format('jS F Y');
