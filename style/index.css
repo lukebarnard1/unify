@@ -95,7 +95,7 @@
 	margin-top:-1px;
 	font-size: 11px;
 	line-height: 16px;
-	
+	min-height: 32px;
 	color:#444;
 }
 
@@ -221,6 +221,10 @@
 	border:1px solid #ddd;*/
 	background-color:#f0f0f0;
 	border-top:3px solid #dbdbdb;
+}
+
+#member_selector {
+
 }
 
 #new_post {

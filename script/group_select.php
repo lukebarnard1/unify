@@ -15,6 +15,7 @@
 					$selected_group->group_id = $row->group_id;
 					$selected_group->group_name = $row->group_name;
 					$selected_group->posting_enabled = true;
+					$selected_group->can_be_added_to = true;
 
 					$_SESSION["selected_group"] = $selected_group;
 					unset($_SESSION["selected_user"]);

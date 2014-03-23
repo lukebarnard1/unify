@@ -38,8 +38,12 @@
 
 	<script type="text/javascript" src="jquery.js"></script>
 	<script type="text/javascript" src="Template.js"></script>
-	<script type="text/javascript" src="header.js"></script>
 	<script type="text/javascript" src="util.js"></script>
+	<script type="text/javascript">
+	<?php
+		include "header.js";
+	?>
+	</script>
 </head>
 <body>
 	<?php

@@ -65,6 +65,18 @@ FOREIGN KEY (group_id) REFERENCES user_group(group_id) ON DELETE CASCADE,
 FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
 )ENGINE=InnoDB;
 
+
+CREATE TABLE grouping_request
+(
+gr_id int NOT NULL AUTO_INCREMENT,
+group_id int NOT NULL,
+user_id int NOT NULL,
+
+PRIMARY KEY (gr_id),
+FOREIGN KEY (group_id) REFERENCES user_group(group_id) ON DELETE CASCADE,
+FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
+)ENGINE=InnoDB;
+
 CREATE TABLE post
 (
 post_id int NOT NULL AUTO_INCREMENT,

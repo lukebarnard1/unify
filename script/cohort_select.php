@@ -18,6 +18,8 @@
 					$selected_group->group_id = $row->group_id;
 					$selected_group->group_name = $row->course_name . " at " . $row->university_name . " from ".$row->cohort_start;
 
+					$selected_group->can_be_added_to = false;
+
 					$d = new DateTime($row->cohort_start);
 					$selected_group->cohort_start = $d->format('jS F Y');
 

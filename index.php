@@ -27,7 +27,7 @@
 					<span id="prof_pic_button" class="button" onmouseover="show_pp_button(true)" href="javascript:;" onmousedown="this.className='button pressed';change_prof_pic()" onmouseup="this.className='button'" onmouseout="this.className='button'">Edit your picture</span>
 				</div>
 				<h2>friend search</h2>
-				<input id="friend_search" class="box" type="text" placeholder="Search for friends..." onkeyup="choose_friend()" autocomplete="off">
+				<input id="friend_search" class="box" type="text" placeholder="Search for friends..." onkeyup="choose_friend(this.value,'friend_select',view_friend)" autocomplete="off">
 				<div id="friend_select"></div>
 				<h2>your friends</h2>
 				<div id="friends"></div>
@@ -55,6 +55,19 @@
 				?>
 					<h1><?php echo $selected_group->group_name;?></h1>
 				<?php
+						if ($selected_group->can_be_added_to) {
+							?>
+								<div id="member_search"
+									onclick="this.contentEditable=true;if(this.innerText=='Add a member...')this.innerText=''"
+									onblur="if(this.innerText=='')this.innerText='Add a member...'" 
+									style="height:20px;background-color:#444;color:#fff;padding:3px;margin-bottom:5px" 
+									onkeyup="choose_friend(this.innerText,'member_select',view_member)" 
+									autocomplete="off">
+									Add a member...
+								</div>
+								<div id="member_select"></div>
+							<?php
+						}
 					} else if (!isset($_GET["post_id"])){
 				?>
 					<h1>your news feed</h1>

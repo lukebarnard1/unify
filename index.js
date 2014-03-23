@@ -1,5 +1,6 @@
 get = <?php echo json_encode($_GET)?>;
 user = <?php echo json_encode($user)?>;
+group = <?php echo json_encode($selected_group)?>;
 
 view_comment = new Template("view/comment.html");
 view_post = new Template("view/post.html");
@@ -7,6 +8,7 @@ view_visible_post = new Template("view/post.html");
 view_hidden_post = new Template("view/hidden_post.html");
 
 view_friend = new Template("view/friend.html");
+view_member = new Template("view/member.html");
 
 view_post.render = function (data) {
 	result = "";
@@ -85,11 +87,10 @@ function get_args() {
 	return s;
 }
 
-function choose_friend() {
-	var query = id("friend_search").value;
-	target = id("friend_select");
+function choose_friend(query, target_id, view) {
+	target = id(target_id);
 	if ($.trim(query) != "") {
-		ajax_request(target, false, view_friend, modifier_friend_search, "script/user/search.php", { q : query });
+		ajax_request(target, false, view, modifier_friend_search, "script/user/search.php", { q : query });
 	} else {
 		target.style.display = "none";
 	}
@@ -225,6 +226,11 @@ function add_comment(e, post_id, page) {
 	}
 }
 
+function add_member(member_id) {
+	//Send a member a request to join this group by email
+	ajax_push("script/grouping/request.php",{group_id:group.group_id,user_id:member_id},function(data){alert(data.message)});
+}
+
 function comment_enable(e, post_id) {
 	e.preventDefault();
 	comment_form = id("comment_form" + post_id);
@@ -253,3 +259,4 @@ function send_feedback(e) {
 		);
 	}
 }
+
