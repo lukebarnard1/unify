@@ -63,7 +63,7 @@
 					id("info").innerHTML = "Passwords match, resetting...";
 
 					$.ajax({
-						url: "../script/user_set_password.php",
+						url: "../script/user/set_password.php",
 						data:{user_password:new_pwd,conf_rnd: conf_rnd,user_id: user_id},
 						type:"POST"
 					}).done(function() {

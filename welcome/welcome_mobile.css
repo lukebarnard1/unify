@@ -1,0 +1,28 @@
+body {
+	margin:5px;
+}
+
+#main {
+	max-width:100%;
+}
+
+#column1,#column2 {
+	display:block;
+	float:none;
+	clear:both;
+	border:none;
+	width:100%;
+	padding:0px;
+}
+
+#column1 * {
+	margin:5px;
+}
+
+#column1 ul, #column1 ul li {
+	line-height: 1.0em;
+}
+
+ul.top {
+	padding:5px;
+}

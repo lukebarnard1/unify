@@ -1,0 +1,16 @@
+<td class="conversation_cell">
+	<div class="conversation">
+		<a href="user/{user_id}"><h1><img class="small_display_picture" src="../profile_pictures/{user_picture}">{user_name}</h1></a>
+		
+		<div id="conversation{user_id}" class="chat_msg_container">
+			{rendered_messages}
+		</div>
+		<div id="conversation_input{user_id}" 
+			class="box conversation_input" 
+			contenteditable="true"
+			onclick="$(this).focus()"
+			onfocus="if(this.innerHTML=='Send a message...')this.innerHTML=''" 
+			onkeydown="if(event.keyCode == 13 && !event.shiftKey){conversations[{user_id}].add_message(this.innerText);event.preventDefault()}"
+			onblur="if(this.innerText.trim()=='')this.innerHTML='Send a message...'" >Send a message...</div>
+	</div>	
+</td>

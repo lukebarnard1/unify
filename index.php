@@ -1,14 +1,13 @@
 <?php
 	include "header.php";
 ?>
-	<script type="text/javascript" src="Template.js"></script>
 	<script type="text/javascript">
 	<?php
 		include "index.js";
 	?>
 	</script>
 	<link rel="stylesheet" href="style/index.css"/>
-	<link rel="stylesheet" href="style/mobile.css" media="only screen and (max-width: 700px)"/>
+	<link rel="stylesheet" href="style/index_mobile.css" media="only screen and (max-width: 700px)"/>
 	<!--End nav bar and header-->
 	<form id="prof_pic_form" action="script/user/set_profile_picture.php" method="POST" enctype="multipart/form-data">
 		<input type="file" id="prof_pic_file" onchange="sub_prof_pic()" name='file'>
@@ -51,11 +50,6 @@
 						<p><?php echo $selected_user->user_name;?> is studying <?php echo $selected_user->course_name;?> at <?php echo $selected_user->university_name;?>.</p>
 					</div>
 				</div>
-				<?php
-					if ($user->user_id != $selected_user->user_id && $selected_user->is_friend) {
-						view_chat_box($user, $selected_user);
-					}
-				?>
 				<?php
 					} else if (isset($selected_group)){
 				?>

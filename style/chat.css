@@ -1,17 +1,18 @@
-#main {
-	margin:auto;
-	/*max-width:700px;*/
-
-	height:100%;
-
-	display:table;
-	padding:37px 0px 0px 0px;
+html {
+	overflow: hidden;
 }
 
-#conversations {
-	max-width:100%;
-	display:table-row;
-	overflow-x:scroll;
+#main {
+	margin:auto;
+
+	width:100%;
+	height:100%;
+}
+
+table#conversations_table {
+	height:100%;
+	position:absolute;
+	border-spacing: 0px;
 }
 
 #new_conversation {
@@ -23,8 +24,156 @@
 	padding: 10px;
 }
 
+.conversation_cell {
+	position: relative;
+	padding:45px 2px 100px 2px;
+	min-width:396px;
+	vertical-align: top;
+	overflow-y:hidden;
+}
+
 .conversation {
-	width:300px;
-	height:95%;
-	margin-top:10px;
+	position: relative;
+	height:100%;
+
+	overflow:hidden;
+}
+
+.conversation > * {
+	position: relative;
+	z-index: 2;
+	background-color: #ffffff;
+}
+
+.conversation > a > h1, .conversation_input {
+	background-color: #eee;
+}
+
+.conversation > a > h1 {
+	border-bottom: 3px solid #aaa;
+	padding-top: 6px;
+	position: relative;
+	z-index: 2;
+}
+
+.conversation > a > h1 > .small_display_picture {
+	vertical-align: middle;
+	margin-right:10px;
+	margin-bottom:0px;
+	width:36px;
+	height:36px;
+	margin-top: -6px;
+}
+
+.conversation_input {
+	position:absolute;
+	bottom:0px;
+	width:396px;
+	min-height:20px;
+	border-top: 3px solid #aaa;
+	padding:2px 2px 0px 2px;
+}
+
+.chat_msg_container {
+	position:absolute;
+	padding-bottom:28px;
+	bottom:0px;
+	left:0px;
+	z-index: 1;
+	width:100%;
+	padding-top:50px;
+	max-height: 100%;
+	vertical-align: bottom;
+	overflow-y:auto;
+}
+
+.chat_msg {
+	background-color: #fdfdfd;
+	border-bottom:1px solid #f0f0f0;
+	margin: 0px 3px 0px 3px;
+	padding:3px;
+	color:#000;
+	text-align:justify;
+}
+
+.sent {
+	padding-right:50px;
+}
+
+.received {
+	padding-left:50px;
+	background-color: #f8f8f8;
+}
+
+.chat_msg > .name {
+	color:#888;
+}
+
+.received > .name {
+	/*color:#fff;*/
+}
+
+.chat_msg > .name{
+	font-weight:bold;
+}
+
+.chat_msg > .seen_indication {
+	font-style: italic;
+	color:#CCCCCC;
+}
+
+#friend_selector {
+	display:none;
+	/*float:left;*/
+	position:fixed;
+	bottom:5px;
+}
+
+#friends {
+	padding:2px;
+	margin:auto;
+	height:80px;
+	width:396px;
+	background-color:#4AB948;
+	border-bottom:3px solid #3D9A3C;
+}
+
+#friends > a:hover {
+	text-decoration: none;
+}
+
+.small_display_picture {
+	width:32px;
+	vertical-align: bottom;
+}
+
+#arrows {
+	position:absolute;
+	top:50%;
+	left:50%;
+	width:500px;
+}
+
+#arrows > div{
+	position:relative;
+	top:-25px;
+	left:-250px;
+	height:50px;
+	z-index:3;
+}
+
+#arrows > div > .arrow {
+	display:block;
+}
+
+#arrows > div > .arrow > img {
+	width:50px;
+}
+
+#arrows > div > .left {
+	float:left;
+}
+
+#arrows > div > .right {
+	float:right;
 }

@@ -429,24 +429,6 @@ img.delete_comment {
 	overflow-y:scroll;
 }
 
-.chat_msg > p{
-	background-color: #fdfdfd;
-	border:1px solid #eee;
-	margin-bottom:-1px;
-	padding:3px;
-	color:#000;
-}
-
-.chat_msg > p > .name{
-	font-weight:bold;
-	color:#666;
-}
-
-.chat_msg > p > .seen_indication {
-	font-style: italic;
-	color:#CCCCCC;
-}
-
 #column2 .chat_box .conversation_input{
 	/*margin-top:5px;*/
 	border-top-width: 3px;

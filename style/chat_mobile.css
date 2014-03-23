@@ -1,0 +1,13 @@
+
+#arrows {
+	max-width:100%;
+}
+
+#arrows > div{
+	top:-25px;
+	left:-50%;
+}
+
+.conversation_cell {
+	padding-bottom:100px;
+}

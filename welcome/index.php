@@ -3,7 +3,7 @@
 	include "../script/util/session.php";
 	include "../script/util/redirect.php";
 	if ($logged_in) {
-		redirect(".");
+		redirect("../");
 	}
 	include "../script/util/display_message.php";
 
@@ -16,130 +16,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<link rel="stylesheet" href="welcome.css"/>
+	<link rel="stylesheet" href="welcome_mobile.css" media="only screen and (max-width: 700px)"/>
 	<title>Unify - Welcome</title>
 	<style type="text/css">
-		/*For development:*/
-		*{
-			margin:0;
-			padding:0;
-			
-			font-family: Arial, sans-serif;
-			font-size:14px;
-		}
-
-		html,body {
-			background-color:#f8f8f8;
-		}
-		
-		a {
-			color:inherit;
-			text-decoration:none;
-		}
-		
-		a:hover {
-			text-decoration:underline;
-		}
-		
-		#main {
-			display:table;
-			position:relative;
-			margin:auto;
-			width:900px;
-			min-height: 500px;
-			
-			border:1px solid #ccc;
-			background-color:#fff;
-			color:#222;
-		}
-		
-		body {
-			margin:40px;
-		}
-		
-		#column1 {
-			display:table-cell;
-			padding-right:10px;
-			padding-left:10px;
-		}
-		
-		#column1 p {
-			text-align:justify;
-		}
-		
-		#column1 h1 {
-			font-size:50pt;
-			font-weight:500;
-			color:#000;
-		}
-		
-		#column1 #logo {
-			position:relative;
-			top:16px;
-			width:125px;
-		}
-		
-		#column1 ul.top {
-			margin-top:10px;
-			line-height:1.5em;
-			background-color:#f4f4f4;
-		}
-		
-		#column1 ul {
-			padding-left:40px;
-		}
-		
-		#column2 {
-			display:table-cell;
-			border-left:1px solid #666;
-			padding:5px;
-			width:30%;
-		}
-		
-		#column2 h1 {
-			font-size:28pt;
-		}
-
-		#column2 form input.text {
-			width:240px;
-			background-color:#f4f4f4;
-			margin-bottom:10px;
-		}
-		
-		#column2 form input.submit {
-			float:right;
-			width:40%;
-			margin-bottom:10px;
-			margin-right:5px;
-		}
-
-		#error {
-			background-color: #222;
-			color:#fff;
-			padding:3px;
-			text-decoration: underline;
-		}
-
-		#error_description {
-			background-color: #f4f4f4;
-			color:#444;
-			border:1px solid #ccc;
-			border-bottom-width: 5px;
-			padding:3px;
-		}
-		
-		li{
-			list-style-type:square;
-		}
-
-		#login {
-			margin-top:5px;
-		}
-
-		#login, #register {
-			padding-left:5px;
-			padding-bottom:20px;
-		}
-
 			<?php
 		if ($r != "") {
 ?>

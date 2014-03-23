@@ -4,7 +4,6 @@
 	**/
 	include_once "script/util/session.php";
 	include_once "script/util/constants.php";
-	include_once "script/view/chat_box_json.php";
 
 	include_once "script/util/redirect.php";
 	if (!$logged_in) {
@@ -33,12 +32,15 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<link rel="stylesheet" href="style/header.css"/>
+	<link rel="stylesheet" href="style/header_mobile.css" media="only screen and (max-width: 700px)"/>
 	<title>Unify - Bringing students together</title>
 
 	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript" src="Template.js"></script>
+	<script type="text/javascript" src="header.js"></script>
 	<script type="text/javascript" src="util.js"></script>
 </head>
-<body onload="load()">
+<body>
 	<?php
 		if ($user->user_id != $DEVELOPER_ID) {
 	?>
@@ -61,12 +63,16 @@
 	<div class="nav_bar">
 		<div class="inner">
 			<?php
-				$links = array("unify"=>"/","you"=>"/user/$user->user_id","course"=>"/cohort/$user->cohort_id","logout"=>"/script/user/logout.php");
+				$links = array("unify"=>"/",
+					"chat"=>"/chat",
+					"you"=>"/user/$user->user_id",
+					"course"=>"/cohort/$user->cohort_id",
+					"logout"=>"/script/user/logout.php");
 
 				foreach($links as $text => $link) {
 					$selected = ($link == $_SERVER["REQUEST_URI"]);
 					?>
-					<a class="nav_button <?php echo $selected?"selected":""?>" href="<?php echo $link?>"><?php echo $text?></a>
+					<a id="nav_button_<?php echo $text ?>" class="nav_button <?php echo $selected?"selected":""?>" href="<?php echo $link?>"><?php echo $text?></a>
 					<?php
 				}
 			?>

@@ -1,0 +1,10 @@
+
+#column1 {
+	display:none;
+}
+.user_header{
+	min-height:100px;
+}
+.user_header .display_picture {
+	width:100px;
+}

@@ -33,13 +33,13 @@
 				if ($group_id != -1) {
 					$notification_users = DataObject::select_all($dao, "grouping", array("user_id"),array("group_id"=>$group_id));
 
-					$notification_title = "New post in a group you're in.";
-					$notification_message = "$user->user_name has posted in your cohort.";
+					$notification_title = "New post in your group.";
+					$notification_message = "$user->user_name has posted in your group.";
 					$notification_link = "post/".$post->get_primary_id();
 
 					foreach ($notification_users as $notification_user) {
 						if ($notification_user->user_id != $user->user_id) {
-							notify($dao, $notification_user->user_id, $notification_title, $notification_message, $notification_link);
+							echo notify($dao, $notification_user->user_id, $notification_title, $notification_message, $notification_link);
 						}
 					}
 				}

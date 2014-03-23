@@ -2,7 +2,7 @@
 <?php
 	//Scan database for notifications that have not been seen and are ready for departure
 	include "../util/mysql.php";
-	include "../util/mail.php";
+	include "../mail/send.php";
 	include "../util/constants.php";
 
 	// chdir("..");
