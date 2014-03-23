@@ -5,7 +5,6 @@ view_comment = new Template("view/comment.html");
 view_post = new Template("view/post.html");
 view_visible_post = new Template("view/post.html");
 view_hidden_post = new Template("view/hidden_post.html");
-view_notification = new Template("view/notification.html");
 
 view_friend = new Template("view/friend.html");
 
@@ -71,23 +70,6 @@ modifier_posts = function (data, input_data) {
 	return data;
 }
 
-modifier_notifications = function (data, input_data) {
-	n = data.length;
-	for (var index in data) {
-		notification = data[index];
-		if(notification.notif_seen=="1") {
-			notification.notif_class = "seen";
-			n--;
-		} else {
-			notification.notif_class = "";
-		}
-		notification.notif_read_link = "<?php echo $SITE_URL;?>script/notification/see.php?notif_id=" + notification.notif_id;
-
-		data[index] = notification;
-	}
-	notif_label = id("notif_label").innerHTML = "notifications ("+n+")";
-	return data;
-}
 
 function print_json(data) {
 	console.log(JSON.stringify(data,null,2));
@@ -117,13 +99,6 @@ function load_friends() {
 	ajax_request(id("friends"), false, view_friend, modifier_relay, "script/user/friends.php");
 }
 
-function load_notifications_callback() {
-	notifications = id("notifications");
-}
-
-function load_notifications() {
-	ajax_request(notifications, false, view_notification, modifier_notifications, "script/notification/get.php",null,load_notifications_callback);
-}
 
 function next_page() {
 	if (get.post_id) {
@@ -184,8 +159,7 @@ function update_posts() {
 
 function load() {
 	load_friends();
-	load_notifications();
-	setInterval(load_notifications, 3000);
+
 	more_posts();
 	id("column2").onmousewheel = update_posts;
 }
