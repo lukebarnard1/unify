@@ -65,24 +65,29 @@ a:hover{
 
 .nav_bar > .inner > .nav_button {
 	float:left;
-	min-width:90px;
+	min-width:70px;
 	padding:5px 5px 5px 5px;
 	text-align:center;
 	display:block;
-	font-size:23px;
+	font-size:20px;
 	line-height:28px;
 	color:#ffffff;
 	/*cursor:pointer;*/
 }
 
 .nav_bar > .inner > .nav_button.notif {
-	/*float:right;*/
 	width:200px;
 	position:absolute;
 	right:0px;
 }
 
-#notif_label {
+.nav_bar > .inner > .nav_button.groups {
+	width:100px;
+	position:absolute;
+	right:200px;
+}
+
+#notif_label, #groups_label {
 	font-size:inherit;
 }
 
@@ -112,7 +117,6 @@ a:hover{
 	background-color: #fff;
 }
 
-
 .notification h2{
 	background-color: #d0d0d0;
 	border-bottom:3px solid #c0c0c0;
@@ -123,6 +127,19 @@ a:hover{
 .notification p{
 	font-size:12px;
 	padding:3px;
+}
+
+.group {
+	color:#000;
+}
+
+.group a{
+	display: block;
+}
+
+.group a:hover{
+	background-color: #444;
+	color:#fff;
 }
 
 .3dtitle {

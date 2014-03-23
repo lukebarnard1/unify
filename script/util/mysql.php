@@ -1,5 +1,5 @@
 <?php
-	include_once("no_errors.php");
+	// include_once("no_errors.php");
 
 	function json_encode_strip($data) {
 		return str_replace('\\\\','',json_encode($data));
@@ -151,7 +151,9 @@
 			$this->dao->myquery("SHOW index FROM $this->table where Key_name = 'PRIMARY';");
 			// var_dump($this->dao->fetch_one_obj());
 			$this->primary_key = $this->dao->fetch_one_obj()->Column_name;
-			$this->primary_id = $this->{$this->primary_key};
+			if (isset($this->{$this->primary_key})) {
+				$this->primary_id = $this->{$this->primary_key};
+			}
 		} 
 		
 		//Commit this object to the database
@@ -166,7 +168,9 @@
 				$result = $this->dao->myquery("UPDATE $this->table SET ".implode(",",$object_vars)." WHERE ".$this->primary_key."=".$this->primary_id.";");
 			} else {
 				$result = $this->dao->myquery("INSERT INTO $this->table SET ".implode(",",$object_vars).";");
-				$this->primary_id = $this->dao->insert_id();
+				DataObject::determine_primary($this);
+				$this->{$this->primary_key} = $this->dao->insert_id();
+				$this->primary_id = $this->{$this->primary_key};
 			}
 
 			$this->update = true;

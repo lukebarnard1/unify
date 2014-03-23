@@ -2,7 +2,7 @@
 	include "../util/session.php";
 	include "../util/redirect.php";
 	include "../util/pwd.php";
-	include "../util/mysql.php";
+	include_once("../util/mysql.php");
 	$redirect = "/";
 	if (isset($_POST["r"]) && $_POST["r"]!="") {
 		$redirect = htmlspecialchars($_POST["r"]);

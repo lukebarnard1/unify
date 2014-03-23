@@ -1,7 +1,7 @@
 <?php
 	//Add a post to a cohort/user's feed
 	include "../util/session.php";
-	include "../util/mysql.php";
+	include_once("../util/mysql.php");
 	include "../util/status.php";
 	
 	include "../notification/add.php";
@@ -31,7 +31,7 @@
 			if ($success) {
 				//Notify the group of students
 				if ($group_id != -1) {
-					$notification_users = DataObject::select_all($dao, "grouping", array("user_id"),array("group_id"=>$group_id));
+					$notification_users = DataObject::select_all($dao, "grouping", array("grouping_id","user_id"),array("group_id"=>$group_id));
 
 					$notification_title = "New post in your group.";
 					$notification_message = "$user->user_name has posted in your group.";

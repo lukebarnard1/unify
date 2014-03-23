@@ -13,8 +13,9 @@
 
 	include "script/user_select.php";
 	include "script/cohort_select.php";
+	include "script/group_select.php";
 
-	if (! (isset($_GET["user_id"]) || isset($_GET["cohort_id"]))) {
+	if (! (isset($_GET["user_id"]) || isset($_GET["cohort_id"]) || isset($_GET["group_id"]))) {
 		unset($selected_user);
 		unset($_SESSION["selected_user"]);
 		unset($selected_group);
@@ -37,8 +38,12 @@
 
 	<script type="text/javascript" src="jquery.js"></script>
 	<script type="text/javascript" src="Template.js"></script>
-	<script type="text/javascript" src="header.js"></script>
 	<script type="text/javascript" src="util.js"></script>
+	<script type="text/javascript">
+	<?php
+		include "header.js";
+	?>
+	</script>
 </head>
 <body>
 	<?php
@@ -76,6 +81,12 @@
 					<?php
 				}
 			?>
+			<div class="nav_button groups" onmouseover="groups_container.style.display='block'" onmouseout="groups_container.style.display='none'">
+				<span id="groups_label">groups</span>
+				<div id="groups_container" style="display:none">
+					<div id="groups" style="max-height:300px;width:100%;overflow:auto;position:absolute;left:0px;top:38px;z-index:1000"></div>
+				</div>
+			</div>
 			<div class="nav_button notif" onmouseover="notif_container.style.display='block'" onmouseout="notif_container.style.display='none'">
 				<span id="notif_label">notifications</span>
 				<div id="notif_container" style="display:none">

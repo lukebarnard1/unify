@@ -1,6 +1,6 @@
 <?php
 	include "../util/pwd.php";
-	include "../util/mysql.php";
+	include_once("../util/mysql.php");
 	include "../util/redirect.php";
 	
 	include "../mail/send.php";

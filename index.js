@@ -1,13 +1,14 @@
 get = <?php echo json_encode($_GET)?>;
 user = <?php echo json_encode($user)?>;
+group = <?php echo json_encode($selected_group)?>;
 
 view_comment = new Template("view/comment.html");
 view_post = new Template("view/post.html");
 view_visible_post = new Template("view/post.html");
 view_hidden_post = new Template("view/hidden_post.html");
-view_notification = new Template("view/notification.html");
 
 view_friend = new Template("view/friend.html");
+view_member = new Template("view/member.html");
 
 view_post.render = function (data) {
 	result = "";
@@ -71,23 +72,6 @@ modifier_posts = function (data, input_data) {
 	return data;
 }
 
-modifier_notifications = function (data, input_data) {
-	n = data.length;
-	for (var index in data) {
-		notification = data[index];
-		if(notification.notif_seen=="1") {
-			notification.notif_class = "seen";
-			n--;
-		} else {
-			notification.notif_class = "";
-		}
-		notification.notif_read_link = "<?php echo $SITE_URL;?>script/notification/see.php?notif_id=" + notification.notif_id;
-
-		data[index] = notification;
-	}
-	notif_label = id("notif_label").innerHTML = "notifications ("+n+")";
-	return data;
-}
 
 function print_json(data) {
 	console.log(JSON.stringify(data,null,2));
@@ -103,11 +87,10 @@ function get_args() {
 	return s;
 }
 
-function choose_friend() {
-	var query = id("friend_search").value;
-	target = id("friend_select");
+function choose_friend(query, target_id, view) {
+	target = id(target_id);
 	if ($.trim(query) != "") {
-		ajax_request(target, false, view_friend, modifier_friend_search, "script/user/search.php", { q : query });
+		ajax_request(target, false, view, modifier_friend_search, "script/user/search.php", { q : query });
 	} else {
 		target.style.display = "none";
 	}
@@ -117,13 +100,6 @@ function load_friends() {
 	ajax_request(id("friends"), false, view_friend, modifier_relay, "script/user/friends.php");
 }
 
-function load_notifications_callback() {
-	notifications = id("notifications");
-}
-
-function load_notifications() {
-	ajax_request(notifications, false, view_notification, modifier_notifications, "script/notification/get.php",null,load_notifications_callback);
-}
 
 function next_page() {
 	if (get.post_id) {
@@ -184,8 +160,7 @@ function update_posts() {
 
 function load() {
 	load_friends();
-	load_notifications();
-	setInterval(load_notifications, 3000);
+
 	more_posts();
 	id("column2").onmousewheel = update_posts;
 }
@@ -251,6 +226,11 @@ function add_comment(e, post_id, page) {
 	}
 }
 
+function add_member(member_id) {
+	//Send a member a request to join this group by email
+	ajax_push("script/grouping/request.php",{group_id:group.group_id,user_id:member_id},function(data){alert(data.message)});
+}
+
 function comment_enable(e, post_id) {
 	e.preventDefault();
 	comment_form = id("comment_form" + post_id);
@@ -279,3 +259,4 @@ function send_feedback(e) {
 		);
 	}
 }
+

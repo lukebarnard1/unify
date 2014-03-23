@@ -1,5 +1,7 @@
 <?php
 	
+	include_once "mysql.php";
+
 	if (isset($user)) {
 		if (isset($_SESSION["selected_user"])) {
 			$selected_user = $_SESSION["selected_user"];
