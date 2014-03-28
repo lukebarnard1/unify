@@ -59,19 +59,20 @@
 							?>
 								<div id="member_search"
 									onclick="this.contentEditable=true;if(this.innerText=='Add a member...')this.innerText=''"
-									onblur="if(this.innerText=='')this.innerText='Add a member...'" 
-									style="height:20px;background-color:#444;color:#fff;padding:3px;margin-bottom:5px" 
-									onkeyup="choose_friend(this.innerText,'member_select',view_member)" 
+									onblur="if(this.innerText=='')this.innerText='Add a member...'"
+									style="height:20px;background-color:#444;color:#fff;padding:3px;margin-bottom:5px"
+									onkeyup="choose_friend(this.innerText,'member_select',view_member)"
 									autocomplete="off">
 									Add a member...
 								</div>
 								<div id="member_select"></div>
+								<div id="group_members"></div>
 							<?php
 						}
 					} else if (!isset($_GET["post_id"])){
 				?>
 					<h1>your news feed</h1>
-				<?php 
+				<?php
 					}
 					if ($can_post && !isset($_GET["post_id"])) {
 				?>
@@ -79,7 +80,7 @@
 					<p class="prompt">What's going on at the moment?</p>
 					<form id="post_form" onsubmit="add_post(event)" onkeydown="if(event.keyIdentifier == 'Enter' && !event.shiftKey)add_post(event);" method="POST">
 						<div class="post_content_container">
-							<div id="post_content" 
+							<div id="post_content"
 								onClick="this.contentEditable='true';this.innerHTML=(this.innerHTML=='Write something...')?'':this.innerHTML;">Write something...</div>
 						</div>
 						<input id="group_id" type="hidden" name="group_id" value="<?php echo $post_group_id; ?>">
@@ -102,7 +103,7 @@
 						<script type="text/javascript">
 
 							function send_request(position) {
-								lat = position.coords.latitude; 
+								lat = position.coords.latitude;
 								lng = position.coords.longitude;
 								url = "script/user_friend_request.php";
 

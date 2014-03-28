@@ -8,6 +8,7 @@ view_visible_post = new Template("view/post.html");
 view_hidden_post = new Template("view/hidden_post.html");
 
 view_friend = new Template("view/friend.html");
+view_group_member = new Template("view/member_in_group.html");
 view_member = new Template("view/member.html");
 
 view_post.render = function (data) {
@@ -100,6 +101,10 @@ function load_friends() {
 	ajax_request(id("friends"), false, view_friend, modifier_relay, "script/user/friends.php");
 }
 
+function load_members() {
+	ajax_request(id("group_members"), false, view_group_member, modifier_relay, "script/grouping/members.php", {group_id : group.group_id});
+}
+
 
 function next_page() {
 	if (get.post_id) {
@@ -131,7 +136,7 @@ function reload_page(p) {
 	} else {
 		get_send = {page_from : p, page_to : p + 1};
 	}
-	
+
 	ajax_request(page_div, false, view_post, modifier_posts, "script/post/get.php", get_send);
 }
 
@@ -160,6 +165,7 @@ function update_posts() {
 
 function load() {
 	load_friends();
+	load_members();
 
 	more_posts();
 	id("column2").onmousewheel = update_posts;
@@ -205,7 +211,7 @@ function add_post(e) {
 		};
 
 		ajax_push("script/post/add.php", in_data, reload_feed);
-		
+
 		$("#post_content").html("").blur();
 	}
 }
@@ -245,7 +251,7 @@ function send_feedback(e) {
 	e.preventDefault();
 	feedback_content = $("#feedback_content");
 	content = feedback_content.val();
-	
+
 	content = content.replace(/\r?\n/g, '<br>');
 
 	if (content != "") {
@@ -259,4 +265,3 @@ function send_feedback(e) {
 		);
 	}
 }
-
