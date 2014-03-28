@@ -2,7 +2,7 @@
 	include "script/util/mysql.php";
 	include "script/util/redirect.php";
 
-	$dao = new DAO();
+	$dao = new DAO(false);
 	$rnd = $dao->escape($_GET["rnd"]);
 
 	//Delete the confirmation
@@ -29,6 +29,7 @@
 
 	$space_pos = strpos($user_email, " ") + 1;
 	$user_email = substr($user_email,$space_pos);//Take everything after space
+
 
 	//And change the user's email
 	$user_query = "UPDATE user SET user_email = \"$user_email\" WHERE user_id = \"$user->user_id\";";

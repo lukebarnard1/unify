@@ -3,9 +3,9 @@
 <?php
 	include "../script/util/mysql.php";
 	include "../script/util/redirect.php";
-	include "../script/mail/send.php";
 
 	if (isset($_POST["user_email"])) {
+		include "../script/mail/send.php";
 
 		$dao = new DAO(false);
 

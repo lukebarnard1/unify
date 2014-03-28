@@ -1,11 +1,11 @@
 <?php
-	include "../util/constants.php";
+	include_once("../util/constants.php");
 	function generate_email($subject, $message) {
 		global $SITE_URL;
 		return "Content-type: text/html; charset=\"iso-8859-1\"\r\nContent-Transfer-Encoding: 7bit\r\n\r\n".
 		'<html><body>
 		<table style="max-width:640px;min-width:320px;margin:auto;font-family:Arial, sans-serif;">
-			<tr>	
+			<tr>
 				<th>
 					<a href="'.$SITE_URL.'" style="color:#000000;">
 						<h1 style="font-size:50px;font-weight:normal;margin:0">unify</h1>
