@@ -1,12 +1,13 @@
 RewriteEngine On
 DirectoryIndex index.php
+
 RewriteRule ^user/([0-9]+)$  ?user_id=$1 [S=1]
 RewriteRule ^user/(.+)$  $1
 
 RewriteRule ^cohort/([0-9]+)$  ?cohort_id=$1 [S=1]
 RewriteRule ^cohort/(.*)$ $1
 
-RewriteRule ^group/([0-9]+)$  ?group_id=$1 [S=1]
+RewriteRule ^group/([0-9]+)$  ?group_id=$1 [L]
 RewriteRule ^group/(.*)$ $1
 
 RewriteRule ^comment/([0-9]+)$  ?comment_id=$1 [S=1]
