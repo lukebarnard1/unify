@@ -97,6 +97,15 @@ function choose_friend(query, target_id, view) {
 	}
 }
 
+function choose_member(query, target_id, view) {
+	target = id(target_id);
+	if ($.trim(query) != "") {
+		ajax_request(target, false, view, modifier_friend_search, "script/user/search.php", { q : query, group_id: group.group_id });
+	} else {
+		target.style.display = "none";
+	}
+}
+
 function load_friends() {
 	ajax_request(id("friends"), false, view_friend, modifier_relay, "script/user/friends.php");
 }

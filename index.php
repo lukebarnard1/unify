@@ -61,7 +61,7 @@
 									onclick="this.contentEditable=true;if(this.innerText=='Add a member...')this.innerText=''"
 									onblur="if(this.innerText=='')this.innerText='Add a member...'"
 									style="height:20px;background-color:#444;color:#fff;padding:3px;margin-bottom:5px"
-									onkeyup="choose_friend(this.innerText,'member_select',view_member)"
+									onkeyup="choose_member(this.innerText,'member_select',view_member)"
 									autocomplete="off">
 									Add a member...
 								</div>
