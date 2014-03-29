@@ -174,7 +174,9 @@ function update_posts() {
 
 function load() {
 	load_friends();
-	load_members();
+	if (group != null) {
+		load_members();
+	}
 
 	more_posts();
 	id("column2").onmousewheel = update_posts;
