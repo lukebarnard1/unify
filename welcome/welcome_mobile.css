@@ -2,6 +2,17 @@ body {
 	margin:5px;
 }
 
+
+.non_mobile_title{
+	display:none;
+}
+
+.mobile_title {
+	display:block;
+	width:90%;
+	padding:5%;
+}
+
 #main {
 	max-width:100%;
 }

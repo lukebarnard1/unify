@@ -36,6 +36,10 @@ body {
 	margin:40px;
 }
 
+.mobile_title{
+	display:none;
+}
+
 #column1 {
 	display:table-cell;
 	padding:0px 10px 10px 10px;

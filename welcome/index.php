@@ -61,7 +61,8 @@
 	<div id="main">
 		<div style="display:table-row">
 			<div id="column1">
-				<h1>welcome to
+				<img class="mobile_title" src="../img/unify1.png">
+				<h1 class="non_mobile_title">welcome to
 				<img id="logo" src="../img/unify1.png">.</h1>
 				<p>Unify is a new social network site dedicated to close connections between you
 				and your coursemates at university. All you need to sign up is an email address,
