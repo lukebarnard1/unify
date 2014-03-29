@@ -104,33 +104,37 @@ a:hover{
 	line-height:1em;
 }
 
-.nav_bar > .inners .nav_button:hover,
+.nav_bar > .inner .nav_button:hover,
 .nav_bar > .inner .nav_button.selected {
 	background-color:#3D9A3C;
 }
 
 .notification {
 	margin:0px 0px -1px 0px;
-	background-color: #f0f0f0;
-	color: #000;
+	background-color: #4AB948;
+	color: #fff;
 	text-align: left;
 }
 
 .notification.seen {
+	background-color: #f0f0f0;
 	color: #666;
 }
 
 .notification > a:hover {
 	display: block;
 	text-decoration: none;
-	background-color: #fff;
+	background-color: #000;
+	color: #fff;
+}
+
+.notification.seen > a:hover {
+background-color: #888;
 }
 
 .notification h2{
-	background-color: #d0d0d0;
-	border-bottom:3px solid #c0c0c0;
 	font-size:12px;
-	font-weight:normal;
+	font-weight:bold;
 	padding: 3px;
 }
 .notification p{
