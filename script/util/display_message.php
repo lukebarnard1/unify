@@ -1,10 +1,10 @@
 <?php
 	include_once("mysql.php");
-	
+
 	function message($message_id) {
 		$dao = new DAO(false);
 		$message = DataObject::select_one($dao, "message", array("message_id","message_title","message_description"), array("message_id"=>$message_id));
-		
+
 		if (! $message) {
 			$message = DataObject::select_one($dao, "message", array("message_id","message_title","message_description"), array("message_id"=>1));
 		}
@@ -27,13 +27,14 @@
 	<div id="message_box" style="width:400px;font-family:Arial,sans-serif;background-color:#fdfdfd;border-width:1px;border-style:solid;border-color:#ddd;padding:5px;margin:auto;margin-top:300px;">
 		<h1 style="font-size:20pt;margin:0px;"><?php echo $message_title; ?></h1>
 		<p style="margin-bottom:10px;"><?php echo $message_description; ?></p>
-		<a href="http://unify.lukebarnard.co.uk">Home</a> - 
+		<a href="http://unify.lukebarnard.co.uk">Home</a> -
 		<a href="javascript:return false;" onclick="c = document.getElementById('message_box_container');c.parentNode.removeChild(c);event.preventDefault();">Close this message box</a>
 	</div>
 </div>
 <?php
 	}
-
+	// var_dump($_SERVER["REQUEST_URI"]);
+	// var_dump($_GET);
 	if (isset($_GET["m"])) {
 		$m = $_GET["m"];
 		display_message($m);

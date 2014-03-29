@@ -8,6 +8,7 @@ view_visible_post = new Template("view/post.html");
 view_hidden_post = new Template("view/hidden_post.html");
 
 view_friend = new Template("view/friend.html");
+view_group_member = new Template("view/member_in_group.html");
 view_member = new Template("view/member.html");
 
 view_post.render = function (data) {
@@ -96,8 +97,21 @@ function choose_friend(query, target_id, view) {
 	}
 }
 
+function choose_member(query, target_id, view) {
+	target = id(target_id);
+	if ($.trim(query) != "") {
+		ajax_request(target, false, view, modifier_friend_search, "script/user/search.php", { q : query, group_id: group.group_id });
+	} else {
+		target.style.display = "none";
+	}
+}
+
 function load_friends() {
 	ajax_request(id("friends"), false, view_friend, modifier_relay, "script/user/friends.php");
+}
+
+function load_members() {
+	ajax_request(id("group_members"), false, view_group_member, modifier_relay, "script/grouping/members.php", {group_id : group.group_id});
 }
 
 
@@ -160,6 +174,7 @@ function update_posts() {
 
 function load() {
 	load_friends();
+	load_members();
 
 	more_posts();
 	id("column2").onmousewheel = update_posts;
