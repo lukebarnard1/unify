@@ -54,7 +54,7 @@
 		  var _gaq = _gaq || [];
 		  _gaq.push(['_setAccount', 'UA-16927282-2']);
 		  _gaq.push(['_trackPageview']);
-		
+
  		 (function() {
   		  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
  		   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
@@ -62,25 +62,30 @@
 		  })();
 		}
 	</script>
-	<?php 
+	<?php
 		}
 	?>
 	<div class="nav_bar">
 		<div class="inner">
-			<?php
-				$links = array("unify"=>"/",
-					"chat"=>"/chat",
-					"you"=>"/user/$user->user_id",
-					"course"=>"/cohort/$user->cohort_id",
-					"logout"=>"/script/user/logout.php");
+			<a class="dropdown_button" href="javascript:;" onclick="toggle_nav_dropdown()">
+				<img src="img/ddbutton.png"/>
+			</a>
+			<div class="nav_dropdown" id="nav_dropdown">
+				<?php
+					$links = array("unify"=>"/",
+						"chat"=>"/chat",
+						"you"=>"/user/$user->user_id",
+						"course"=>"/cohort/$user->cohort_id",
+						"logout"=>"/script/user/logout.php");
 
-				foreach($links as $text => $link) {
-					$selected = ($link == $_SERVER["REQUEST_URI"]);
-					?>
-					<a id="nav_button_<?php echo $text ?>" class="nav_button <?php echo $selected?"selected":""?>" href="<?php echo $link?>"><?php echo $text?></a>
-					<?php
-				}
-			?>
+					foreach($links as $text => $link) {
+						$selected = ($link == $_SERVER["REQUEST_URI"]);
+						?>
+						<a id="nav_button_<?php echo $text ?>" class="nav_button <?php echo $selected?"selected":""?>" href="<?php echo $link?>"><?php echo $text?></a>
+						<?php
+					}
+				?>
+			</div>
 			<div class="nav_button groups" onmouseover="groups_container.style.display='block'" onmouseout="groups_container.style.display='none'">
 				<span id="groups_label">groups</span>
 				<div id="groups_container" style="display:none">

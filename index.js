@@ -1,6 +1,6 @@
 get = <?php echo json_encode($_GET)?>;
 user = <?php echo json_encode($user)?>;
-group = <?php echo json_encode($selected_group)?>;
+group = <?php if(isset($selected_group)){echo json_encode($selected_group);}else{echo "null";}?>;
 
 view_comment = new Template("view/comment.html");
 view_post = new Template("view/post.html");
@@ -131,7 +131,7 @@ function reload_page(p) {
 	} else {
 		get_send = {page_from : p, page_to : p + 1};
 	}
-	
+
 	ajax_request(page_div, false, view_post, modifier_posts, "script/post/get.php", get_send);
 }
 
@@ -205,7 +205,7 @@ function add_post(e) {
 		};
 
 		ajax_push("script/post/add.php", in_data, reload_feed);
-		
+
 		$("#post_content").html("").blur();
 	}
 }
@@ -245,7 +245,7 @@ function send_feedback(e) {
 	e.preventDefault();
 	feedback_content = $("#feedback_content");
 	content = feedback_content.val();
-	
+
 	content = content.replace(/\r?\n/g, '<br>');
 
 	if (content != "") {
@@ -259,4 +259,3 @@ function send_feedback(e) {
 		);
 	}
 }
-

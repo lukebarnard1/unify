@@ -18,3 +18,35 @@
 .notification p{
 	font-size:10px;
 }
+
+.nav_dropdown {
+	display:none;
+	top:40px;
+	width:100%;
+	z-index:5;
+	overflow:hidden;
+}
+
+.nav_bar .dropdown_button {
+	display:block;
+	position:absolute;
+	top:0px;
+	z-index:6;
+}
+
+.dropdown_button > img {
+	padding:7px 5px 0px 5px;
+	width:37px;
+}
+
+.inner > .nav_dropdown > .nav_button {
+	float:none;
+	min-width:70px;
+	padding:5px 5px 5px 5px;
+	text-align:center;
+	display:block;
+	font-size:20px;
+	line-height:28px;
+	color:#ffffff;
+	background-color:#4AB948;
+}

@@ -4,14 +4,14 @@
 	padding:0;
 	outline:0;
 	border:0;
-	
+
 	font-family: Arial, sans-serif;
 	font-size:14px;
 	-webkit-font-smoothing: antialiased;
 }
 
 input, textarea{
-	font-size: 12px; 
+	font-size: 12px;
 }
 
 h1,h2{
@@ -63,7 +63,16 @@ a:hover{
 	margin:auto;
 }
 
-.nav_bar > .inner > .nav_button {
+.nav_bar .dropdown_button {
+	display:none;
+}
+
+.nav_dropdown {
+	position:absolute;
+	overflow:visible;
+}
+
+.nav_bar > .inner .nav_button {
 	float:left;
 	min-width:70px;
 	padding:5px 5px 5px 5px;
@@ -95,8 +104,8 @@ a:hover{
 	line-height:1em;
 }
 
-.nav_bar > .inner > .nav_button:hover,
-.nav_bar > .inner > .nav_button.selected {
+.nav_bar > .inners .nav_button:hover,
+.nav_bar > .inner .nav_button.selected {
 	background-color:#3D9A3C;
 }
 
