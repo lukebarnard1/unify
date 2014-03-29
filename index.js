@@ -179,7 +179,7 @@ function load() {
 	}
 
 	more_posts();
-	id("column2").onmousewheel = update_posts;
+	id("column2").onscroll = update_posts;
 }
 
 window.addEventListener("load",load);
