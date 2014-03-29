@@ -6,7 +6,10 @@ body {
 	max-width:100%;
 }
 
-#column1,#column2 {
+#column1 p,ul{
+		display:none;
+}
+#column1, #column2 {
 	display:block;
 	float:none;
 	clear:both;

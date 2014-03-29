@@ -23,11 +23,12 @@
 	<style type="text/css">
 			<?php
 		if ($r != "") {
-?>
-		#login {
-			background-color:#4AB948;
-		}
-<?php
+			?>
+					#login {
+						background-color:#000;
+						color:#fff;
+					}
+			<?php
 		}
 		?>
 	</style>
@@ -51,66 +52,74 @@
 			?>
 				id("login_mail").focus();
 			<?php
-			}	
+			}
 			?>
 		}
 	</script>
 </head>
 <body onload="load()">
 	<div id="main">
-		<div id="column1">
-			<h1>Welcome to 
-			<img id="logo" src="../img/unify1.png">.</h1>
-			<p>Unify is a new social network site dedicated to close connections between you
-			and your coursemates at university. All you need to sign up is an email address,
-			a password and your University course. After that, you're ready to go.
-			<br>Here are some of the great features of unify:</p>
-			<ul class="top">
-				<li>Connect with friends that are <u>right in front of you</u>
-					<ul>
-						<li>You can only add friends that you are sitting next to.
-						</li>
-						<li>This means you
-							form a very small set of connections, giving unify a more friendly
-							feel.</li>
-						<li>No more posts that you <u>don't</u> want to see from people
-							you <u>haven't even met.</u></li>
-					</ul>
-				</li>
-				<li>Find people at your cohort, course or university
-					<ul>
-						<li>Search for your coursemates to connect with them.</li>
-						<li>See who's connected with who to find more friends.</li>
-					</ul>
-				</li>
-				<li>Make posts to your friends or your cohort
-					<ul>
-						<li>Ask friends if they want to meet on campus.</li>
-						<li>Ask coursemates questions about your course.</li>
-					</ul>
-				</li>
-			</ul>
-		</div>
-		<div id="column2">
-			<div id="register">
-				<h1>Register</h1>
-				<p>Please enter your details below to join unify.</p>
-				<form action="../register/" method="GET">
-					<input class="text" type="text" placeholder="Name" name="user_name"><br>
-					<input class="text" type="text" placeholder="Email" name="user_email"><br>
-					<input class="submit" type="submit" value="Register">
-				</form>
+		<div style="display:table-row">
+			<div id="column1">
+				<h1>welcome to
+				<img id="logo" src="../img/unify1.png">.</h1>
+				<p>Unify is a new social network site dedicated to close connections between you
+				and your coursemates at university. All you need to sign up is an email address,
+				a password and your University course. After that, you're ready to go.
+				<br>Here are some of the great features of unify:</p>
+				<ul class="top">
+					<li>Connect with friends that are <b>right in front of you</b>
+						<ul>
+							<li>You can only add friends that you are sitting next to.
+							</li>
+							<li>This means you
+								form a very small set of connections, giving unify a more friendly
+								feel.</li>
+							<li>No more posts that you <b>don't</b> want to see from people
+								you <b>haven't even met.</b></li>
+						</ul>
+					</li>
+					<li>Find people at your cohort, course or university
+						<ul>
+							<li>Search for your coursemates to connect with them.</li>
+							<!---<li>See who's connected with who to find more friends.</li> NOT IMPLEMENTED!-->
+						</ul>
+					</li>
+					<li>Make posts to your friends or your cohort
+						<ul>
+							<li>Ask friends if they want to meet on campus.</li>
+							<li>Ask coursemates questions about your course.</li>
+						</ul>
+					</li>
+					<li>Create customised groups of people to communicate about group coursework
+						<ul>
+							<li>What's the next deliverable? Maybe post a question on your group.</li>
+							<li>Carry out anonymous voting for making decisions democratically.</li>
+						</ul>
+					</li>
+				</ul>
 			</div>
-			<div id="login">
-				<h1>Login</h1>
-				<p>Please enter your details below to login:</p>
-				<form action="../script/user/login.php" method="POST">
-					<input id="login_mail" class="text" type="text" placeholder="Email" name="user_email" value="<?php if(isset($_GET["user_email"]))echo $_GET["user_email"];?>"><br>
-					<input id="login_pwd" class="text" type="password" placeholder="Password" name="user_password"><br>
-					<input type="hidden" name="r" value="<?php echo $r;?>">
-					<input class="submit" type="submit" value="Login"><br>
-					<a href="../reset-password/">Reset Password</a>
-				</form>
+			<div id="column2">
+				<div id="register">
+					<h1>register</h1>
+					<p>Enter your details below to join unify.</p>
+					<form action="../register/" method="GET">
+						<div style="padding-right:5px"><input class="text" type="text" placeholder="Name" name="user_name"></div>
+						<div style="padding-right:5px"><input class="text" type="text" placeholder="Email" name="user_email"></div>
+						<input class="submit" type="submit" value="Register">
+					</form>
+				</div>
+				<div id="login">
+					<h1>login</h1>
+					<p>Enter your details below to login:</p>
+					<form action="../script/user/login.php" method="POST">
+						<div style="padding-right:5px"><input id="login_mail" class="text" type="text" placeholder="Email" name="user_email" value="<?php if(isset($_GET["user_email"]))echo $_GET["user_email"];?>"></div>
+						<div style="padding-right:5px"><input id="login_pwd" class="text" type="password" placeholder="Password" name="user_password"></div>
+						<input type="hidden" name="r" value="<?php echo $r;?>">
+						<input class="submit" type="submit" value="Login"><br>
+						<a href="../reset-password/">Reset Password</a>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>

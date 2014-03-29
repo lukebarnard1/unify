@@ -2,7 +2,7 @@
 *{
 	margin:0;
 	padding:0;
-	
+
 	font-family: Arial, sans-serif;
 	font-size:14px;
 }
@@ -24,9 +24,9 @@ a:hover {
 	display:table;
 	position:relative;
 	margin:auto;
-	width:900px;
+	max-width:900px;
 	min-height: 500px;
-	
+
 	border:1px solid #ccc;
 	background-color:#fff;
 	color:#222;
@@ -38,8 +38,7 @@ body {
 
 #column1 {
 	display:table-cell;
-	padding-right:10px;
-	padding-left:10px;
+	padding:0px 10px 10px 10px;
 }
 
 #column1 p {
@@ -61,7 +60,6 @@ body {
 #column1 ul.top {
 	margin-top:10px;
 	line-height:1.5em;
-	background-color:#f4f4f4;
 }
 
 #column1 ul {
@@ -72,11 +70,16 @@ body {
 	display:table-cell;
 	border-left:1px solid #666;
 	padding:5px;
-	width:30%;
+	width:250px;
 }
 
 #column2 h1 {
 	font-size:28pt;
+	font-weight:normal;
+}
+
+#column2 p {
+	padding-bottom:5px;
 }
 
 #column2 form input.text {
@@ -107,15 +110,20 @@ body {
 }
 
 li{
-	list-style-type:square;
+	list-style-type:disc;
 }
+
+#register {
+	background-color:#4AB948;
+	border-bottom:3px solid #3D9A3C;
+	color:#ffffff;
+	padding:0px 5px 20px 5px;
+}
+
 
 #login {
-	margin-top:5px;
-}
-
-#login, #register {
 	padding-left:5px;
-	padding-right: 10px;
-	padding-bottom:20px;
+	padding-right: 5px;
+	padding-bottom:10px;
+	margin-top:5px;
 }
