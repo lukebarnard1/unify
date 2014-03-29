@@ -189,7 +189,7 @@
 
 #column2 .post {
 	position:relative;
-	
+
 	min-height:150px;
 
 	padding:5px;
@@ -203,7 +203,7 @@
 }
 
 #column2 .hidden_post {
-	
+
 	padding:5px;
 	margin-bottom:-1px;
 	border-width:1px;
@@ -214,13 +214,6 @@
 
 #column2 .hidden_post a {
 	color:#888;
-}
-
-.box {
-/*	background-color:#f8f8f8;
-	border:1px solid #ddd;*/
-	background-color:#f0f0f0;
-	border-top:3px solid #dbdbdb;
 }
 
 #member_selector {
@@ -236,7 +229,7 @@
 
 #new_post .prompt {
 	padding:5px;
-	
+
 	color:#666;
 	font-size:12pt;
 }
@@ -254,7 +247,7 @@
 	resize:vertical;
 	overflow:hidden;
 	width:100%;
-	
+
 	background-color:#fdfdfd;
 	font-size:10pt;
 }
@@ -281,7 +274,7 @@
 #column2 .post .top {
 	padding-top:5px;
 	height:45px;
-	
+
 	color:#000;
 	font-weight:normal;
 }
@@ -290,7 +283,7 @@
 	float:left;
 	margin-top:-5px;
 	margin-right:5px;
-	
+
 	vertical-align:top;
 }
 
@@ -318,7 +311,7 @@
 	top:50px;
 	right:0px;
 	width:26px;
-	
+
 	color:#000;
 	text-align:center;
 }
