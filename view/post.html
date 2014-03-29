@@ -1,13 +1,13 @@
 <div class="post">
-	<div class="top"> 
-		<a href="../user/{user_id}"> 
+	<div class="top">
+		<a href="../user/{user_id}">
 			<img class="small_display_picture" src="../profile_pictures/{user_picture}">
 				<p class="name">{user_name}</p></a>
 		<p class="date">{post_time}</p>
 		<a href="javascript:change_feed('script/post/delete_hide.php?post_id={post_id}',{page})">
-			<img class="hider" 
-				alt="{hider_title}" 
-				title="{hider_title}" 
+			<img class="hider"
+				alt="{hider_title}"
+				title="{hider_title}"
 				src="img/{hider_image}"
 			>
 		</a>
@@ -30,7 +30,7 @@
 	</div>
 	<div class="right">
 		<a href="javascript:change_feed('script/post/vote.php?d=u&post_id={post_id}',{page})"><img class="voter" src="img/{upvote_img}"></a>
-		<span class="score">{post_rating}</span>
+		<span class="score"><div style="color:#0d0;">{post_rating_up}</div><div>{post_rating}</div><div style="color:#080;">{post_rating_dn}</div></span>
 		<a href="javascript:change_feed('script/post/vote.php?d=d&post_id={post_id}',{page})"><img class="voter" src="img/{downvote_img}"></a>
 	</div>
 </div>
