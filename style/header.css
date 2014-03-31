@@ -81,7 +81,19 @@ a:hover{
 	font-size:20px;
 	line-height:28px;
 	color:#ffffff;
-	/*cursor:pointer;*/
+}
+
+.nav_bar > .inner .nav_button:hover {
+	text-decoration: none;
+}
+
+#nav_button_logout {
+	background-color: #000;
+	color: #fff;
+}
+#nav_button_logout:hover {
+	background-color: #fff;
+	color: #000;
 }
 
 .nav_bar > .inner > .nav_button.notif {

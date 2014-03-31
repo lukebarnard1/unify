@@ -81,7 +81,7 @@
 					foreach($links as $text => $link) {
 						$selected = ($link == $_SERVER["REQUEST_URI"]);
 						?>
-						<a id="nav_button_<?php echo $text ?>" class="nav_button <?php echo $selected?"selected":""?>" href="<?php echo $link?>"><?php echo $text?></a>
+						<a id="nav_button_<?php echo $text ?>" class="nav_button <?php echo $selected?"selected":""?> <?php echo $text?>" href="<?php echo $link?>"><?php echo $text?></a>
 						<?php
 					}
 				?>

@@ -1,5 +1,4 @@
 <?php
-	// if (isset($selected_group))unset($selected_group);
 	if ($logged_in) {
 		$dao = new DAO(false);
 		if (isset($_GET["group_id"])) {
@@ -9,8 +8,7 @@
 
 			if ($user_in_group) {
 				$row = DataObject::select_one($dao, "user_group", array("group_id","group_name"), array("group_id"=>$group_request));
-				if ($row) {//It exists
-
+				if ($row) {
 					$selected_group = new stdClass();
 					$selected_group->group_id = $row->group_id;
 					$selected_group->group_name = $row->group_name;
