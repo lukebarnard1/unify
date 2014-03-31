@@ -40,7 +40,7 @@
 		function display_description() {
 			id('error_description').style.display='block';
 		}
-
+ 
 		function load() {
 			<?php
 			if (isset($_GET["user_email"])) {//Password incorrect probably

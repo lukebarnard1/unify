@@ -8,8 +8,8 @@
 		<div id="conversation_input{user_id}" 
 			class="box conversation_input" 
 			contenteditable="true"
-			onclick="$(this).focus()"
-			onfocus="if(this.innerHTML=='Send a message...')this.innerHTML=''" 
+			onclick=""
+			onfocus="if(this.innerHTML=='Send a message...'){this.innerHTML='&nbsp;';}" 
 			onkeydown="if(event.keyCode == 13 && !event.shiftKey){conversations[{user_id}].add_message(this.innerText);event.preventDefault()}"
 			onblur="if(this.innerText.trim()=='')this.innerHTML='Send a message...'" >Send a message...</div>
 	</div>	

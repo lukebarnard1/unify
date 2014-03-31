@@ -175,9 +175,7 @@ function Conversation(conversation) {
 	var latest_pulled = -1;
 	var latest_seen_by_u2 = -1;
 
-	this.load_messages = function (timed_pull, animate) {
-		var callback = this;
-		// console.log("Loading more after "+latest_pulled);
+	this.load_messages = function (timed_pull, animate, callback) {
 		$.ajax({
 			url: "script/chat_msg/get.php",
 			type: "POST",
@@ -191,6 +189,10 @@ function Conversation(conversation) {
 			//A timed pull results in a sound being played, otherwise no sound is played	
 			if (typeof data[user_id] !== "undefined") {
 				messages_loaded(data[user_id].messages, timed_pull, animate);
+				console.log(callback);
+				if (callback) {
+					callback();
+				}
 			}
 		});
 	}
@@ -211,14 +213,15 @@ function Conversation(conversation) {
 			}
 		}).done(function (data) {
 			if (data.code == "0") {
-				inp_div = id("conversation_input" + user_id);
-				inp_div.innerHTML = "";
-				$(inp_div).focus();
 			} else {
 				console.log(data);
 			}
 		});
-		this.load_messages(false, true);
+		this.load_messages(false, true, function () {
+			inp_div = id("conversation_input" + user_id);			
+			$(inp_div).focus();
+			inp_div.innerHTML = "";
+		});
 	}
 }
 
@@ -292,7 +295,7 @@ function initial_load(data) {
 
 function timed_load() {
 	for (key in conversations) {
-		conversations[key].load_messages(true,true);
+		conversations[key].load_messages(true,true,null);
 	}
 	// scroll_all();
 }
