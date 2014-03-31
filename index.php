@@ -48,6 +48,13 @@
 					<div class="info">
 						<h2><?php echo $selected_user->user_name;?>'s page</h2>
 						<p><?php echo $selected_user->user_name;?> is studying <?php echo $selected_user->course_name;?> at <?php echo $selected_user->university_name;?>.</p>
+						<?php
+							if ($selected_user->is_friend && $selected_user->user_id != $user->user_id) {
+						?>
+						<p style="position:absolute;bottom:0px;right:0px"><a href="/script/connection/delete.php?user_id2=<?php echo $selected_user->user_id; ?>">disunify</a></p>
+						<?php
+							}
+						?>
 					</div>
 				</div>
 				<?php
