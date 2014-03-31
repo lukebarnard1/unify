@@ -396,14 +396,19 @@ img.delete_comment {
 }
 
 #unify_link {
-	background-color:#fff;
-	color:#99ff00;
+	background-color:#4AB948;
+	color:#FFF;
 	padding:20px;
 	margin:0px;
-	font-size:60pt;
+	font-size:40pt;
 	text-align:center;
-	height:100%;
 	display:block;
+	border:0px;
+}
+
+#unify_link:hover {
+	color:#4AB948;
+	background-color: #fff;
 }
 
 #unify_link.pressed {
