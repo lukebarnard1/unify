@@ -1,5 +1,5 @@
 <?php
-	include_once("../util/constants.php");
+	include_once( dirname(__FILE__) . "/../util/constants.php");
 	function generate_email($subject, $message) {
 		global $SITE_URL;
 		return "Content-type: text/html; charset=\"iso-8859-1\"\r\nContent-Transfer-Encoding: 7bit\r\n\r\n".
