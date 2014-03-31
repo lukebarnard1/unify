@@ -109,8 +109,7 @@ function alert_user(message_user_name, message_content) {
 	start_ticking(message_user_name, message_content);
 }
 
-function queue_jump(convo_div, follow) {
-	convo_div.parent().parent().prependTo(convo_div.parent().parent().parent());
+function queue_jump(follow) {
 	if (follow) {
 		set_current_conversation_first(false);
 	} else {
@@ -122,6 +121,7 @@ function Conversation(conversation) {
 	for (key in conversation) {
 		this[key] = conversation[key];
 	}
+	console.log(this);
 
 	convo_html = view_conversation.render([this]);
 	var user_id = this.user_id;
@@ -130,8 +130,11 @@ function Conversation(conversation) {
 	v.append(convo_html);
 
 	this.convo_div = $("#conversation"+user_id);
+
 	var convo_div = this.convo_div;
-	id("conversation"+user_id).user_id = user_id;
+
+	this.convo_div[0].user_id = user_id;
+	this.convo_div[0].latest_pulled = latest_pulled;
 
 	var messages_loaded = function (messages, timed_pull, animate) {
 		pulled_so_far = latest_pulled;
@@ -153,6 +156,8 @@ function Conversation(conversation) {
 			}
 		}
 
+		convo_div[0].latest_pulled = latest_pulled;
+
 		//Append the rendering of new messages
 		convo_div.append(view_chat_msg.render( modifier_messages(messages) ));
   		
@@ -162,9 +167,9 @@ function Conversation(conversation) {
 
 				user_sent = (user_id == user.user_id);
 
-				queue_jump(convo_div, user_sent || current_user == user_id);
+				queue_jump(user_sent || current_user == user_id);
 	  		}
-			convo_div.delay(timed_pull?0:100).animate({scrollTop: convo_div.prop("scrollHeight")}, 0);
+			// convo_div.delay(timed_pull?0:100).animate({scrollTop: convo_div.prop("scrollHeight")}, 0);
 			if(timed_pull) {
 				msg = messages[global_latest_pulled];
 				alert_user(msg.user_name, msg.msg_content);
@@ -189,7 +194,6 @@ function Conversation(conversation) {
 			//A timed pull results in a sound being played, otherwise no sound is played	
 			if (typeof data[user_id] !== "undefined") {
 				messages_loaded(data[user_id].messages, timed_pull, animate);
-				console.log(callback);
 				if (callback) {
 					callback();
 				}
@@ -218,6 +222,7 @@ function Conversation(conversation) {
 			}
 		});
 		this.load_messages(false, true, function () {
+			sort_conversations();
 			inp_div = id("conversation_input" + user_id);			
 			$(inp_div).focus();
 			inp_div.innerHTML = "";
@@ -291,16 +296,48 @@ function initial_load(data) {
 
 	id("friend_selector").style.display = "block";
 	ajax_request(id("friends"), true, view_friend_select, modifier_relay, "script/user/friends.php");
+
+	sort_conversations();
+}
+
+function sort_conversations() {
+	//Sort the conversations
+
+	compare = function (a, b) {
+		p = a.childNodes[1].childNodes[3].latest_pulled;
+		q = b.childNodes[1].childNodes[3].latest_pulled;
+
+		return p < q?1:-1;
+	}
+
+	is_sorted = function (sorted) {
+		for (var i = 0; i < sorted.length - 1; i++) {
+			if (compare(sorted[i],sorted[i+1]) == 1 ) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	unsorted_cells = $(".conversation_cell").get();
+
+	if (!is_sorted(unsorted_cells)) {
+		sorted_cells = unsorted_cells.sort(compare);
+
+		for (i in sorted_cells) {
+			sorted_cells[i].parentNode.appendChild(sorted_cells[i]);
+		}
+	}
+	scroll_all();
 }
 
 function timed_load() {
 	for (key in conversations) {
-		conversations[key].load_messages(true,true,null);
+		conversations[key].load_messages(true,true,sort_conversations);
 	}
-	// scroll_all();
 }
 
-setInterval(timed_load,3000);
+setInterval(timed_load,5000);
 
 /**
  * Load existing conversations on to the page.
@@ -369,63 +406,4 @@ function send_message(event, user_id) {
 
 window.addEventListener("load",load_conversations);
 
-// $(".chat_msg_container").css({width:"10px"});
 
-// $(".jq_up_hover").onmouseover(function () {$(this).css({position: "relative"}).animate({top: "-10px"},500)});
-
-// function timed_pull() {
-	
-// }
-
-// function play_message_sound() {
-// 	document.getElementById('snd_msg').play();
-// }
-
-// function messages_loaded(data, user_id, timed_pull) {
-// 	lp = -1;
-// 	for (i = 0;i < data.length; i++) {
-// 		j = parseInt(data[i].msg_id);
-// 		if (j > lp) {
-// 			lp = j;
-// 		}
-// 	}
-
-// 	//If there are messages at all
-// 	//There are more messages available or some messages' "seen" needs updating
-// 	if (lp != -1 && (latest_pulled != lp || lp > latest_seen_by_u2)) {
-// 		//If more messages arrived and it is a timed pull
-// 		if (latest_pulled != lp && timed_pull) {
-// 			start_flashing();
-// 			play_message_sound();
-// 		}
-// 		for (i = 0; i < data.length; i++) {
-// 			element = id("chat_msg" + user_id + "_" + data[i].msg_id);
-// 			if (element) {
-// 				element.parentNode.removeChild(element);
-// 			}
-// 		}
-// 		latest_pulled = lp;
-	
-// 		conv_div = $("#conversation"+user_id);
-// 		conversation = conv_div.html();
-// 		conv_div.html(conversation + view(modifier_messages(data), view_chat_msg));
-
-// 		conv_div.scrollTop(conv_div[0].scrollHeight);
-// 	}
-// }
-
-// function load_messages(user_id, timed_pull) {
-// 	$.ajax({
-// 		url: "script/chat_msg/get.php",
-// 		type: "POST",
-// 		dataType: "json",
-// 		data: {
-// 			user_id: user_id,
-// 			latest_pulled: latest_pulled,
-// 			latest_seen_by_u2: latest_seen_by_u2
-// 		}
-// 	}).done(function (data) {
-// 		//A timed pull results in a sound being played, otherwise no sound is played
-// 		messages_loaded(data, user_id, timed_pull);
-// 	});
-// }
