@@ -57,7 +57,7 @@
 	display:none;
 }
 
-#prof_pic_button {
+.prof_pic_button {
 	position:absolute;
 	bottom:10px;
 	left:10px;

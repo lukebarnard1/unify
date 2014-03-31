@@ -24,7 +24,13 @@
 					<a href="../user/<?php echo $user->user_id;?>" >
 						<img id="display_picture" src="../profile_pictures/<?php echo $user->user_picture;?>">
 					</a>
-					<span id="prof_pic_button" class="button" onmouseover="show_pp_button(true)" href="javascript:;" onmousedown="this.className='button pressed';change_prof_pic()" onmouseup="this.className='button'" onmouseout="this.className='button'">Edit your picture</span>
+					<span id="prof_pic_button" 
+						class="button" 
+						onmouseover="show_pp_button(true)" 
+						href="javascript:;" 
+						onmousedown="this.className='button pressed';change_prof_pic()" 
+						onmouseup="this.className='button'" 
+						onmouseout="this.className='button'">Edit your picture</span>
 				</div>
 				<h2>friend search</h2>
 				<input id="friend_search" class="box" type="text" placeholder="Search for friends..." onkeyup="choose_friend(this.value,'friend_select',view_friend)" autocomplete="off">
@@ -52,6 +58,16 @@
 							if ($selected_user->is_friend && $selected_user->user_id != $user->user_id) {
 						?>
 						<p style="position:absolute;bottom:0px;right:0px"><a href="/script/connection/delete.php?user_id2=<?php echo $selected_user->user_id; ?>">disunify</a></p>
+						<?php
+							}
+							if ($selected_user->user_id == $user->user_id) {
+						?>
+						<a 
+							class="button"
+							href="javascript:;" 
+							onmousedown="this.className='button pressed';change_prof_pic()" 
+							onmouseup="this.className='button'" 
+							onmouseout="this.className='button'">Edit your picture</a>
 						<?php
 							}
 						?>
