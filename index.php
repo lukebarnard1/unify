@@ -112,7 +112,7 @@
 							function send_request(position) {
 								lat = position.coords.latitude;
 								lng = position.coords.longitude;
-								url = "script/user_friend_request.php";
+								url = "script/connection/request.php";
 
 								fd = new FormData();
 								fd.append("my_lat",lat);
@@ -144,6 +144,7 @@
 									<li>Ask <?php echo $selected_user->user_name;?> to go to your page and click "unify"</li>
 									<li>Unification is complete</li>
 								</ol>
+								<a href="script/connection/delete_request.php">Cancel Unification</a>
 							</div>
 							<?php
 						}
