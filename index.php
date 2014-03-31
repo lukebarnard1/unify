@@ -123,9 +123,13 @@
 									type: "POST",
 									data: fd,
 									processData: false,
-									contentType: false
+									dataType: "json"
 								}).done(function (data) {
-									location.reload();
+									if (data.code == "0") {
+										location.reload();
+									} else {
+										id("unify_link").innerHTML = data.message;
+									}
 								});
 							}
 

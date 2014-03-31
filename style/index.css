@@ -400,7 +400,7 @@ img.delete_comment {
 	color:#FFF;
 	padding:20px;
 	margin:0px;
-	font-size:40pt;
+	font-size:20pt;
 	text-align:center;
 	display:block;
 	border:0px;
@@ -412,7 +412,7 @@ img.delete_comment {
 }
 
 #unify_link.pressed {
-	background-color:#99ff00;
+	background-color:#000;
 	color:#fff;
 }
 
