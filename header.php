@@ -72,11 +72,12 @@
 			</a>
 			<div class="nav_dropdown" id="nav_dropdown">
 				<?php
-					$links = array("unify"=>"/",
-						"chat"=>"/chat",
-						"you"=>"/user/$user->user_id",
-						"course"=>"/cohort/$user->cohort_id",
-						"logout"=>"/script/user/logout.php");
+					$links = array(
+						"Unify"=>"/",
+						"Chat"=>"/chat",
+						"You"=>"/user/$user->user_id",
+						"Course"=>"/cohort/$user->cohort_id",
+						"Logout"=>"/script/user/logout.php");
 
 					foreach($links as $text => $link) {
 						$selected = ($link == $_SERVER["REQUEST_URI"]);
@@ -87,13 +88,13 @@
 				?>
 			</div>
 			<div class="nav_button groups" onmouseover="groups_container.style.display='block'" onmouseout="groups_container.style.display='none'">
-				<span id="groups_label">groups</span>
+				<span id="groups_label">Groups</span>
 				<div id="groups_container" style="display:none">
 					<div id="groups" style="max-height:300px;width:100%;overflow:auto;position:absolute;left:0px;top:38px;z-index:1000"></div>
 				</div>
 			</div>
 			<div class="nav_button notif" onmouseover="notif_container.style.display='block'" onmouseout="notif_container.style.display='none'">
-				<span id="notif_label">notifications</span>
+				<span id="notif_label">Notifications</span>
 				<div id="notif_container" style="display:none">
 					<div id="notifications" style="max-height:300px;width:100%;overflow:auto;position:absolute;left:0px;top:38px;z-index:1000"></div>
 				</div>

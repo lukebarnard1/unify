@@ -18,7 +18,7 @@ modifier_notifications = function (data, input_data) {
 
 		data[index] = notification;
 	}
-	notif_label = id("notif_label").innerHTML = "notifications ("+n+")";
+	notif_label = id("notif_label").innerHTML = "Notifications ("+n+")";
 	return data;
 }
 

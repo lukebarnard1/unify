@@ -32,13 +32,13 @@
 						onmouseup="this.className='button'" 
 						onmouseout="this.className='button'">Edit your picture</span>
 				</div>
-				<h2>friend search</h2>
+				<h2>Friend search</h2>
 				<input id="friend_search" class="box" type="text" placeholder="Search for friends..." onkeyup="choose_friend(this.value,'friend_select',view_friend)" autocomplete="off">
 				<div id="friend_select"></div>
-				<h2>your friends</h2>
+				<h2>Your friends</h2>
 				<div id="friends"></div>
 				<form id="feedback_form" class="box" onsubmit="send_feedback(event)">
-					<h2>feedback</h2>
+					<h2>Feedback</h2>
 					<textarea id="feedback_content" placeholder="Is there something you think we could improve on?"></textarea>
 					<input id="feedback_submit" type="submit" class="button" value="Send Feedback" style="display:block;margin:4px 0px 0px 0px;padding:2px;position:relative;right:0px;width:194px"
 					  onmousedown="this.className='button pressed';" onmouseclick="send_feedback(event)" onmouseup="this.className='button'" onmouseout="this.className='button'">
