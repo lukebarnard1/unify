@@ -57,7 +57,9 @@
 						<?php
 							if ($selected_user->is_friend && $selected_user->user_id != $user->user_id) {
 						?>
-						<p style="position:absolute;bottom:0px;right:0px"><a href="/script/connection/delete.php?user_id2=<?php echo $selected_user->user_id; ?>">disunify</a></p>
+						<p style="position:absolute;bottom:0px;right:0px">
+							<a href="/script/connection/delete.php?user_id2=<?php echo $selected_user->user_id; ?>">disunify</a>
+						</p>
 						<?php
 							}
 							if ($selected_user->user_id == $user->user_id) {
