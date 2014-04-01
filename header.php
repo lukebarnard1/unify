@@ -90,13 +90,13 @@
 			<div class="nav_button groups" onmouseover="groups_container.style.display='block'" onmouseout="groups_container.style.display='none'">
 				<span id="groups_label">Groups</span>
 				<div id="groups_container" style="display:none">
-					<div id="groups" style="max-height:300px;width:100%;overflow:auto;position:absolute;left:0px;top:38px;z-index:1000"></div>
+					<div id="groups"></div>
 				</div>
 			</div>
 			<div class="nav_button notif" onmouseover="notif_container.style.display='block'" onmouseout="notif_container.style.display='none'">
 				<span id="notif_label">Notifications</span>
 				<div id="notif_container" style="display:none">
-					<div id="notifications" style="max-height:300px;width:100%;overflow:auto;position:absolute;left:0px;top:38px;z-index:1000"></div>
+					<div id="notifications"></div>
 				</div>
 			</div>
 		</div>

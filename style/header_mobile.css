@@ -1,3 +1,7 @@
+.nav_bar {
+	height:30px;
+}
+
 .nav_bar > .inner > .nav_button {
 	font-size:12px;
 	min-width:30px;

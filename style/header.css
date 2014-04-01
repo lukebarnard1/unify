@@ -51,7 +51,7 @@ a:hover{
 .nav_bar {
 	background-color:#4AB948;
 	border-bottom:3px solid #3D9A3C;
-	height:37px;
+	height:25px;
 	width:100%;
 	position:fixed;
 	z-index:1000;
@@ -78,8 +78,8 @@ a:hover{
 	padding:5px 5px 5px 5px;
 	text-align:center;
 	display:block;
-	font-size:20px;
-	line-height:28px;
+	font-size:16px;
+	line-height:18px;
 	color:#ffffff;
 }
 
@@ -110,6 +110,16 @@ a:hover{
 
 #notif_label, #groups_label {
 	font-size:inherit;
+}
+
+#notifications, #groups {
+	max-height:300px;
+	width:100%;
+	overflow:auto;
+	position:absolute;
+	left:0px;
+	top:26px;
+	z-index:1000;
 }
 
 .notification {
