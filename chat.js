@@ -180,19 +180,21 @@ function Conversation(conversation) {
 	}
 
 	this.load_messages = function (timed_pull, animate, callback) {
+		var sel = this;
 		$.ajax({
 			url: "script/chat_msg/get.php",
 			type: "POST",
 			dataType: "json",
 			data: {
-				user_id: user_id,
-				latest_pulled: latest_pulled,
-				latest_seen_by_u2: latest_seen_by_u2
+				user_id: this.user_id,
+				latest_pulled: this.latest_pulled,
+				latest_seen_by_u2: this.latest_seen_by_u2
 			}
 		}).done(function (data) {
 			//A timed pull results in a sound being played, otherwise no sound is played	
 			if (typeof data[user_id] !== "undefined") {
-				messages_loaded(data[user_id].messages, timed_pull, animate);
+				console.log(this);
+				sel.messages_loaded(data[user_id].messages, timed_pull, animate);
 				if (callback) {
 					callback();
 				}
