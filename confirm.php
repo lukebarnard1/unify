@@ -14,6 +14,7 @@
 	$dao->myquery($conf_query);
 
 	$row = $dao->fetch_one();
+	$user = new stdClass();
 	$user->user_id = $row["user_id"];
 
 	//Then delete the confirmation

@@ -14,8 +14,8 @@
 		$existing_connection = DataObject::select_one($dao, "connection", array("connection_id"), $connection_properties);
 
 		if ($existing_connection == NULL) {
-			$my_lat = $dao->escape($_POST["my_lat"]);
-			$my_lng = $dao->escape($_POST["my_lng"]);
+			$my_lat = doubleval($dao->escape($_POST["my_lat"]));
+			$my_lng = doubleval($dao->escape($_POST["my_lng"]));
 			
 			$query = "SELECT req_id,lat,lng FROM friend_request WHERE user_id1=\"$selected_user->user_id\" AND user_id2=\"$user->user_id\";";
 			$dao->myquery($query);

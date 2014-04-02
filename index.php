@@ -132,15 +132,10 @@
 								lng = position.coords.longitude;
 								url = "script/connection/request.php";
 
-								fd = new FormData();
-								fd.append("my_lat",lat);
-								fd.append("my_lng",lng);
-
 								$.ajax({
 									url: url,
 									type: "POST",
-									data: fd,
-									processData: false,
+									data: {my_lat:lat, my_lng:lng},
 									dataType: "json"
 								}).done(function (data) {
 									if (data.code == "0") {
