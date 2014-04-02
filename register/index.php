@@ -47,38 +47,39 @@
 		
 		#main {
 			position:relative;
-			padding:20px;
+			padding:0px 10px 10px 10px;
 			margin:auto;
-			width:1090px;
-			height:510px;
+			max-width:900px;
+			/*height:510px;*/
 			
-			box-shadow:0px 0px 10px 0px #ccc;
+			border:1px solid #ccc;
 			background-color:#fff;
 			color:#222;
 		}
 		
 		p {
 			text-align:justify;
-			margin-right:20px;
 		}
 		
 		h1 {
-			font-size:80pt;
+			font-size:48pt;
 			font-weight:500;
 			color:#000;
 		}
 		
 		#logo {
 			position:relative;
-			top:24px;
-			width:200px;
+			top:16px;
+			width:125px;
 		}
 		
 		#form {
-			padding:20px 10px 20px 20px;
-			width:375px;
-			float:left;
+			padding:10px;
 			background-color:#222;
+		}
+
+		#form table {
+			width:100%;
 		}
 		
 		form table tr td {
@@ -88,6 +89,7 @@
 		
 		form input.text {
 			font-size:14pt;
+			width:100%;
 		}
 		
 		input.error {
@@ -98,25 +100,20 @@
 			background-color:#aaff44;
 		}
 		
-		form input.submit {
-			font-size:46pt;
-			margin-left:60%;
-			width:40%;
-			margin-bottom:10px;
-		}
-		
-		#continue {
-			float:left;
-			padding:100px 50px 50px 50px;
-			height:195px;
-			
+		#continue, #mobile_continue {
+			padding:10px;
+			text-align:center;
 			background-color:#f4f4f4;
 		}
 		
-		#continue a{
-			color:#fff;
-			font-size:80pt;
+		#continue a, #mobile_continue a{
+			color:#000;
+			font-size:40pt;
 			text-decoration:underline;
+		}
+
+		#mobile_continue {
+			display:none;
 		}
 		
 		#course_select {
@@ -128,6 +125,7 @@
 			display:none;
 		}
 	</style>
+	<link rel="stylesheet" href="register_mobile.css" media="only screen and (max-width: 800px)"/>
 	<script src="../jquery.js"></script>
 	<script type="text/javascript">
 		var email_valid = false;
@@ -213,7 +211,7 @@
 		
 		function verify_all() {
 			cont_div = id("continue");
-			submit = id("submit");
+			submit = $(".submit");
 			
 			start_valid = false;
 			start_valid = 	id("start_month").value != "-" &&
@@ -221,10 +219,10 @@
 			
 			if (email_valid && password_valid && course_valid && start_valid) {
 				$(cont_div).css({backgroundColor: '#CCFF66'});
-				submit.href = "javascript:id('form_to_submit').submit();";
+				submit.attr("href","javascript:id('form_to_submit').submit();");
 			} else {
 				$(cont_div).css({backgroundColor: '#F4F4F4'});
-				submit.removeAttribute("href");
+				submit.removeAttr("href");
 			}
 		}
 		
@@ -270,82 +268,96 @@
 </head>
 <body onload="load()">
 	<div id="main">
-		<h1>Register at
-		<img id="logo" src="../img/unify1.png">.</h1>
-		<p>Once you have clicked "Continue >>", you will be sent an email to the email address entered to confirm your account. Please check your spam inbox for emails because it could be marked as spam.</p>
-		<div id="form">
-		<form id="form_to_submit" action="../script/user/register.php" method="POST">
-			<table>
-				<tr>
-					<td>Full name:</td>
-					<td><input class="text" type="text" placeholder="Name" name="user_name" value="<?php echo GET('user_name');?>"></td>
-				</tr>
-				<tr>
-					<td>Email address:</td>
-					<td><input id="ea1" onkeyup="verify_email()" class="text" type="text" placeholder="Email" name="user_email" value="<?php echo GET('user_email');?>"></td>
-				</tr>
-				<tr>
-					<td>Confirm email:</td>
-					<td><input id="ea2" onkeyup="verify_email()" class="text" type="text" placeholder="Confirm email" name="conf_email" value="<?php echo GET('conf_email');?>"></td>
-				</tr>
-				<tr>
-					<td>New password:</td>
-					<td><input id="p1" onkeyup="verify_password()" class="text" type="password" placeholder="" name="user_password" value="<?php echo GET('user_password');?>"></td>
-				</tr>
-				<tr>
-					<td>Confirm password:</td>
-					<td><input id="p2" onkeyup="verify_password()" class="text" type="password" placeholder="" name="conf_password" value="<?php echo GET('conf_password');?>"></td>
-				</tr>
-				<tr>
-					<td>University</td>
-					<td><select id="university_id" class="option" type="password" placeholder="" name="university_id"></select></td>
-				</tr>
-				<tr>
-					<td>Course</td>
-					<td>
-						<input id="course_input" onkeyup="choose_course()" class="text" type="text" placeholder="">
-						<div id="course_select"></div>
-						<input id="course_id" type="hidden" name="course_id" value="<?php echo GET('course_id');?>">
-					</td>
-				</tr>
-				<tr>
-					<td>Course start date</td>
-					<td>
-						<select id="start_month" name="start_month" onchange="verify_all()">
-							<option value="-">Month</option>
-							<?php 
-								for ($i = 1; $i < 13; ++$i) {
-							?>
-								<option value="<?php echo $i;?>" <?php echo GET('start_month')==$i?"selected":"";?>><?php echo $MONTHS[$i];?></option>
-							<?php
-								}
-							?>
-						</select>
-						<select id="start_year" name="start_year" onchange="verify_all()">
-							<option value="-">Year</option>
-							<?php
-								$date = getdate();
-								$i = $date["year"];
-								$end = 1900;
-								for (;$i > $end;$i--) {
-							?>
-							<option value="<?php echo $i;?>" <?php echo GET('start_year')==$i?"selected":"";?>><?php echo $i;?></option>
-							<?php
-								}
-							?>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td id="error" colspan="2">&nbsp;
-					</td>
-				</tr>
-			</table>
-		</form>
-		</div>
-		<div id="continue">
-			<a id="submit">Continue >></a>
-		</div>
+		<table>
+			<tr>
+				<td colspan=2 >
+					<h1>Register at
+					<a href="/welcome/"><img id="logo" src="../img/unify1.png"></a>.</h1>
+					<p>Once you have clicked "Continue >>", you will be sent an email to the email address entered to confirm your account. Please check your spam inbox for emails because it could be marked as spam.</p>
+				</td>
+			</tr>
+			<tr>
+				<td id="form">
+					<form id="form_to_submit" action="../script/user/register.php" method="POST">
+						<table>
+							<tr>
+								<td>Full name:</td>
+								<td><input class="text" type="text" placeholder="Name" name="user_name" value="<?php echo GET('user_name');?>"></td>
+							</tr>
+							<tr>
+								<td>Email address:</td>
+								<td><input id="ea1" onkeyup="verify_email()" class="text" type="text" placeholder="Email" name="user_email" value="<?php echo GET('user_email');?>"></td>
+							</tr>
+							<tr>
+								<td>Confirm email:</td>
+								<td><input id="ea2" onkeyup="verify_email()" class="text" type="text" placeholder="Confirm email" name="conf_email" value="<?php echo GET('conf_email');?>"></td>
+							</tr>
+							<tr>
+								<td>New password:</td>
+								<td><input id="p1" onkeyup="verify_password()" class="text" type="password" placeholder="Password" name="user_password" value="<?php echo GET('user_password');?>"></td>
+							</tr>
+							<tr>
+								<td>Confirm password:</td>
+								<td><input id="p2" onkeyup="verify_password()" class="text" type="password" placeholder="Confirm password" name="conf_password" value="<?php echo GET('conf_password');?>"></td>
+							</tr>
+							<tr>
+								<td>University</td>
+								<td><select id="university_id" class="option" type="password" placeholder="" name="university_id"></select></td>
+							</tr>
+							<tr>
+								<td>Course</td>
+								<td>
+									<input id="course_input" onkeyup="choose_course()" class="text" type="text" placeholder="">
+									<div id="course_select"></div>
+									<input id="course_id" type="hidden" name="course_id" value="<?php echo GET('course_id');?>">
+								</td>
+							</tr>
+							<tr>
+								<td>Course start date</td>
+								<td>
+									<select id="start_month" name="start_month" onchange="verify_all()">
+										<option value="-">Month</option>
+										<?php 
+											for ($i = 1; $i < 13; ++$i) {
+										?>
+											<option value="<?php echo $i;?>" <?php echo GET('start_month')==$i?"selected":"";?>><?php echo $MONTHS[$i];?></option>
+										<?php
+											}
+										?>
+									</select>
+									<select id="start_year" name="start_year" onchange="verify_all()">
+										<option value="-">Year</option>
+										<?php
+											$date = getdate();
+											$i = $date["year"];
+											$end = 1900;
+											for (;$i > $end;$i--) {
+										?>
+										<option value="<?php echo $i;?>" <?php echo GET('start_year')==$i?"selected":"";?>><?php echo $i;?></option>
+										<?php
+											}
+										?>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td id="error" colspan="2">&nbsp;
+								</td>
+							</tr>
+						</table>
+					</form>
+				</td>
+				<td id="continue">
+					<a class="submit">Continue >></a>
+				</td>
+			</tr>
+			<tr>
+				<td id="mobile_continue">
+					<a class="submit">Continue >></a>
+				</td>
+			</tr>
+		</table>
+
 	</div>
 </body>
 </html>
