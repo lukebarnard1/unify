@@ -193,7 +193,6 @@ function Conversation(conversation) {
 		}).done(function (data) {
 			//A timed pull results in a sound being played, otherwise no sound is played	
 			if (typeof data[user_id] !== "undefined") {
-				console.log(this);
 				sel.messages_loaded(data[user_id].messages, timed_pull, animate);
 				if (callback) {
 					callback();
