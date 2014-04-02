@@ -33,7 +33,7 @@
 		}
 		
 		body {
-			margin:40px;
+			margin:5px;
 		}
 		
 		a {
@@ -97,7 +97,8 @@
 		}
 		
 		input.correct {
-			background-color:#aaff44;
+			background-color:#4AB948;
+			color:#fff;
 		}
 		
 		#continue, #mobile_continue {
@@ -107,9 +108,9 @@
 		}
 		
 		#continue a, #mobile_continue a{
-			color:#000;
+			display:block;
 			font-size:40pt;
-			text-decoration:underline;
+			text-decoration:none;
 		}
 
 		#mobile_continue {
@@ -210,7 +211,6 @@
 		}
 		
 		function verify_all() {
-			cont_div = id("continue");
 			submit = $(".submit");
 			
 			start_valid = false;
@@ -218,10 +218,10 @@
 							id("start_year").value != "-";
 			
 			if (email_valid && password_valid && course_valid && start_valid) {
-				$(cont_div).css({backgroundColor: '#CCFF66'});
+				$(".continue").css({backgroundColor: '#4AB948',color: '#FFFFFF'});
 				submit.attr("href","javascript:id('form_to_submit').submit();");
 			} else {
-				$(cont_div).css({backgroundColor: '#F4F4F4'});
+				$(".continue").css({backgroundColor: '#F4F4F4',color: '#000000'});
 				submit.removeAttr("href");
 			}
 		}
@@ -347,12 +347,12 @@
 						</table>
 					</form>
 				</td>
-				<td id="continue">
+				<td class="continue" id="continue">
 					<a class="submit">Continue >></a>
 				</td>
 			</tr>
 			<tr>
-				<td id="mobile_continue">
+				<td class="continue" id="mobile_continue">
 					<a class="submit">Continue >></a>
 				</td>
 			</tr>
