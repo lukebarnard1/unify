@@ -121,7 +121,6 @@ function Conversation(conversation) {
 	for (key in conversation) {
 		this[key] = conversation[key];
 	}
-	console.log(this);
 
 	convo_html = view_conversation.render([this]);
 	var user_id = this.user_id;
@@ -133,20 +132,23 @@ function Conversation(conversation) {
 
 	var convo_div = this.convo_div;
 
-	this.convo_div[0].user_id = user_id;
-	this.convo_div[0].latest_pulled = latest_pulled;
+	this.latest_pulled = -1;
+	this.latest_seen_by_u2 = -1;
 
-	var messages_loaded = function (messages, timed_pull, animate) {
-		pulled_so_far = latest_pulled;
+	this.convo_div[0].user_id = user_id;
+	this.convo_div[0].latest_pulled = this.latest_pulled;
+
+	this.messages_loaded = function (messages, timed_pull, animate) {
+		pulled_so_far = this.latest_pulled;
 
 		for (msg_id in messages) {
 			message = messages[msg_id];
 			msg_int_id = parseInt(msg_id);
-			if (msg_int_id > latest_pulled) {
-				latest_pulled = msg_int_id;
+			if (msg_int_id > this.latest_pulled) {
+				this.latest_pulled = msg_int_id;
 			}
 			if (message.user_id1 == user.user_id && message.msg_seen == "1") {
-				latest_seen_by_u2 = parseInt(msg_id);
+				this.latest_seen_by_u2 = parseInt(msg_id);
 			}
 
 			message = messages[msg_id];
@@ -156,14 +158,14 @@ function Conversation(conversation) {
 			}
 		}
 
-		convo_div[0].latest_pulled = latest_pulled;
+		convo_div[0].latest_pulled = this.latest_pulled;
 
 		//Append the rendering of new messages
 		convo_div.append(view_chat_msg.render( modifier_messages(messages) ));
   		
-		if (pulled_so_far != latest_pulled) {
-			if (global_latest_pulled < latest_pulled) {
-				global_latest_pulled = latest_pulled;
+		if (pulled_so_far != this.latest_pulled) {
+			if (global_latest_pulled < this.latest_pulled) {
+				global_latest_pulled = this.latest_pulled;
 
 				user_sent = (user_id == user.user_id);
 
@@ -176,9 +178,6 @@ function Conversation(conversation) {
 			}
 		}
 	}
-
-	var latest_pulled = -1;
-	var latest_seen_by_u2 = -1;
 
 	this.load_messages = function (timed_pull, animate, callback) {
 		$.ajax({
@@ -201,7 +200,7 @@ function Conversation(conversation) {
 		});
 	}
 
-	messages_loaded(this.messages, false, false);
+	this.messages_loaded(this.messages, false, false);
 
 	this.add_message = function (message) {
 		var user_id = this.user_id;
@@ -229,6 +228,7 @@ function Conversation(conversation) {
 		});
 	}
 }
+
 
 function scroll_all() {
 	for (key in conversations) {
@@ -284,7 +284,6 @@ function move_current_conversation_left() {
  * Initial load of messages. This renders conversations too.
  */
 function initial_load(data) {
-	console.log("initial_load");
 	conversations = data;
 
 	conversations_exist = false;
@@ -331,13 +330,32 @@ function sort_conversations() {
 	scroll_all();
 }
 
-function timed_load() {
-	for (key in conversations) {
-		conversations[key].load_messages(true,true,sort_conversations);
+function multi_load(data) {
+	for (user_id in data) {
+		messages = data[user_id].messages;
+		conversations[user_id].messages_loaded(messages, true, true);
 	}
+	sort_conversations();
 }
 
-setInterval(timed_load,5000);
+function timed_load() {
+	request_data = {};
+	for (key in conversations) {
+		c = conversations[key];
+		request_data[key] = {};
+		request_data[key].user_id = key;
+		request_data[key].latest_pulled = c.latest_pulled;
+		request_data[key].latest_seen_by_u2 = c.latest_seen_by_u2;
+	}
+	$.ajax({
+		url: "script/chat_msg/get.php",
+		type: "POST",
+		dataType: "json",
+		data: request_data
+	}).done(function (data) {
+		multi_load(data);
+	});
+}
 
 /**
  * Load existing conversations on to the page.
@@ -355,9 +373,10 @@ function load_conversations() {
 			latest_seen_by_u2: -1
 		}
 	}).done(function (data) {
-		//A timed pull results in a sound being played, otherwise no sound is played
 		initial_load(data);
 	});
+
+	setInterval(timed_load,1000);
 }
 
 /**
