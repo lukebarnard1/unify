@@ -87,6 +87,10 @@ a:hover{
 	text-decoration: none;
 }
 
+.inner > .nav_dropdown > .search_bar {
+	display:none;
+}
+
 #nav_button_logout {
 	background-color: #000;
 	color: #fff;

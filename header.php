@@ -71,6 +71,10 @@
 				<img src="img/ddbutton.png"/>
 			</a>
 			<div class="nav_dropdown" id="nav_dropdown">
+				<div class="search_bar">
+					<input class="box" type="text" placeholder="Search for friends..." onkeyup="choose_friend(this.value,'friend_select1',view_friend)" autocomplete="off">
+					<div id="friend_select1"></div>
+				</div>
 				<?php
 					$links = array(
 						"Unify"=>"/",

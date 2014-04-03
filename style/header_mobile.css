@@ -52,3 +52,13 @@
 	color:#ffffff;
 	background-color:#4AB948;
 }
+
+.inner > .nav_dropdown > .search_bar {
+	display:block;
+}
+
+
+.inner > .nav_dropdown > .search_bar > input {
+	width:100%;
+	padding:5px;
+}

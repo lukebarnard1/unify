@@ -58,7 +58,7 @@ var nav_dropped = false;
 
 function hide_dropdown(animate) {
 	t = animate?500:0;
-	$('#nav_dropdown').animate({'height':'0px'},t);
+	$('#nav_dropdown').css({'height':'0px'});
 	$('#main').animate({'padding-top':main_previous_padding + "px"},t);
 	nav_dropped = false;
 }
@@ -77,16 +77,18 @@ window.addEventListener("load",load);
 
 var main_previous_padding = "0px";
 function toggle_nav_dropdown() {
-	ndd = $('#nav_dropdown');
-	t = 500;
+	var ndd = $('#nav_dropdown');
 
 	if (!nav_dropped) {
 		//Find out the true previous padding
-		main_previous_padding = parseInt($('#main').css('padding-top'));
-		ndd.css({'display':'block','height':'0px'}).animate({'height':'190px'}, t);
+		main_previous_padding = parseInt($("#main").css("padding-top"));
 
 		//Assume #main exists and give it some added padding
-		$('#main').animate({'padding-top':(190 + main_previous_padding) + "px"}, t);
+		$("#main").animate({"padding-top":(215 + main_previous_padding) + "px"}, 500, function () {
+
+			ndd.css({"display":"block","height":"0px"}).css({"height": "1000px"});
+
+		});
 		nav_dropped = true;
 	} else {
 		hide_dropdown(true);
