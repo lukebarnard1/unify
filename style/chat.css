@@ -26,7 +26,7 @@ table#conversations_table {
 
 .conversation_cell {
 	position: relative;
-	padding:35px 2px 100px 2px;
+	padding:32px 2px 100px 2px;
 	min-width:396px;
 	vertical-align: top;
 	overflow-y:hidden;
