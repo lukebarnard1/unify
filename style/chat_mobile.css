@@ -8,10 +8,15 @@
 	left:-50%;
 }
 
-.conversation_cell {
-	padding-bottom:100px;
-}
-
 .chat_msg, .chat_msg * {
 	font-size:10px;
+}
+
+#friend_selector {
+	display:none;
+	height:10px;
+}
+
+.conversation_cell {
+	max-width: 100%;
 }

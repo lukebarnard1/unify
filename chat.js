@@ -129,6 +129,7 @@ function Conversation(conversation) {
 	v.append(convo_html);
 
 	this.convo_div = $("#conversation"+user_id);
+	this.convo_div.previous_scroll = 0;
 
 	var convo_div = this.convo_div;
 
@@ -228,13 +229,19 @@ function Conversation(conversation) {
 			inp_div.innerHTML = "";
 		});
 	}
+
+	this.scroll_down = function (should_force) {
+		if (should_force || convo_div.scrollTop() >= convo_div.previous_scroll) {
+			convo_div.scrollTop(convo_div[0].scrollHeight);
+			convo_div.previous_scroll = convo_div.scrollTop();
+		}
+	}
 }
 
 
 function scroll_all() {
 	for (key in conversations) {
-		convo_div = $("#conversation" + key);
-		convo_div.scrollTop(convo_div[0].scrollHeight);
+		conversations[key].scroll_down(false);
 	}
 }
 
