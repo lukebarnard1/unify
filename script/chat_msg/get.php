@@ -17,7 +17,7 @@
 		} else {
 			$this_conversation = "((user_id1=\"$user->user_id\" AND user_id2=\"$user_id\") OR 
 			 					   (user_id2=\"$user->user_id\" AND user_id1=\"$user_id\"))";
-			$order_limit = "ORDER BY msg_id ASC LIMIT 100";
+			$order_limit = "ORDER BY msg_id ASC";
 		}
 
 		
