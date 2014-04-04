@@ -114,3 +114,10 @@ function toggle_nav_dropdown() {
 		hide_dropdown(true);
 	}
 }
+
+//Display a small message at the top of the page which will disappear automatically
+//This is to improve feedback to the users
+function display_quick_message(msg) {
+	$("#quick_message").html(msg);
+	$("#quick_message_spacer").css({height:"0px"}).animate({height:"28px"},200).delay(5000).animate({height:"0px"},200);
+}

@@ -178,7 +178,7 @@ a:hover{
 }
 
 .notification.seen > a:hover {
-background-color: #888;
+	background-color: #888;
 }
 
 .notification h2{
@@ -212,4 +212,23 @@ background-color: #888;
 .box {
 	background-color:#f0f0f0;
 	border-top:3px solid #dbdbdb;
+}
+
+#quick_message_spacer {
+	height:0px;
+}
+
+#quick_message_container {
+	height:0px;
+	text-align:center;
+}
+
+#quick_message {
+	display:inline-block;
+	padding:3px;
+	margin:auto;
+	border-radius: 0px 0px 5px 5px;
+	background-color: #000;
+	color: #fff;
+	text-align: center;
 }
