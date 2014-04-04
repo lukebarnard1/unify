@@ -4,6 +4,18 @@ view_nav_button_chat = new Template("view/nav_button_chat.html");
 view_notification = new Template("view/notification.html");
 view_group = new Template("view/group.html");
 
+view_friend = new Template("view/friend.html");
+
+modifier_friend_search = function (data, input_data) {
+	query = input_data.q;
+	for (var data_index in data) {
+		friend = data[data_index];
+		patt = new RegExp(query,"gi");
+		friend.user_name = friend.user_name.replace(patt,"<span class='bold'>" + query + "</span>");
+	}
+	return data;
+}
+
 modifier_notifications = function (data, input_data) {
 	n = data.length;
 	for (var index in data) {
@@ -22,6 +34,14 @@ modifier_notifications = function (data, input_data) {
 	return data;
 }
 
+function choose_friend(query, target_id, view) {
+	target = id(target_id);
+	if ($.trim(query) != "") {
+		ajax_request(target, false, view, modifier_friend_search, "script/user/search.php", { q : query });
+	} else {
+		target.style.display = "none";
+	}
+}
 
 function update_unread_messages() {
 	ajax_request(id("nav_button_chat"), false, view_nav_button_chat, modifier_relay, "script/chat_msg/number_unseen.php");

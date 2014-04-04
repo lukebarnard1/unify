@@ -83,6 +83,29 @@ a:hover{
 	color:#ffffff;
 }
 
+.friend {
+	clear:both;
+	position:relative;
+	margin-top:-1px;
+	font-size: 11px;
+	line-height: 16px;
+	min-height: 32px;
+	color:#444;
+}
+
+.friend:hover{
+	background-color: #444;
+	color: #fff;
+}
+
+.friend .small_display_picture {
+	vertical-align:center;
+	float:left;
+	margin-right:3px;
+	width:32px;
+	height:32px;
+}
+
 .nav_bar > .inner .nav_button:hover {
 	text-decoration: none;
 }

@@ -7,7 +7,6 @@ view_post = new Template("view/post.html");
 view_visible_post = new Template("view/post.html");
 view_hidden_post = new Template("view/hidden_post.html");
 
-view_friend = new Template("view/friend.html");
 view_group_member = new Template("view/member_in_group.html");
 view_member = new Template("view/member.html");
 
@@ -21,16 +20,6 @@ view_post.render = function (data) {
 		}
 	}
 	return result;
-}
-
-modifier_friend_search = function (data, input_data) {
-	query = input_data.q;
-	for (var data_index in data) {
-		friend = data[data_index];
-		patt = new RegExp(query,"gi");
-		friend.user_name = friend.user_name.replace(patt,"<span class='bold'>" + query + "</span>");
-	}
-	return data;
 }
 
 //Current page in terms of posts avaiable to the user
@@ -86,15 +75,6 @@ function get_args() {
 	}
 	s = {name : arguments.callee.name, arguments : args};
 	return s;
-}
-
-function choose_friend(query, target_id, view) {
-	target = id(target_id);
-	if ($.trim(query) != "") {
-		ajax_request(target, false, view, modifier_friend_search, "script/user/search.php", { q : query });
-	} else {
-		target.style.display = "none";
-	}
 }
 
 function choose_member(query, target_id, view) {
