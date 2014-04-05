@@ -106,4 +106,4 @@
 		</div>
 	</div>
 	<div id="quick_message_spacer">&nbsp;</div>
-	<div id="quick_message_container"><div id="quick_message">Your post was successful</div></div>
+	<div id="quick_message_container"><div id="quick_message"></div></div>

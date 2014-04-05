@@ -223,7 +223,16 @@ function add_comment(e, post_id, page) {
 
 function add_member(member_id) {
 	//Send a member a request to join this group by email
-	ajax_push("script/grouping/request.php",{group_id:group.group_id,user_id:member_id},function(data){alert(data.message)});
+	ajax_push(
+		"script/grouping/request.php",
+		{group_id:group.group_id,user_id:member_id},
+		function(data){
+			if (data.code == "0") {
+				$("#member_search").html("")[0].blur();
+				$("#member_select").css({display:"none"});
+			}
+		}
+	);
 }
 
 function comment_enable(e, post_id) {

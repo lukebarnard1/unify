@@ -16,7 +16,7 @@
 		$grouping = DataObject::create($dao,"grouping",array("group_id"=>$group->group_id,"user_id"=>$user->user_id));
 		$grouping->commit();
 		if ($grouping) {
-			redirect("/group/".$grouping->group_id);
+			redirect("/",array("group_id"=>$grouping->group_id,"m"=>"16"));
 		} else {
 			redirect("/?m=11");//Could not add you to the group after creating it!
 		}

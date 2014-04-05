@@ -60,7 +60,15 @@ function add_group(event) {
 
 function load_groups() {
 	callback = function () {
-		groups.innerHTML += "<div style=\"background-color:#fff;color:#000\" onkeydown=\"if(event.keyCode==13)add_group(event);\" onblur=\"this.innerHTML=(this.innerHTML==''?'New group':this.innerHTML)\" onclick=\"this.contentEditable='true';this.innerHTML=(this.innerHTML=='New group')?'':this.innerHTML;\">New group</div>";
+		groups.innerHTML += ""+
+			"<div "
+				+ "style=\"background-color:#ddd;color:#333;border:1px solid #444\" "
+				+ "onkeydown=\"if(event.keyCode==13)add_group(event);\" "
+				+ "onblur=\"this.innerHTML=(this.innerHTML==''?'New group name':this.innerHTML)\" "
+				+ "onclick=\"this.contentEditable='true';this.innerHTML=(this.innerHTML=='New group name')?'':this.innerHTML;\" "
+				+ "title=\"Type the name of your new group here\">"
+					+"New group name"
+			+"</div>";
 	}
 
 	ajax_request(groups, false, view_group, modifier_relay, "script/user_group/get.php",null,callback);
@@ -118,6 +126,7 @@ function toggle_nav_dropdown() {
 //Display a small message at the top of the page which will disappear automatically
 //This is to improve feedback to the users
 function display_quick_message(msg) {
+	console.log("Displaying message: "+msg);
 	$("#quick_message").html(msg);
-	$("#quick_message_spacer").css({height:"0px"}).animate({height:"28px"},200).delay(5000).animate({height:"0px"},200);
+	$("#quick_message_spacer").css({height:"0px"}).animate({height:"28px"},200).delay(1000).animate({height:"0px"},200);
 }

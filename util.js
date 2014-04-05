@@ -46,11 +46,8 @@ function ajax_push(url, in_data, callback) {
 	}
 	$.ajax(a).done(
 		function(data) {
-			if (data.code == 0) {
-				callback();
-			}else{
-				console.log("ajax_push returned failure: "+data.message);
-			}
+			display_quick_message(data.message);
+			callback(data);
 		}
 	);
 }

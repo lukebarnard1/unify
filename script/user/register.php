@@ -29,7 +29,7 @@
 		// - Email confirmation
 		// - Cohort exists or not?
 		
-		$dao->myquery("SELECT user_email FROM user WHERE user_email = \"$user_email\";");
+		$dao->myquery("SELECT user_email FROM user WHERE user_email LIKE \"%$user_email\";");
 		if ($dao->fetch_num_rows() == 0) {
 			//Insert the user into the database, and retreive the user_id
 			
