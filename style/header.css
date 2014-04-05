@@ -149,25 +149,23 @@ a:hover{
 	z-index:1000;
 }
 
-.notification {
-	line-height:1em;
-}
-
 .nav_bar > .inner .nav_button:hover,
 .nav_bar > .inner .nav_button.selected {
 	background-color:#3D9A3C;
 }
 
 .notification {
+	line-height:1em;
 	margin:0px 0px -1px 0px;
-	background-color: #4AB948;
-	color: #fff;
+	border:1px solid #f0f0f0;
 	text-align: left;
+	background-color: #ffffff;
+	color: #222;
 }
 
 .notification.seen {
-	background-color: #f0f0f0;
-	color: #666;
+	background-color: #ffffff;
+	color: #ccc;
 }
 
 .notification > a:hover {
