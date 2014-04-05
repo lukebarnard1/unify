@@ -52,7 +52,15 @@
 			$post->page = $page_from;
 		}
 
-		$query = "SELECT comment.comment_id,comment.comment_content,user.user_name,user.user_id,user.user_picture, (user.user_id=\"$user->user_id\") AS can_delete FROM comment JOIN user ON user.user_id=comment.user_id WHERE comment.post_id=\"$post->post_id\" ORDER BY comment.comment_id ASC;";
+		$query = "SELECT comment.comment_id, 
+						 comment.comment_content, 
+						 user.user_name, 
+						 user.user_id, 
+						 user.user_picture, 
+						 comment.comment_time, 
+						 (user.user_id=\"$user->user_id\") AS can_delete 
+						 FROM comment JOIN user ON user.user_id=comment.user_id 
+						 WHERE comment.post_id=\"$post->post_id\" ORDER BY comment.comment_id ASC;";
 		$dao->myquery($query);
 		$post->comments = $dao->fetch_all_obj();
 		foreach ($post->comments as $comment) {

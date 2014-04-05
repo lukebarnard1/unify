@@ -120,6 +120,7 @@ comment_id int NOT NULL AUTO_INCREMENT,
 user_id int NOT NULL,
 post_id int NOT NULL,
 comment_content TINYTEXT NOT NULL,
+comment_time datetime NOT NULL,
 
 PRIMARY KEY (comment_id),
 FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,

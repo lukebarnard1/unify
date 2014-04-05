@@ -12,7 +12,14 @@
 	$comment_content = $_POST["comment_content"];
 
 	if ($comment_content != "") {
-		$comment = DataObject::create($dao,"comment",array("user_id"=>$user->user_id,"post_id"=>$post_id,"comment_content"=>$comment_content));
+		$comment = DataObject::create($dao,"comment",
+			array(
+				"user_id"=>$user->user_id,
+				"post_id"=>$post_id,
+				"comment_content"=>$comment_content,
+				"comment_time"=>date("Y-m-d H:i:s")
+			)
+		);
 		if ($comment->commit()){
 			//Comment has been added, notifier the orignal poster
 

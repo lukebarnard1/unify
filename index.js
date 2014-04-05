@@ -29,17 +29,23 @@ last_page = -1;
 //Can more posts be loaded or are we still waiting for posts?
 can_load_more_posts = true;
 
+function format_time (time) {
+	t = time.split(/[: -]/);
+	return (new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5])).toLocaleString();
+}
+
 modifier_post = function (post, input_data) {
 	for (var comment_index in post.comments) {
 		comment = post.comments[comment_index];
-		post.comments[comment_index].display_delete = (comment.can_delete==1)?"inline":"none";
+		comment.comment_time = format_time(comment.comment_time);
+		comment.display_delete = (comment.can_delete==1)?"inline":"none";
+		post.comments[comment_index] = comment;
 	}
 
 	post.post_is_hidden = (post.post_is_hidden == 1);
 
 	post.post_comments = view(post.comments, view_comment);
-	t = post.post_time.split(/[: -]/);
-	post.post_time = (new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5])).toLocaleString();
+	post.post_time = format_time(post.post_time);
 
 	post.upvote_img = ((post.can_vote==0)? "disable_" : "") + "upvote.png";
 	post.downvote_img = ((post.can_vote==0)? "disable_" : "") + "downvote.png";

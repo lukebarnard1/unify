@@ -179,6 +179,14 @@
 	font-size:11pt;
 }
 
+#column2 .post .comment_time {
+	font-style:italic;
+	font-size:12px;
+	text-align:right;
+	margin:8px 4px 0px 0px;
+	color:#888;
+}
+
 #column2 .hidden_post {
 
 	padding:5px;
