@@ -26,6 +26,22 @@
 		$tmp_name = $_FILES["file"]["tmp_name"];
 		$im = img_create($type, $tmp_name);
 		if ($im) {
+
+			$exif = exif_read_data($tmp_name);
+			if (!empty($exif["Orientation"])) {
+				switch ($exif["Orientation"]) {
+					case 3:
+						$im = imagerotate($im, 180, 0);
+						break;
+					case 6:
+						$im = imagerotate($im, -90, 0);
+						break;
+					case 8:
+						$im = imagerotate($im, 90, 0);
+						break;
+				}
+			}
+
 			$w = imagesx($im);
 			$h = imagesy($im);
 
@@ -58,10 +74,10 @@
 
 			$dao->myquery("UPDATE user SET user_picture=\"$user->user_picture\" WHERE user_id=\"$user->user_id\";");
 		} else {
-			echo "Could not create image.";
+			redirect($_POST["r"]);
 		}
 	} else {
-		echo "Bad image type!";
+		redirect($_POST["r"]);
 	}
 	header("Connection: close");
 	redirect($_POST["r"]);
