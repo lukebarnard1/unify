@@ -8,31 +8,38 @@
 	include_once("../util/mysql.php");
 	include_once("../util/redirect.php");
 
+	$user_id1 = $user->user_id;
 	$user_id2 = $_GET["user_id2"];
 
-	$dao = new DAO();
+	$dao = new DAO(false);
 
 	$connection = DataObject::select_one($dao, "connection", 
 		array("connection_id"), 
-		array("user_id1" => $user->user_id,
+		array("user_id1" => $user_id1,
 			  "user_id2" => $user_id2)
 	);
 
 	if ($connection) {
 		$connection->delete();
-		redirect("/user/" . $user_id2);
 	} else {
 		// Reverse connection
 		$connection = DataObject::select_one($dao, "connection", 
 			array("connection_id"), 
-			array("user_id2" => $user->user_id,
+			array("user_id2" => $user_id1,
 				  "user_id1" => $user_id2)
 		);
 		if ($connection) {
 			$connection->delete();
-			redirect("/user/" . $user_id2);
-		} else {
-			redirect("/user/" . $user_id2);
 		}
 	}
+
+	//Now delete the messages relating to these two users
+
+	$delete_query = "DELETE FROM chat_msg WHERE ".
+	 					"(user_id1 = $user_id1 AND user_id2 = $user_id2) OR".
+	 					"(user_id2 = $user_id1 AND user_id1 = $user_id2);";
+
+	$dao->myquery($delete_query);
+
+	redirect("/user/" . $user_id2);
 ?>
