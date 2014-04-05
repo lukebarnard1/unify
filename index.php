@@ -96,7 +96,7 @@
 						}
 					} else if (!isset($_GET["post_id"])){
 				?>
-					<h1>your news feed</h1>
+					<h1>Your news feed</h1>
 				<?php
 					}
 					if ($can_post && !isset($_GET["post_id"])) {
@@ -118,7 +118,7 @@
 						if (!$selected_user->request_sent) {
 				?>
 					<div class="post unify">
-						<h1>you are not friends with <?php echo $selected_user->user_name;?></h1>
+						<h1>You are not friends with <?php echo $selected_user->user_name;?></h1>
 						<ol>
 							<li>Find <?php echo $selected_user->user_name;?>. You must be within <u>10 metres</u> of each other.</li>
 							<li>Click "unify" (below)</li>
@@ -146,9 +146,29 @@
 								});
 							}
 
+							function location_error(error) {
+								l = id("unify_link");
+								l.innerHTML = "Location could not be determined: ";
+								switch (error.code) {
+									case error.PERMISSION_DENIED:
+										l.innerHTML += "permission denied";
+										break;
+									case error.POSITION_UNAVAILABLE:
+										l.innerHTML += "position unavailable";
+										break;
+									case error.TIMEOUT:
+										l.innerHTML += "getting location timed out";
+										break;
+									case error.UNKNOWN_ERROR:
+										l.innerHTML += "please try again";
+										break;
+
+								}
+							}
+
 							function start_unify() {
 								id("unify_link").innerHTML = "please wait...";
-								navigator.geolocation.getCurrentPosition(send_request);
+								navigator.geolocation.getCurrentPosition(send_request,location_error);
 							}
 						</script>
 					</div>
@@ -156,11 +176,8 @@
 						} else {
 							?>
 							<div class="post unify">
-								<h1>unification in progress</h1>
-								<ol>
-									<li>Ask <?php echo $selected_user->user_name;?> to go to your page and click "unify"</li>
-									<li>Unification is complete</li>
-								</ol>
+								<h1>Unification in progress</h1>
+								<p>Ask <?php echo $selected_user->user_name;?> to go to your page and click "unify".</p>
 								<a href="script/connection/delete_request.php">Cancel Unification</a>
 							</div>
 							<?php
