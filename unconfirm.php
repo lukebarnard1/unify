@@ -1,6 +1,6 @@
 <?php
-	include "script/mysql.php";
-	include "script/redirect.php";
+	include "script/util/mysql.php";
+	include "script/util/redirect.php";
 	
 	$dao = new DAO();
 	$rnd = $dao->escape($_GET["rnd"]);

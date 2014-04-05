@@ -79,9 +79,22 @@
 				}
 				//send rnd to the user and a link which will return rnd to the server for confirmation	
 				
-				$conf = DataObject::create($dao, "confirmation", array("conf_rnd"=>$rnd,"user_id"=>$user->get_primary_id(),"user_email"=>$user_email));
+				$send_email = false;
 
-				if($conf->commit()){
+				//If the confirmation has already been sent, just resend it. Don't craete a new confimation
+				if (NULL != DataObject::select_one($dao, "confirmation", array("conf_id"), array("user_email"=>$user_email))){
+					$send_email = true;
+				} else {
+					$conf = DataObject::create($dao, "confirmation", array("conf_rnd"=>$rnd,"user_id"=>$user->get_primary_id(),"user_email"=>$user_email));
+
+					if ($conf->commit()){
+						$send_email = true;
+					} else {
+						redirect("../../register/",array_merge(array("m" => "6"),$_POST));//This should never happen
+					}
+				}
+
+				if($send_email){
 					$subject = "Confirm your account";
 					$body = "<p>Hello ".$user_name.",</p>".
 								"<p>Thank you for joining Unify! Trust me, this is the best decision you've ever made.</p>".

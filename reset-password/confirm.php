@@ -11,7 +11,7 @@
 	include "../script/mail/send.php";
 
 	$dao = new DAO(false);
-
+	$user = new stdClass();
 	$user->user_id = $dao->escape($_GET["user_id"]);
 	$conf_rnd = $dao->escape($_GET["conf_rnd"]);
 ?>

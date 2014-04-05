@@ -130,8 +130,6 @@ function reload_page(p) {
 }
 
 function reload_feed() {
-	console.log("Reload feed to "+page);
-
 	for (i = 0; i <= last_page; i++) {
 		reload_page(i);
 	}
