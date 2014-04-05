@@ -128,5 +128,5 @@ function toggle_nav_dropdown() {
 function display_quick_message(msg) {
 	console.log("Displaying message: "+msg);
 	$("#quick_message").html(msg);
-	$("#quick_message_spacer").css({height:"0px"}).animate({height:"28px"},200).delay(1000).animate({height:"0px"},200);
+	$("#quick_message_spacer").css({height:"0px"}).animate({height:"28px"},200).delay(2000).animate({height:"0px"},200);
 }
