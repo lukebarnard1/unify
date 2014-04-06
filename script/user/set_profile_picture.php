@@ -27,21 +27,22 @@
 		$im = img_create($type, $tmp_name);
 		if ($im) {
 
-			$exif = exif_read_data($tmp_name);
-			if (!empty($exif["Orientation"])) {
-				switch ($exif["Orientation"]) {
-					case 3:
-						$im = imagerotate($im, 180, 0);
-						break;
-					case 6:
-						$im = imagerotate($im, -90, 0);
-						break;
-					case 8:
-						$im = imagerotate($im, 90, 0);
-						break;
+			if (function_exists("exif_read_data")){
+				$exif = exif_read_data($tmp_name);
+				if (!empty($exif["Orientation"])) {
+					switch ($exif["Orientation"]) {
+						case 3:
+							$im = imagerotate($im, 180, 0);
+							break;
+						case 6:
+							$im = imagerotate($im, -90, 0);
+							break;
+						case 8:
+							$im = imagerotate($im, 90, 0);
+							break;
+					}
 				}
 			}
-
 			$w = imagesx($im);
 			$h = imagesy($im);
 
