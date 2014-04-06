@@ -307,6 +307,7 @@ function initial_load(data) {
 	ajax_request(id("friends"), true, view_friend_select, modifier_relay, "script/user/friends.php");
 
 	sort_conversations();
+	set_current_conversation_first(false);
 }
 
 function sort_conversations() {
