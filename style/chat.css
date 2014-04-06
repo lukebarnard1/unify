@@ -15,7 +15,7 @@ td,body{
 }
 
 .convo_table_container {
-	width:400px;
+	width:380px;
 	margin:auto;
 	height:100%
 }
@@ -37,7 +37,7 @@ table#conversations_table {
 .conversation_cell {
 	position: relative;
 	padding:0px 2px 0px 2px;
-	min-width:396px;
+	min-width:376px;
 	vertical-align: top;
 	overflow-y:hidden;
 }
@@ -78,7 +78,7 @@ table#conversations_table {
 .conversation_input {
 	position:absolute;
 	bottom:0px;
-	width:394px;
+	width:374px;
 	min-height:20px;
 	border-top: 3px solid #aaa;
 	padding:2px 2px 0px 2px;
@@ -95,6 +95,12 @@ table#conversations_table {
 	max-height: 100%;
 	vertical-align: bottom;
 	overflow-y:auto;
+	-webkit-overflow-scrolling: touch; 
+}
+
+.chat_msg, .chat_msg * {
+	
+	font-size:9pt;
 }
 
 .chat_msg {
@@ -142,7 +148,7 @@ table#conversations_table {
 }
 
 #friends {
-	width:390px;
+	width:370px;
 	height:70px;
 	padding:2px;
 	margin:auto;

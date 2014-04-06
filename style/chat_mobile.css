@@ -8,10 +8,6 @@
 	left:-50%;
 }
 
-.chat_msg, .chat_msg * {
-	font-size:10px;
-}
-
 #friend_selector {
 	display:none;
 	height:10px;

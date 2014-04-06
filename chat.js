@@ -248,8 +248,7 @@ function scroll_all() {
 }
 
 function update_current_conv(animate) {
-	console.log("Update to " + current_conversation);
-	left = -400 * current_conversation;
+	left = -380 * current_conversation;
 
 	$("#conversations_table").animate({marginLeft:left+"px"},animate?500:0);
 
