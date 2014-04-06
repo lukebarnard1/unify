@@ -91,9 +91,11 @@
 									Add a member...
 								</div>
 								<div id="member_select"></div>
-								<div id="group_members"></div>
 							<?php
 						}
+						?>
+							<div id="group_members"></div>
+						<?php
 					} else if (!isset($_GET["post_id"])){
 				?>
 					<h1>Your news feed</h1>
