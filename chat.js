@@ -24,6 +24,7 @@ var animation_interval = 0;
 var title_animation = [];
 var title_animation_prefix = "";
 var frame = 0;
+var flashed_title = "";
 
 modifier_messages = function(data) {
 	for (i in data) {
@@ -50,7 +51,7 @@ function flash_title() {
 	}
 
 	if (title_flashed) {
-		document.title = "Unify - New Messages";
+		document.title = flashed_title;
 	} else {
 		reset_title();
 	}
@@ -62,11 +63,13 @@ function stop_flashing() {
 	reset_title();
 }
 
-function start_flashing() {
-	original_title = document.title;
+function start_flashing(message_user_name, message_content) {
+	flashed_title = message_user_name + ": " + message_content.substring(0, 20) + (message_content.length > 20?"...":"");
+
 	title_flashed = true;
+
 	clearInterval(flashing_interval);
-	flashing_interval = setInterval(flash_title,500);
+	flashing_interval = setInterval(flash_title, 1000);
 	flash_title();
 }
 
@@ -78,7 +81,7 @@ function animate_title () {
 		mid_animation = frame<title_animation.length;
 
 		document.title = title_animation_prefix + ": " + title_animation[mid_animation?(frame<0?0:frame):(title_animation.length-1)] + (mid_animation?"...":"");
-		frame = frame + 1; // + 10 for the delay at the end
+		frame = frame + 1;
 		if (frame == title_animation.length + 10) {
 			frame = -10;
 		}
@@ -86,7 +89,6 @@ function animate_title () {
 }
 
 function start_ticking(prefix, text) {
-	original_title = document.title;
 
 	width = 20;//20 Character-wide animation
 	frames = text.length + 1 - width;
@@ -101,12 +103,12 @@ function start_ticking(prefix, text) {
 
 	frame = -10;
 	clearInterval(animation_interval);
-	animation_interval = setInterval(animate_title, 100);
+	animation_interval = setInterval(animate_title, 10);
 }
 
 function alert_user(message_user_name, message_content) {
 	document.getElementById('snd_msg').play();
-	start_ticking(message_user_name, message_content);
+	start_flashing(message_user_name, message_content);
 }
 
 function queue_jump(follow) {
@@ -369,6 +371,7 @@ function timed_load() {
  * Load existing conversations on to the page.
  */
 function load_conversations() {
+	original_title = document.title;
 	//Load the most recent 100 messages from all friends into this page
 	//Each message comes with a user_id, so just direct it to the correct conversation
 	$.ajax({
@@ -386,6 +389,7 @@ function load_conversations() {
 
 	setInterval(timed_load,1000);
 }
+window.addEventListener("load",load_conversations);
 
 /**
  * Add a conversation with someone to the conversations box (or switch to it if it exists).
@@ -431,6 +435,5 @@ function send_message(event, user_id) {
 	fd.append("user_id",user_id);
 }
 
-window.addEventListener("load",load_conversations);
 
 
