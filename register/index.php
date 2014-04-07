@@ -16,17 +16,12 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 	<title>Unify - Register</title>
 	<style type="text/css">
-		/*For development:*/
 		*{
 			margin:0;
 			padding:0;
 			
 			font-family: Arial, sans-serif;
 		}
-		*{
-/* 			outline:1px #f00 solid; */
-		}
-		
 		
 		html,body {
 			background-color:#fff;
@@ -248,6 +243,10 @@
 													data[i]["course_name"]+"\")'>" +
 													data[i]["course_name"] + "</a><br>";
 						}
+						//Focus on the first result
+						if (selector.childNodes.length > 0) {
+							selector.childNodes[0].focus();
+						}
 					} else {
 						selector.style.display = "none";
 					}	
@@ -290,7 +289,7 @@
 							</tr>
 							<tr>
 								<td>Confirm email:</td>
-								<td><input id="ea2" onkeyup="verify_email()" class="text" type="text" placeholder="Confirm email" name="conf_email" value="<?php echo GET('conf_email');?>"></td>
+								<td><input id="ea2" onkeyup="verify_email()" class="text" type="text" autocomplete="off" placeholder="Confirm email" name="conf_email" value="<?php echo GET('conf_email');?>"></td>
 							</tr>
 							<tr>
 								<td>New password:</td>

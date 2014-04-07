@@ -105,7 +105,7 @@
 					<h1>register</h1>
 					<p>Enter your details below to join unify.</p>
 					<form action="../register/" method="GET">
-						<div style="padding-right:5px"><input class="text" type="text" placeholder="Name" name="user_name"></div>
+						<div style="padding-right:5px"><input class="text" type="text" placeholder="Full Name" name="user_name"></div>
 						<div style="padding-right:5px"><input class="text" type="text" placeholder="Email" name="user_email"></div>
 						<input class="submit" type="submit" value="Register">
 					</form>
