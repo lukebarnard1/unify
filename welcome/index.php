@@ -106,7 +106,7 @@
 					<p>Enter your details below to join unify.</p>
 					<form action="../register/" method="GET">
 						<div style="padding-right:5px"><input class="text" type="text" placeholder="Full Name" name="user_name"></div>
-						<div style="padding-right:5px"><input class="text" type="text" placeholder="Email" name="user_email"></div>
+						<div style="padding-right:5px"><input class="text" type="email" placeholder="Email" name="user_email"></div>
 						<input class="submit" type="submit" value="Register">
 					</form>
 				</div>
@@ -114,7 +114,7 @@
 					<h1>login</h1>
 					<p>Enter your details below to login:</p>
 					<form action="../script/user/login.php" method="POST">
-						<div style="padding-right:5px"><input id="login_mail" class="text" type="text" placeholder="Email" name="user_email" value="<?php if(isset($_GET["user_email"]))echo $_GET["user_email"];?>"></div>
+						<div style="padding-right:5px"><input id="login_mail" class="text" type="email" placeholder="Email" name="user_email" value="<?php if(isset($_GET["user_email"]))echo $_GET["user_email"];?>"></div>
 						<div style="padding-right:5px"><input id="login_pwd" class="text" type="password" placeholder="Password" name="user_password"></div>
 						<input type="hidden" name="r" value="<?php echo $r;?>">
 						<input class="submit" type="submit" value="Login"><br>

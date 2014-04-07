@@ -14,6 +14,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title>Unify - Register</title>
 	<style type="text/css">
 		*{
@@ -285,11 +286,11 @@
 							</tr>
 							<tr>
 								<td>Email address:</td>
-								<td><input id="ea1" onkeyup="verify_email()" class="text" type="text" placeholder="Email" name="user_email" value="<?php echo GET('user_email');?>"></td>
+								<td><input id="ea1" onkeyup="verify_email()" class="text" type="email" placeholder="Email" name="user_email" value="<?php echo GET('user_email');?>"></td>
 							</tr>
 							<tr>
 								<td>Confirm email:</td>
-								<td><input id="ea2" onkeyup="verify_email()" class="text" type="text" autocomplete="off" placeholder="Confirm email" name="conf_email" value="<?php echo GET('conf_email');?>"></td>
+								<td><input id="ea2" onkeyup="verify_email()" class="text" type="email" autocomplete="off" placeholder="Confirm email" name="conf_email" value="<?php echo GET('conf_email');?>"></td>
 							</tr>
 							<tr>
 								<td>New password:</td>
