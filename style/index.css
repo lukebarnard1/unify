@@ -1,6 +1,6 @@
 #main {
 	margin:auto;
-	width:100%;
+	/*width:100%;*/
 	max-width:700px;
 
 	height:100%;
@@ -347,13 +347,11 @@
 }
 
 #column2 .post .comments .comment {
+	word-break: break-word;
 	min-height:50px;
 	margin-bottom:-1px;
 	position:relative;
-	padding:3px;
-	/*background-color: #90F000;*/
-	/*border-bottom:5px solid #77DD00;*/
-	/*color:#fff;*/
+	padding:3px 20px 3px 3px;
 	color:#444;
 }
 
