@@ -1,6 +1,11 @@
-<div class="notification {notif_class}">
+<div class="notification {notif_class}" style="position:relative">
 	<a href="{notif_read_link}">
 		<h2>{notif_title}</h2>
 		<p>{notif_message}</p>
 	</a>
+	<img style="width:8px;position:absolute;top:0px;right:0px;cursor:pointer;" 
+		 onclick="delete_notification({notif_id})" 
+		 title="Delete notification" 
+		 alt="delete notification" 
+		 src="img/cross.png">
 </div>

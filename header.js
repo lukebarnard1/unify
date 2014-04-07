@@ -126,7 +126,18 @@ function toggle_nav_dropdown() {
 //Display a small message at the top of the page which will disappear automatically
 //This is to improve feedback to the users
 function display_quick_message(msg) {
-	console.log("Displaying message: "+msg);
 	$("#quick_message").html(msg);
-	$("#quick_message_spacer").css({height:"0px"}).animate({height:"28px"},200).delay(2000).animate({height:"0px"},200);
+	$("#quick_message_spacer").stop().animate({height:"28px"},200).delay(2000).animate({height:"5px"},200);
+}
+
+function delete_notification(notif_id) {
+	ajax_push(
+		"script/notification/delete.php",
+		{notif_id: notif_id},
+		function(data){
+			if (data.code == "0") {
+				load_notifications();
+			}
+		}
+	);
 }

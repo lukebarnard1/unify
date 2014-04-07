@@ -213,7 +213,7 @@ a:hover{
 }
 
 #quick_message_spacer {
-	height:0px;
+	height:5px;
 }
 
 #quick_message_container {
@@ -223,9 +223,9 @@ a:hover{
 
 #quick_message {
 	display:inline-block;
+	min-width: 200px;
 	padding:3px;
 	margin:auto;
-	border-radius: 0px 0px 5px 5px;
 	background-color: #000;
 	color: #fff;
 	text-align: center;
