@@ -3,23 +3,15 @@
 	
 	include "../util/session.php";
 	include_once("../util/mysql.php");
+
+	$INITIAL_CONVO_SIZE = 30;
 	
-
-	$dao = new DAO(false);
-	function get_conversations($user_id, $latest_pulled, $latest_seen_by_u2){
+	function get_conversations($dao, $user_id, $latest_pulled, $latest_seen_by_u2){
 		global $user;
-		global $dao;
+		global $INITIAL_CONVO_SIZE;
 
-		if ($user_id == "-1"){
-			$this_conversation = "(user_id1=\"$user->user_id\" OR 
-			 					   user_id2=\"$user->user_id\")";
-			$order_limit = "ORDER BY msg_id ASC";
-		} else {
-			$this_conversation = "((user_id1=\"$user->user_id\" AND user_id2=\"$user_id\") OR 
-			 					   (user_id2=\"$user->user_id\" AND user_id1=\"$user_id\"))";
-			$order_limit = "ORDER BY msg_id ASC LIMIT 100";
-		}
-
+		$this_conversation = "((user_id1=\"$user->user_id\" AND user_id2=\"$user_id\") OR 
+		 					   (user_id2=\"$user->user_id\" AND user_id1=\"$user_id\"))";
 		
 		$properties = array("msg_id","user_id1","user_id2","user_name","msg_content","msg_seen");
 
@@ -28,15 +20,16 @@
 			// by this client.
 		if ($latest_pulled != -1){
 			$query = "SELECT ".implode(",",$properties)." FROM
-					chat_msg JOIN user ON user.user_id=user_id1 
-					WHERE $this_conversation
-						AND ((msg_id > $latest_seen_by_u2 AND msg_seen AND user_id2=\"$user_id\")
-						      OR (msg_id > $latest_pulled))
-					$order_limit ;";
-		} else {
-			$query = "SELECT ".implode(",",$properties)." FROM
 						chat_msg JOIN user ON user.user_id=user_id1 
-			 			WHERE $this_conversation $order_limit ;";
+						WHERE $this_conversation
+							AND ((msg_id > $latest_seen_by_u2 AND msg_seen AND user_id2=\"$user_id\")
+							      OR (msg_id > $latest_pulled))
+						ORDER BY msg_id ASC;";
+		} else {
+			$query = "(SELECT ".implode(",",$properties)." FROM
+						chat_msg JOIN user ON user.user_id=user_id1 
+			 			WHERE $this_conversation
+			 			ORDER BY msg_id DESC LIMIT $INITIAL_CONVO_SIZE) ORDER BY msg_id ASC;";
 		}
 
 		$dao->myquery($query);
@@ -89,16 +82,29 @@
 		return $conversations;
 	}
 
+	$dao = new DAO(false);
+
 	if (isset($_POST["user_id"])) {
-		$user_id = $dao->escape($_POST["user_id"]);
-		$latest_pulled = $dao->escape($_POST["latest_pulled"]);
-		$latest_seen_by_u2 = $dao->escape($_POST["latest_seen_by_u2"]);
-		echo json_encode_strip(get_conversations($user_id, $latest_pulled, $latest_seen_by_u2));
+		//Get an array of all the conversations
+		$conversations_query = "(SELECT user_id2 AS user_id FROM chat_msg WHERE user_id1=$user->user_id GROUP BY user_id2) 
+								UNION 
+								(SELECT user_id1 AS user_id FROM chat_msg WHERE user_id2=$user->user_id GROUP BY user_id1)";
+		$dao->myquery($conversations_query);
+		$conversation_requests = $dao->fetch_all_part(array("user_id"));
+
+		$conversations = array();
+		foreach ($conversation_requests as $request) {
+			$c = get_conversations($dao, $request["user_id"], -1, -1)[$request["user_id"]];
+			$conversations[$request["user_id"]] = $c;
+		}
+		echo json_encode_strip($conversations);
+
 	} else {
 		$conversation_requests = $_POST;
 		$conversations = array();
 		foreach ($conversation_requests as $request) {
 			$c = get_conversations(
+				$dao,
 				$request["user_id"],
 				$request["latest_pulled"],
 				$request["latest_seen_by_u2"])[$request["user_id"]];
@@ -106,4 +112,5 @@
 		}
 		echo json_encode_strip($conversations);
 	}
+
 ?>
