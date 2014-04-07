@@ -11,7 +11,7 @@
 				if ($row) {
 					$selected_group = new stdClass();
 					$selected_group->group_id = $row->group_id;
-					$selected_group->group_name = $row->group_name;
+					$selected_group->group_name = stripslashes($row->group_name);
 					$selected_group->posting_enabled = true;
 					$selected_group->can_be_added_to = true;
 
