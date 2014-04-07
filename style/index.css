@@ -403,6 +403,20 @@ img.delete_comment {
 	margin:5px 5px 5px 30px;
 }
 
+#status p {
+	padding:3px;
+	text-align:center;
+}
+.good {
+	background-color:#158ADF;
+	color:#FFF;
+}
+
+.bad {
+	background-color:#000;
+	color:#FFF;
+}
+
 #column2 .chat_box {
 	margin-bottom:5px;
 }

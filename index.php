@@ -177,10 +177,31 @@
 					<?php
 						} else {
 							?>
+							<script type="text/javascript">
+
+								view_status = new Template("view/status.html");
+
+								function modifier_status(status) {
+									status.class_name = (status.code == "0")?"good":"bad";
+									return [status];
+								}
+
+								function pull_status() {
+									ajax_request(id("status"), 
+										false,
+										view_status,
+										modifier_status, 
+										"script/connection/status.php"
+									);
+								}
+
+								setInterval(pull_status, 1000);
+							</script>
 							<div class="post unify">
 								<h1>Unification in progress</h1>
 								<p>Ask <?php echo $selected_user->user_name;?> to go to your page and click "unify".</p>
-								<a href="script/connection/delete_request.php">Cancel Unification</a>
+								<div id="status"></div>
+								<a href="script/connection/delete_request.php" style="display:block;position:absolute;bottom:4px">Cancel Unification</a>
 							</div>
 							<?php
 						}
