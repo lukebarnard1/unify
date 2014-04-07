@@ -1,5 +1,6 @@
 <?php
 	// include_once("no_errors.php");
+	date_default_timezone_set("UTC");
 
 	function json_encode_strip($data) {
 		return str_replace('\\\\','',json_encode($data));

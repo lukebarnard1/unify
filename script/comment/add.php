@@ -17,7 +17,7 @@
 				"user_id"=>$user->user_id,
 				"post_id"=>$post_id,
 				"comment_content"=>$comment_content,
-				"comment_time"=>date("Y-m-d H:i:s")
+				"comment_time"=>date("Y-m-d H:i:s", time() + 3600)
 			)
 		);
 		if ($comment->commit()){

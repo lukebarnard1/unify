@@ -16,7 +16,7 @@
 	
 	if (isset($_POST["post_content"]) && trim($_POST["post_content"]) != "") {
 		$post_content = $_POST["post_content"];
-		$post_time = date("Y-m-d H:i:s");
+		$post_time = date("Y-m-d H:i:s", time() + 3600);
 
 		$post = DataObject::create($dao,"post",
 			array(
