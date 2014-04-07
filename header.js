@@ -52,7 +52,7 @@ function load_notifications() {
 }
 
 function add_group(event) {
-	group_name = event.target.innerText;
+	group_name = sanitise_input(event.target.innerText);
 	event.preventDefault();
 
 	window.location.replace("/script/user_group/add.php?group_name="+group_name);

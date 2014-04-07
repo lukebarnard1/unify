@@ -261,7 +261,9 @@ function is_current_user(user_id) {
 
 function set_current_conversation_first (animate) {
 	current_conversation = 0;
-	current_user = $(".chat_msg_container")[0].user_id;
+	if ($(".chat_msg_container").length > 0) {
+		current_user = $(".chat_msg_container")[0].user_id;
+	}
 	update_current_conv(animate);
 }
 
