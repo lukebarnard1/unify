@@ -1,4 +1,9 @@
 
+#main {
+	width:initial;
+	max-width:700px;
+}
+
 #column1 {
 	display:none;
 }
