@@ -195,8 +195,8 @@ function Conversation(conversation) {
 			}
 		}).done(function (data) {
 			//A timed pull results in a sound being played, otherwise no sound is played	
-			if (typeof data[user_id] !== "undefined") {
-				sel.messages_loaded(data[user_id].messages, timed_pull, animate);
+			if (typeof data !== "undefined") {
+				sel.messages_loaded(data.messages, timed_pull, animate);
 				if (callback) {
 					callback();
 				}
@@ -219,15 +219,14 @@ function Conversation(conversation) {
 				msg_content: message
 			}
 		}).done(function (data) {
-			if (data.code == "0") {
-			} else {
+			if (data.code != "0") {
 				console.log(data);
 			}
 		});
 		this.load_messages(false, true, function () {
 			sort_conversations();
 			inp_div = id("conversation_input" + user_id);			
-			$(inp_div).focus();
+			// $(inp_div).focus();
 			inp_div.innerHTML = "";
 		});
 	}
@@ -243,7 +242,7 @@ function Conversation(conversation) {
 
 function scroll_all() {
 	for (key in conversations) {
-		conversations[key].scroll_down(false);
+		conversations[key].scroll_down(true);
 	}
 }
 
@@ -251,8 +250,6 @@ function update_current_conv(animate) {
 	left = -380 * current_conversation;
 
 	$("#conversations_table").animate({marginLeft:left+"px"},animate?500:0);
-
-	// console.log("Current user: " +current_user);
 }
 
 function is_current_user(user_id) {
@@ -318,12 +315,16 @@ function sort_conversations() {
 		p = a.childNodes[1].childNodes[3].latest_pulled;
 		q = b.childNodes[1].childNodes[3].latest_pulled;
 
-		return p < q?1:-1;
+		//latest_pulled of -1 needs to go to the left
+		if (p == -1)return -1;//p automatically bigger
+		if (q == -1)return 1;//q automatically bigger
+
+		return (p < q)?1:-1;
 	}
 
 	is_sorted = function (sorted) {
 		for (var i = 0; i < sorted.length - 1; i++) {
-			if (compare(sorted[i],sorted[i+1]) == 1 ) {
+			if (compare(sorted[i], sorted[i+1]) == 1 ) {
 				return false;
 			}
 		}
@@ -333,6 +334,7 @@ function sort_conversations() {
 	unsorted_cells = $(".conversation_cell").get();
 
 	if (!is_sorted(unsorted_cells)) {
+		console.log("Not sorted");
 		sorted_cells = unsorted_cells.sort(compare);
 
 		for (i in sorted_cells) {
@@ -412,11 +414,14 @@ function add_conversation(user_id) {
 			latest_seen_by_u2: -1
 		}
 	}).done(function (data) {
-		new_convo = new Conversation(data[user_id]);
-		new_convo.load_messages(false,false);
+		new_convo = new Conversation(data);
+		new_convo.load_messages(false, false);
 		conversations[user_id] = new_convo;
 	  	new_convo.convo_div.parent().parent().prependTo(new_convo.convo_div.parent().parent().parent());
-		set_current_conversation(user_id,true);
+
+		set_current_conversation(user_id, true);
+
+		id("conversation_input" + user_id).focus();
 	});
 }
 

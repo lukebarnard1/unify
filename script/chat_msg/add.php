@@ -12,7 +12,6 @@
 
 	$msg_content = trim($_POST["msg_content"],chr(0xC2).chr(0xA0).chr(0x20));
 	$msg_content = trim($msg_content);
-	echo bin2hex($msg_content);
 
 	if ($msg_content != "") {
 		$chat_msg = DataObject::create($dao,"chat_msg",array("user_id1"=>$user->user_id,"user_id2"=>$user_id,"msg_content"=>$msg_content));

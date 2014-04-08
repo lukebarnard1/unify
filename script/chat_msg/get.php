@@ -84,21 +84,27 @@
 
 	$dao = new DAO(false);
 
-	if (isset($_POST["user_id"])) {
-		//Get an array of all the conversations
-		$conversations_query = "(SELECT user_id2 AS user_id FROM chat_msg WHERE user_id1=$user->user_id GROUP BY user_id2) 
-								UNION 
-								(SELECT user_id1 AS user_id FROM chat_msg WHERE user_id2=$user->user_id GROUP BY user_id1)";
-		$dao->myquery($conversations_query);
-		$conversation_requests = $dao->fetch_all_part(array("user_id"));
+	if (isset($_POST["user_id"])){
+		if($_POST["user_id"] == "-1") {
+			//Get an array of all the conversations
+			$conversations_query = "(SELECT user_id2 AS user_id FROM chat_msg WHERE user_id1=$user->user_id GROUP BY user_id2) 
+									UNION 
+									(SELECT user_id1 AS user_id FROM chat_msg WHERE user_id2=$user->user_id GROUP BY user_id1)";
+			$dao->myquery($conversations_query);
+			$conversation_requests = $dao->fetch_all_part(array("user_id"));
 
-		$conversations = array();
-		foreach ($conversation_requests as $request) {
-			$c = get_conversations($dao, $request["user_id"], -1, -1)[$request["user_id"]];
-			$conversations[$request["user_id"]] = $c;
+			$conversations = array();
+			foreach ($conversation_requests as $request) {
+				$c = get_conversations($dao, $request["user_id"], -1, -1)[$request["user_id"]];
+				$conversations[$request["user_id"]] = $c;
+			}
+			echo json_encode_strip($conversations);
+			
+		} else {
+			$conversations = get_conversations($dao, $_POST["user_id"], -1, -1)[$_POST["user_id"]];
+
+			echo json_encode_strip($conversations);
 		}
-		echo json_encode_strip($conversations);
-
 	} else {
 		$conversation_requests = $_POST;
 		$conversations = array();
