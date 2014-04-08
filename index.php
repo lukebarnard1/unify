@@ -127,25 +127,47 @@
 							<li>Ask <?php echo $selected_user->user_name;?> to go to your page and do steps 1 and 2</li>
 						</ol>
 						<div id="unify_link" class="button" onclick="start_unify()" onmousedown="this.className='button pressed'" onmouseup="this.className='button'" onmouseout="this.className='button'">unify</div>
+						<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 						<script type="text/javascript">
-
-							function send_request(position) {
+							var lat = 0;
+							var lng = 0;
+							var should_unify = false;
+							function location_success(position) {
 								lat = position.coords.latitude;
 								lng = position.coords.longitude;
-								url = "script/connection/request.php";
 
-								$.ajax({
-									url: url,
-									type: "POST",
-									data: {my_lat:lat, my_lng:lng},
-									dataType: "json"
-								}).done(function (data) {
-									if (data.code == "0") {
-										location.reload();
-									} else {
-										id("unify_link").innerHTML = data.message;
-									}
-								});
+								if (should_unify) {
+									url = "script/connection/request.php";
+									$.ajax({
+										url: url,
+										type: "POST",
+										data: {my_lat:lat, my_lng:lng},
+										dataType: "json"
+									}).done(function (data) {
+										if (data.code == "0") {
+											location.reload();
+										} else {
+											id("unify_link").innerHTML = data.message;
+										}
+									});
+								}else{
+									var lat_lng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+									var options = {
+										zoom: 15,
+										center: lat_lng,
+										mapTypeControl: false,
+										navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+										mapTypeId: google.maps.MapTypeId.ROADMAP
+									};
+
+									var map = new google.maps.Map(document.getElementById("map"), options);
+
+									var marker = new google.maps.Marker({
+										position: lat_lng, 
+										map: map, 
+										title:" Here is your location, accurate to "+position.coords.accuracy+"m"
+									});
+								}
 							}
 
 							function location_error(error) {
@@ -168,12 +190,16 @@
 								}
 							}
 
+							navigator.geolocation.getCurrentPosition(location_success,location_error);
+
 							function start_unify() {
-								id("unify_link").innerHTML = "please wait...";
-								navigator.geolocation.getCurrentPosition(send_request,location_error);
+								id("unify_link").innerHTML = "Please wait...";
+								should_unify = true;
+								navigator.geolocation.getCurrentPosition(location_success,location_error);
 							}
 						</script>
 					</div>
+					<div id="map" style="width:100%;height:400px;"></div>	
 					<?php
 						} else {
 							?>

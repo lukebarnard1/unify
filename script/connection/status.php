@@ -27,7 +27,7 @@
 		if ($friendship != NULL) {
 			echo Status::json(0, "Unification complete: <a href=\"javascript:;\" onclick=\"location.reload()\">refresh page?</a>");
 		} else {
-			echo Status::json(1, "Unification not requested");
+			echo Status::json(1, "Unification failed!");
 		}
 	} else {
 		echo Status::json(1, "Unification requested");
