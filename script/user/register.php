@@ -32,8 +32,8 @@
 
 			if (! $cohort) {
 				//Cohort does not exist, insert it
-				
-				$group = DataObject::create($dao, "user_group", array("group_name"=>"Cohort $cohort_id Group"));
+
+				$group = DataObject::create($dao, "user_group", array("group_name"=>"Cohort Group"));
 				$group->commit();
 				$group_id = $group->get_primary_id();
 
@@ -65,10 +65,10 @@
 
 				$grouping->commit();
 
-				$dao->myquery("SELECT MAX(conf_id) FROM confirmation;");
+				$dao->myquery("SELECT MAX(conf_id) AS m FROM confirmation;");
 				$maxid = $dao->fetch_one();
 				if ($maxid) {
-					$rnd = salt(",jag,wd873423%Ed.fkug".$maxid);
+					$rnd = salt(",jag,wd873423%Ed.fkug".$maxid["m"]);
 				} else {
 					$rnd = salt(",jag,wd873423%Ed.fkug".rand());
 				}

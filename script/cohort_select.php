@@ -17,7 +17,7 @@
 					$selected_group->course_name = $row->course_name;
 					$selected_group->university_name = $row->university_name;
 					$selected_group->group_id = $row->group_id;
-					$selected_group->group_name = $row->course_name . " at " . $row->university_name . " ". date("Y", strtotime($row->cohort_start));
+					$selected_group->group_name = $row->course_name . " at " . $row->university_name . " (". date("M Y", strtotime($row->cohort_start)).")";
 
 					$selected_group->can_be_added_to = false;
 
