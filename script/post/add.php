@@ -39,7 +39,7 @@
 
 					foreach ($notification_users as $notification_user) {
 						if ($notification_user->user_id != $user->user_id) {
-							echo notify($dao, $notification_user->user_id, $notification_title, $notification_message, $notification_link);
+							notify($dao, $notification_user->user_id, $notification_title, $notification_message, $notification_link);
 						}
 					}
 				}
