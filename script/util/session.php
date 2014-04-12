@@ -1,4 +1,5 @@
 <?php
+	//Begin a session to allow access to the session variables
 	session_start();
 
 	ini_set('upload_max_filesize', '50M');

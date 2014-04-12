@@ -1,4 +1,5 @@
 <?php
+	//Redirect to another page with optional url parameters
 	function redirect($address,$vars = array()) {
 		if (count($vars) > 0) {
 			$text_vals = "?".http_build_query($vars);

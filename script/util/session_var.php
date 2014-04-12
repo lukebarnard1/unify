@@ -1,5 +1,5 @@
 <?php
-	
+	//Set variables for selected user and group
 	include_once "mysql.php";
 
 	if (isset($user)) {

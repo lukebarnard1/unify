@@ -2,8 +2,7 @@
 	//Adds a notification to the database
 	// This will later be deleted when an email is sent out
 
-	//Notifications will be as general as possible, having a title, message and a link.
-	// The link should remove the notification and will be generated later
+	//Notifications are as general as possible having a title, a message and a link.
 
 	include_once("../util/constants.php");
 

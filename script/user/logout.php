@@ -1,4 +1,5 @@
 <?php
+	//Log a user out
 	include "../util/session.php";
 	include "../util/redirect.php";
 	

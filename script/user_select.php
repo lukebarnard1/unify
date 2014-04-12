@@ -1,4 +1,5 @@
 <?php
+	//Select a user in order to unify, disunify or see posts from them
 	if (isset($selected_user))unset($selected_user);
 	if ($logged_in && isset($_GET["user_id"])) {
 		$dao = new DAO(false);

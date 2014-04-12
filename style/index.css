@@ -1,6 +1,5 @@
 #main {
 	margin:auto;
-	/*width:100%;*/
 	width:700px;
 
 	height:100%;
@@ -156,9 +155,6 @@
 	margin-right:5px;
 }
 
-.user_header .info {
-	/*padding-right:5px;*/
-}
 
 .user_header .info p {
 	padding: 0px 5px 5px 5px;
@@ -201,9 +197,6 @@
 	color:#888;
 }
 
-#member_selector {
-
-}
 
 #new_post {
 	position:relative;
@@ -429,7 +422,6 @@ img.delete_comment {
 }
 
 #column2 .chat_box .conversation_input{
-	/*margin-top:5px;*/
 	border-top-width: 3px;
 	padding:3px;
 }

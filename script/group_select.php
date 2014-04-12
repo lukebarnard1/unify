@@ -1,4 +1,5 @@
 <?php
+	//Select a group in order to see its posts
 	if ($logged_in) {
 		$dao = new DAO(false);
 		if (isset($_GET["group_id"])) {

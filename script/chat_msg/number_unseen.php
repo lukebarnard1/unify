@@ -1,5 +1,6 @@
 <?php
-	//Get number of unread messages for logged-in user
+	//Get number of unread messages for a user
+
 	include "../util/session.php";
 	include_once("../util/mysql.php");
 

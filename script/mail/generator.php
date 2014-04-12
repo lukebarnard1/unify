@@ -1,4 +1,5 @@
 <?php
+	//Provide functions for generation of plain text and html versions of information emails
 	include_once( dirname(__FILE__) . "/../util/constants.php");
 	function generate_email($subject, $message) {
 		global $SITE_URL;

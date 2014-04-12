@@ -1,4 +1,5 @@
 <?php
+	// Print a html message on any page with the display_message function
 	include_once("mysql.php");
 
 	function message($message_id) {
@@ -36,8 +37,6 @@
 </div>
 <?php
 	}
-	// var_dump($_SERVER["REQUEST_URI"]);
-	// var_dump($_GET);
 	if (isset($_GET["m"])) {
 		$m = $_GET["m"];
 		display_message($m);

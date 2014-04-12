@@ -1,4 +1,5 @@
 <?php
+	// Request to disunify or unfriend from someone
 	include "../util/session.php";
 	include_once("../util/mysql.php");
 	include_once("../util/redirect.php");

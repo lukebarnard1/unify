@@ -1,4 +1,5 @@
 <?php
+	// Send an email to the developer containing user feedback
 	include_once("../util/no_errors.php");
 	include "../util/session.php";
 	

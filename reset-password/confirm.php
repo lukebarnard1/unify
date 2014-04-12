@@ -3,7 +3,7 @@
 	//If the checksum matches, then the user is presented a password reset dialogue for them to enter a new one.
 	//		The password is reset and they are directed to the login page.
 	//Otherwise
-	//		Send back to login page
+	//		They are sent back to the login page
 	include "../script/util/constants.php";
 	include "../script/util/mysql.php";
 	include "../script/util/redirect.php";
@@ -26,12 +26,15 @@
 		</style>
 		<script type="text/javascript" src="../jquery.js"></script>
 		<script type="text/javascript">
+			// Return the element with the specified ID
 			function id(element) {
 				return document.getElementById(element);
 			}
 
+			// Is the password matching and long enough?
 			password_valid = false;
 		
+			// Verify the passwords
 			function verify_password() {
 				orig_input = id("new_pwd");
 				conf_input = id("conf_pwd");
@@ -51,6 +54,7 @@
 				}
 			}
 
+			// Change the password of the user
 			function reset_password(e) {
 				e.preventDefault();
 
@@ -77,6 +81,8 @@
 	<body>
 	<div id="main">
 <?php
+
+	//Determine whether this request is genuine and still live
 	$query = "SELECT * FROM reset_request WHERE user_id=\"$user->user_id\" AND conf_rnd=\"$conf_rnd\";";
 
 	$dao->myquery($query);

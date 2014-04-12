@@ -1,4 +1,5 @@
 <?php
+	// Reset a user's password to a password of their choice
 	include_once("../util/mysql.php");
 	include "../util/pwd.php";
 

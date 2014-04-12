@@ -1,9 +1,10 @@
 <?php
-	//Get any chat messages available by polling database
+	//Get any chat messages available from a conversation with a user OR all conversations open OR all friends
 	
 	include "../util/session.php";
 	include_once("../util/mysql.php");
 
+	//Number of messages to load from each conversation when loading chat page
 	$INITIAL_CONVO_SIZE = 30;
 	
 	function get_conversations($dao, $user_id, $latest_pulled, $latest_seen_by_u2){
@@ -15,9 +16,6 @@
 		
 		$properties = array("msg_id","user_id1","user_id2","user_name","msg_content","msg_seen");
 
-		//Select all messages that have not been pulled by this client 
-			// AND all messages that have been seen by the other user, but this has not yet been observed
-			// by this client.
 		if ($latest_pulled != -1){
 			$query = "SELECT ".implode(",",$properties)." FROM
 						chat_msg JOIN user ON user.user_id=user_id1 

@@ -1,4 +1,5 @@
 <?php
+	// Request for a user to become part of an existing group
 	include "../util/session.php";
 	include_once("../util/mysql.php");
 	include "../mail/send.php";

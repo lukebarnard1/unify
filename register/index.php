@@ -1,4 +1,5 @@
 <?php
+	// Registration form page
 	include "../script/util/constants.php";
 	include "../script/util/display_message.php";
 
@@ -46,7 +47,6 @@
 			padding:0px 10px 10px 10px;
 			margin:auto;
 			max-width:900px;
-			/*height:510px;*/
 			
 			border:1px solid #ccc;
 			background-color:#fff;
@@ -125,14 +125,19 @@
 	<link rel="stylesheet" href="register_mobile.css" media="only screen and (max-width: 800px)"/>
 	<script src="../jquery.js"></script>
 	<script type="text/javascript">
+		// Are the email addresses correct?
 		var email_valid = false;
+		// Are the passwords correct?
 		var password_valid = false;
+		// Is the chosen course valid
 		var course_valid = false;
 		
+		// Returns the element with the specified ID
 		function id(el_id) {
 			return document.getElementById(el_id);
 		}
-		
+
+		// Load the list of universities and reset error message
 		function load() {
 			$.ajax({
 				url: "../script/university/get.php",
@@ -146,11 +151,13 @@
 			verify_password();
 		}
 		
+		// Return true if an email is valid
 		function valid_email(email) {
 			pat = /^[^\s\@]{1,}\@[^\s\@]{1,}\.[a-z]{2,}$/;
 			return pat.test(email);
 		}
 		
+		// Verify the email fields match and style them accordingly
 		function verify_email() {
 			orig_input = id("ea1");
 			conf_input = id("ea2");
@@ -179,6 +186,7 @@
 			verify_all();
 		}
 		
+		// Verify the password fields match and style them accordingly
 		function verify_password() {
 			orig_input = id("p1");
 			conf_input = id("p2");
@@ -206,6 +214,7 @@
 			verify_all();
 		}
 		
+		// Make sure everything has been verified
 		function verify_all() {
 			submit = $(".submit");
 			
@@ -222,6 +231,7 @@
 			}
 		}
 		
+		// Make a search for courses based on the input field and display links that are similar
 		function choose_course() {
 			course_valid = false;
 			inputer = id("course_input");
@@ -257,6 +267,7 @@
 			}
 		}
 		
+		// Pick a course for registration
 		function pick_course(course_id,course_name) {
 			course_valid = true;
 			id("course_id").value = course_id;

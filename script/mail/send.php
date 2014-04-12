@@ -1,4 +1,5 @@
 <?php
+	//Provide a function for sending emails to users given an address, subject and body.
 	include "generator.php";
 
 	function mail_message($to, $subject, $body) {

@@ -1,4 +1,10 @@
 <?php
+	// Attempt a unification:
+	//  - If the other user has already requested one, then allow 
+    //    them to be friends if they're close enough. If they are
+    //    not close enough, delete the other user's attempt.
+	//  - If the other user hasn't already requested (via this 
+ 	// 	  same script), then add the request.
 	include "../util/session.php";
 	include_once("../util/mysql.php");
 	include_once("../util/status.php");
@@ -34,7 +40,7 @@
 				$distance = rad2deg($distance);
 				$distance = $distance * 60 * 1.1515 * 1.609344;
 				
-				$threshold = 0.01 + 0.01;//20m!
+				$threshold = 0.02;//20m!
 				if ($distance < $threshold) {
 					$new_connection = DataObject::create($dao, "connection", $connection_properties);
 					$new_connection->commit();

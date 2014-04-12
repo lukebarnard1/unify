@@ -1,4 +1,6 @@
 <?php
+//A class to represent a small status code and message to be displayed to the user
+// when they carry out an action.
 class Status {
 	private function __construct($code, $message) {
 		$this->code = $code;

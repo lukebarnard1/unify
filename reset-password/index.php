@@ -1,6 +1,8 @@
 <!DOCTYPE>
 <html><head><style>*{font-family: Arial,sans-serif}</style></head><body>
 <?php
+	//Send an email to the person to enable them to reset their passoword
+	// Or display a input box if the user_email GET variable is not present
 	include "../script/util/mysql.php";
 	include "../script/util/redirect.php";
 
@@ -16,7 +18,7 @@
 		$dao->myquery($query);
 
 		if ($dao->fetch_num_rows() == 1) {
-			//Store intent to reset in the database with a checksum as the old password?
+			//Store intent to reset in the database
 			$user = $dao->fetch_one_obj();
 
 			$names = explode(" ", $user->user_name);

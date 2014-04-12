@@ -1,9 +1,9 @@
 <?php
+	//Return posts from a certain group or user's feed
 	include "../util/session.php";
 	include "../util/session_var.php";
 	include_once "../util/mysql.php";
 	
-	//Return posts from a certain cohort
 	$query = "";
 
 	$dao = new DAO(false);

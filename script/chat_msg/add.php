@@ -1,11 +1,11 @@
 <?php
-	//Send a message in chat
+	//Send a message in chat to another user
 	
 	include "../util/session.php";
 	include_once("../util/mysql.php");
 	include "../util/status.php"; 
 	
-	$dao = new DAO();
+	$dao = new DAO(false);
 
 	$user_id = $_POST["user_id"];
 

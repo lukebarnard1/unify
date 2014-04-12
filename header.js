@@ -1,11 +1,12 @@
 
-
+//Templates for rendering
 view_nav_button_chat = new Template("view/nav_button_chat.html");
 view_notification = new Template("view/notification.html");
 view_group = new Template("view/group.html");
 
 view_friend = new Template("view/friend.html");
 
+//Make the part of the query that matches the name, bold
 modifier_friend_search = function (data, input_data) {
 	query = input_data.q;
 	for (var data_index in data) {
@@ -16,6 +17,7 @@ modifier_friend_search = function (data, input_data) {
 	return data;
 }
 
+//Prepare notifications for rendering
 modifier_notifications = function (data, input_data) {
 	n = data.length;
 	for (var index in data) {
@@ -34,6 +36,7 @@ modifier_notifications = function (data, input_data) {
 	return data;
 }
 
+//Search for a friend using a partial name, query
 function choose_friend(query, target_id, view) {
 	target = id(target_id);
 	if ($.trim(query) != "") {
@@ -43,14 +46,17 @@ function choose_friend(query, target_id, view) {
 	}
 }
 
+//Refresh the number of messages that the user has received but not read
 function update_unread_messages() {
 	ajax_request(id("nav_button_chat"), false, view_nav_button_chat, modifier_relay, "script/chat_msg/number_unseen.php");
 }
 
+//Refresh the user's notifications
 function load_notifications() {
 	ajax_request(notifications, false, view_notification, modifier_notifications, "script/notification/get.php",null);
 }
 
+//Add a group by redirecting
 function add_group(event) {
 	group_name = sanitise_input(event.target.innerText);
 	event.preventDefault();
@@ -58,6 +64,7 @@ function add_group(event) {
 	window.location.replace("/script/user_group/add.php?group_name="+group_name);
 }
 
+//Load all of the user's groups and then add "New group" box on the end
 function load_groups() {
 	callback = function () {
 		groups.innerHTML += ""+
@@ -74,6 +81,7 @@ function load_groups() {
 	ajax_request(groups, false, view_group, modifier_relay, "script/user_group/get.php",null,callback);
 }
 
+//Called when the page loads
 function load() {
 	update_unread_messages();
 	setInterval(update_unread_messages, 3000);
@@ -83,7 +91,7 @@ function load() {
 }
 
 var nav_dropped = false;
-
+//Hide the mobile dropdown navigation list
 function hide_dropdown(animate) {
 	t = animate?500:0;
 	$('#nav_dropdown').css({'height':'0px'});
@@ -104,6 +112,7 @@ window.addEventListener("resize",resize);
 window.addEventListener("load",load);
 
 var main_previous_padding = "0px";
+//Toggle the navigation drop down list
 function toggle_nav_dropdown() {
 	var ndd = $('#nav_dropdown');
 
@@ -130,6 +139,7 @@ function display_quick_message(msg) {
 	$("#quick_message_spacer").stop().animate({height:"28px"},200).delay(2000).animate({height:"5px"},200);
 }
 
+//Delete a notification using ajax then refresh the notifications if it was a success
 function delete_notification(notif_id) {
 	ajax_push(
 		"script/notification/delete.php",

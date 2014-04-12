@@ -1,16 +1,11 @@
 #!/usr/bin/php -q
 <?php
 	//Scan database for notifications that have not been seen and are ready for departure
+	// then send the emails out to users
 	include_once("../util/mysql.php");
 	include "../mail/send.php";
 	include "../util/constants.php";
 
-	// chdir("..");
-	
-	// error_log("\n\n");
-	// error_log("PHP_ini_loaded_file: ".php_ini_loaded_file());
-	// error_log("executable path: ".PHP_BINDIR);
-	// error_log("user: ".get_current_user());
 	error_log("Beginning to email notifications...");
 	$dao = new DAO(false);
 

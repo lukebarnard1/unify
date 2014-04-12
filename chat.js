@@ -1,20 +1,17 @@
 
 user = <?php echo json_encode($user)?>;
 
+//Array of Conversation instances
 var conversations = {};
-
-//Cancel all ajax requests
-// $(window).unload( function () { for (key in conversations) { conversations[key].a.abort(); }} );
-
-// Each conversation has "latest_pulled", "latest_seen_by_u2" and messages
-// This will be indexed by user id
 
 var view_chat_msg = new Template("../view/chat_msg.html");
 var view_conversation = new Template("../view/conversation.html");
 var view_friend_select = new Template("../view/friend_select.html");
 
+//Latest pulled from all conversations
 var global_latest_pulled = 0;
 
+//Currently select conversation
 var current_conversation = 0;
 var current_user = 0;
 
@@ -26,6 +23,7 @@ var title_animation_prefix = "";
 var frame = 0;
 var flashed_title = "";
 
+//Modify messages to contain a seen indication before being rendered
 modifier_messages = function(data) {
 	for (i in data) {
 		message = data[i];
@@ -40,10 +38,12 @@ modifier_messages = function(data) {
 	return data;
 }
 
+//Reset the title to the original
 function reset_title() {
 	document.title = original_title;
 }
 
+//Toggle the title display whilst flashing
 function flash_title() {
 	if (!document.hidden) {
 		stop_flashing();
@@ -58,11 +58,13 @@ function flash_title() {
 	title_flashed = !title_flashed;
 }
 
+//Stop flashing
 function stop_flashing() {
 	clearInterval(flashing_interval);
 	reset_title();
 }
 
+//Begin flashing the title bar to warn the user of a new message
 function start_flashing(message_user_name, message_content) {
 	flashed_title = message_user_name + ": " + message_content.substring(0, 20) + (message_content.length > 20?"...":"");
 
@@ -73,6 +75,7 @@ function start_flashing(message_user_name, message_content) {
 	flash_title();
 }
 
+//Alternatively scroll the newest message across the title
 function animate_title () {
 	if (!document.hidden) {
 		clearInterval(animation_interval);
@@ -88,6 +91,7 @@ function animate_title () {
 	}
 }
 
+//Begin scrolling via animate_title
 function start_ticking(prefix, text) {
 
 	width = 20;//20 Character-wide animation
@@ -106,11 +110,13 @@ function start_ticking(prefix, text) {
 	animation_interval = setInterval(animate_title, 10);
 }
 
+//Play a sound and then start flashing the received message in the window title
 function alert_user(message_user_name, message_content) {
 	document.getElementById('snd_msg').play();
 	start_flashing(message_user_name, message_content);
 }
 
+//Move the current conversation to the front or look at the current user
 function queue_jump(follow) {
 	if (follow) {
 		set_current_conversation_first(false);
@@ -119,6 +125,8 @@ function queue_jump(follow) {
 	}
 }
 
+//Class for instances of each conversation. The input is the conversation
+// object obtained from the database containing user name, image etc...
 function Conversation(conversation) {
 	for (key in conversation) {
 		this[key] = conversation[key];
@@ -182,6 +190,7 @@ function Conversation(conversation) {
 		}
 	}
 
+	//Load messages for this conversation only
 	this.load_messages = function (timed_pull, animate, callback) {
 		var sel = this;
 		$.ajax({
@@ -206,6 +215,7 @@ function Conversation(conversation) {
 
 	this.messages_loaded(this.messages, false, false);
 
+	//Send a message to this conversation
 	this.add_message = function (message) {
 		var user_id = this.user_id;
 
@@ -231,6 +241,7 @@ function Conversation(conversation) {
 		});
 	}
 
+	//Scroll the conversation down to the bottom of the messages
 	this.scroll_down = function (should_force) {
 		if (should_force || convo_div.scrollTop() >= convo_div.previous_scroll) {
 			convo_div.scrollTop(convo_div[0].scrollHeight);
@@ -239,23 +250,26 @@ function Conversation(conversation) {
 	}
 }
 
-
+//Scroll all of the conversations down to the bottom
 function scroll_all() {
 	for (key in conversations) {
 		conversations[key].scroll_down(true);
 	}
 }
 
+//Animate the table to display the current conversation in the middle of the page
 function update_current_conv(animate) {
 	left = -380 * current_conversation;
 
 	$("#conversations_table").animate({marginLeft:left+"px"},animate?500:0);
 }
 
+//Is this user currently selected?
 function is_current_user(user_id) {
 	return current_conversation == $(".chat_msg_container").index(conversations[user_id].convo_div);
 }
 
+//Change the current conversation to the first conversation
 function set_current_conversation_first (animate) {
 	current_conversation = 0;
 	if ($(".chat_msg_container").length > 0) {
@@ -264,6 +278,7 @@ function set_current_conversation_first (animate) {
 	update_current_conv(animate);
 }
 
+//Move to the conversation with the specified user id
 function set_current_conversation(user_id, animate) {
 	if (user_id > 0) {
 		current_conversation = $(".chat_msg_container").index(conversations[user_id].convo_div);
@@ -272,6 +287,7 @@ function set_current_conversation(user_id, animate) {
 	}
 }
 
+//Move to the conversation on the right
 function move_current_conversation_right() {
 	if (current_conversation < Object.keys(conversations).length - 1) {
 		current_conversation++;
@@ -280,6 +296,7 @@ function move_current_conversation_right() {
 	}
 }
 
+//Move to the conversation on the left
 function move_current_conversation_left() {
 	if (current_conversation > 0) {
 		current_conversation--;
@@ -308,8 +325,8 @@ function initial_load(data) {
 	set_current_conversation_first(false);
 }
 
+//Sort the conversations in order of most recently active
 function sort_conversations() {
-	//Sort the conversations
 
 	compare = function (a, b) {
 		p = a.childNodes[1].childNodes[3].latest_pulled;
@@ -344,6 +361,7 @@ function sort_conversations() {
 	scroll_all();
 }
 
+//Load all messages available
 function multi_load(data) {
 	for (user_id in data) {
 		messages = data[user_id].messages;
@@ -352,6 +370,7 @@ function multi_load(data) {
 	sort_conversations();
 }
 
+//Load more messages for each conversation
 function timed_load() {
 	request_data = {};
 	for (key in conversations) {
@@ -433,6 +452,7 @@ function select_friend(user_id) {
 	add_conversation(user_id);
 }
 
+//Send a message to a user_id
 function send_message(event, user_id) {
 	event.preventDefault();
 	message = sanitise_input(event.target.innerText);

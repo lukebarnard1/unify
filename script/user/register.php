@@ -1,4 +1,5 @@
 <?php
+	//Register a user
 	include "../util/pwd.php";
 	include_once("../util/mysql.php");
 	include "../util/redirect.php";
@@ -22,12 +23,6 @@
 		$university_id = $dao->escape($_POST["university_id"]);
 		$course_id = $dao->escape($_POST["course_id"]);
 		$cohort_start = $dao->escape($_POST["start_year"]) . "-" . $dao->escape($_POST["start_month"]) . "-1"; 
-		
-		//Checks
-		
-		// - Email is unique
-		// - Email confirmation
-		// - Cohort exists or not?
 		
 		$dao->myquery("SELECT user_email FROM user WHERE user_email LIKE \"%$user_email\";");
 		if ($dao->fetch_num_rows() == 0) {

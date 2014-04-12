@@ -1,5 +1,8 @@
 <?php
-	// include_once("no_errors.php");
+	//This file has classes for:
+	// - DataObject: represents a pulled row from the database
+	// - DAO: Database Access Object required to access the database
+
 	date_default_timezone_set("UTC");
 
 	function json_encode_strip($data) {
@@ -10,6 +13,8 @@
         return get_object_vars($obj);
 	}
 
+	// DataObject can be a created or select row of a database table.
+	//  Very useful when a selection is made and then either an update or delete is performed.
 	class DataObject {
 		private $table = "";
 		private $dao;
@@ -147,10 +152,9 @@
 			return $query_where;
 		}
 
+		// Determine primary key and value
 		function determine_primary() {
-			//determine primary key and value
 			$this->dao->myquery("SHOW index FROM $this->table where Key_name = 'PRIMARY';");
-			// var_dump($this->dao->fetch_one_obj());
 			$this->primary_key = $this->dao->fetch_one_obj()->Column_name;
 			if (isset($this->{$this->primary_key})) {
 				$this->primary_id = $this->{$this->primary_key};
@@ -196,11 +200,13 @@
 			$this->myi = new mysqli("localhost", "lukebarn_uniuser", "xkN-u8E-kGf-4RD", "lukebarn_unify");
 		}
 		
+		//Make the input safe to put in a mysql query and print out on a webpage
 		function escape($s) {
 			$r = "".rand();
 			return str_replace($r, "<br>", mysqli_real_escape_string($this->myi, str_replace("<br>", $r, $s)));
 		}
-	
+		
+		//Send a query to the database
 		function myquery($query) {
 			if($this->debug) {
 				echo "Query: $query<br>";
@@ -213,6 +219,7 @@
 			return $this->result;
 		}
 		
+		//The most recent query was a success
 		function success() {
 			if ($this->result) {
 				return true;
@@ -221,6 +228,7 @@
 			}
 		}
 		
+		//Fetch all results as an array of rows as associative arrays
 		function fetch_all() {
 			if ($this->result) {
 				$rows = array();
@@ -233,6 +241,7 @@
 			}
 		}
 
+		//Fetch all results like fetch_all but only return specified columns
 		function fetch_all_part($part) {
 			if ($this->result) {
 				$rows = array();
@@ -245,6 +254,7 @@
 			}
 		}
 		
+		//Fetch all results in object format
 		function fetch_all_obj() {
 			if ($this->result) {
 				$rows = array();
@@ -257,6 +267,7 @@
 			}
 		}
 
+		//Same as fetch_all_obj but only allow certain columns
 		function fetch_all_obj_part($part) {
 			if ($this->result) {
 				$rows = array();
@@ -269,6 +280,7 @@
 			}
 		}
 
+		//Encode fetch_all as json
 		function fetch_json() {
 			if ($this->result) {
 				return json_encode_strip($this->fetch_all());
@@ -277,6 +289,7 @@
 			}
 		}
 
+		//Encode fetch_all_part as json
 		function fetch_json_part($part) {
 			if ($this->result) {
 				return json_encode_strip($this->fetch_all_part($part));
@@ -285,6 +298,7 @@
 			}
 		}
 		
+		//Fetch one result as an associative array
 		function fetch_one() {
 			if ($this->result) {
 				return $this->result->fetch_assoc();
@@ -293,7 +307,10 @@
 			}
 		}
 
-		//Where part is an array of the keys for each part
+		//Only allow some columns to be retrieved (for security purposes)
+		// Perhaps an attacker manages to execute a query to return passwords
+		// of users. Using this technique strictly limits which columns are
+		// returned. Password is never returned unless a user is logging in.
 		function fetch_one_part($part) {
 			if ($this->result) {
 				$obj = $this->result->fetch_assoc();
@@ -303,7 +320,7 @@
 						if (array_key_exists($column, $obj)) {
 							$new_obj[$column] = $obj[$column];
 						} else {
-							throw new Exception("Column '$column' does not exist in ");
+							throw new Exception("Column '$column' does not exist");
 							return;
 						}
 					}
@@ -316,6 +333,7 @@
 			}
 		}
 
+		//Fetch one row as an object
 		function fetch_one_obj() {
 			if ($this->result) {
 				return $this->result->fetch_object();
@@ -324,7 +342,7 @@
 			}
 		}
 
-		//Where part is an array of the keys for each part
+		//Same as fetch_one_part but return an object
 		function fetch_one_obj_part($part) {
 			$assoc = $this->fetch_one_part($part);
 			if ($assoc) {
@@ -334,6 +352,7 @@
 			}
 		}
 		
+		//Fetch the number of rows of the most recent result
 		function fetch_num_rows() {
 			if ($this->result) {
 				return $this->result->num_rows;
@@ -342,10 +361,12 @@
 			}
 		}
 
+		//Get the most recent insert primary key id
 		function insert_id() {
 			return $this->myi->insert_id;
 		}
-	
+		
+		//Close the connection when the object is destroyed
 		function __destruct() {
 			mysqli_close($this->myi);
 		}

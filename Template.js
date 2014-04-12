@@ -1,3 +1,4 @@
+//Template for rendering json objects in a html format
 function Template (file_name) {
 	var file_name = file_name;
 	var parts = new Array();
@@ -16,13 +17,9 @@ function Template (file_name) {
 		}
 		parts.push(data.substring(last_match_end));
 		console.log("Loaded template '"+file_name+"'");
-		// console.log("Variables:");
-		// console.log(variables);
 	}
 
 	this.render = function (data) {
-		// console.log("Rendering: ");
-		// console.log(data);
 		result = "";
 		for (var data_index in data) {
 			row = data[data_index];

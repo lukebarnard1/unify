@@ -1,4 +1,5 @@
 <?php
+	//Remove this user's request to register
 	include "script/util/mysql.php";
 	include "script/util/redirect.php";
 	

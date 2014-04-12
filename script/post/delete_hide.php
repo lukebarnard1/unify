@@ -1,4 +1,6 @@
 <?php
+	//Delete or hide a post given just a post id. Whether the post is the user's or not will
+	// determine whether it will be deleted or hidden respectively.
 	include "../util/session.php";
 	include_once("../util/mysql.php");
 	include "../util/status.php";

@@ -1,4 +1,5 @@
 <?php
+	//Select a cohort in order to view its posts
 	if ($logged_in) {
 		$dao = new DAO(false);
 		if (isset($_GET["cohort_id"])) {

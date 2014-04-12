@@ -1,4 +1,5 @@
 <?php
+	//Vote up or down on a post
 	include "../util/session.php";
 	include_once("../util/mysql.php");
 	include "../util/status.php";

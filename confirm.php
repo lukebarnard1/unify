@@ -1,4 +1,5 @@
 <?php
+	//Confirm a user registration
 	include "script/util/mysql.php";
 	include "script/util/redirect.php";
 

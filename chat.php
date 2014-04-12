@@ -1,6 +1,5 @@
 <?php
 	include "header.php";
-	include_once "script/view/chat_box_json.php";
 ?>
 	<link rel="stylesheet" href="style/chat.css"/>
 	<link rel="stylesheet" href="style/chat_mobile.css" media="only screen and (max-width: 700px)"/>
@@ -32,8 +31,8 @@
 	</table>
 		<div id="arrows">
 			<div>
-				<a class="arrow left" href="javascript:;" onclick="move_current_conversation_left()"><img src="img/upvote.png"></a>
-				<a class="arrow right" href="javascript:;" onclick="move_current_conversation_right()"><img src="img/downvote.png"></a>
+				<a class="arrow left" href="javascript:;" onclick="move_current_conversation_left()"><img src="img/leftarrow.png"></a>
+				<a class="arrow right" href="javascript:;" onclick="move_current_conversation_right()"><img src="img/rightarrow.png"></a>
 			</div>
 		</div>
 </body>

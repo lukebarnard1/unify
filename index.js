@@ -1,7 +1,9 @@
+//Encode session variables and GET variables as js objects
 get = <?php echo json_encode($_GET)?>;
 user = <?php echo json_encode($user)?>;
 group = <?php if(isset($selected_group)){echo json_encode($selected_group);}else{echo "null";}?>;
 
+//Load templates
 view_comment = new Template("view/comment.html");
 view_post = new Template("view/post.html");
 view_visible_post = new Template("view/post.html");
@@ -67,12 +69,11 @@ modifier_posts = function (data, input_data) {
 	}
 	return data;
 }
-
-
+//For debugging
 function print_json(data) {
 	console.log(JSON.stringify(data,null,2));
 }
-
+//For debugging
 function get_args() {
 	arguments = arguments.callee.caller.arguments;
 	args = [];
@@ -82,7 +83,7 @@ function get_args() {
 	s = {name : arguments.callee.name, arguments : args};
 	return s;
 }
-
+//Search for a group member
 function choose_member(query, target_id, view) {
 	target = id(target_id);
 	if ($.trim(query) != "") {
@@ -91,16 +92,16 @@ function choose_member(query, target_id, view) {
 		target.style.display = "none";
 	}
 }
-
+//Load friends
 function load_friends() {
 	ajax_request(id("friends"), false, view_friend, modifier_relay, "script/user/friends.php");
 }
-
+//Load group members
 function load_members() {
 	ajax_request(id("group_members"), false, view_group_member, modifier_relay, "script/grouping/members.php", {group_id : group.group_id});
 }
 
-
+//Add the next of posts
 function next_page() {
 	if (get.post_id) {
 		if (!id("posts0")){
@@ -121,7 +122,7 @@ function next_page() {
 		page++;
 	}
 }
-
+//Reload a page of posts
 function reload_page(p) {
 	console.log("Reload page "+ p);
 	page_div = id("posts"+p);
@@ -134,20 +135,20 @@ function reload_page(p) {
 
 	ajax_request(page_div, false, view_post, modifier_posts, "script/post/get.php", get_send);
 }
-
+//Reload the entire news feed
 function reload_feed() {
 	for (i = 0; i <= last_page; i++) {
 		reload_page(i);
 	}
 }
-
+//Load more posts
 function more_posts() {
 	if (can_load_more_posts && page != -1) {
 		can_load_more_posts = false;
 		next_page();
 	}
 }
-
+//Determine if the user has scrolled far enough for more posts to be loaded
 function update_posts() {
 	col2 = $("#column2");
     if (col2.scrollTop() + col2.innerHeight() >= col2[0].scrollHeight - 2000) {
@@ -156,6 +157,7 @@ function update_posts() {
     return true;
 }
 
+//Called when page loads
 function load() {
 	load_friends();
 	if (group != null) {
@@ -168,6 +170,7 @@ function load() {
 
 window.addEventListener("load",load);
 
+//Refresh the feed after an ajax request to the link has been made
 function change_feed(link, p) {
 	ajax_push(link,{},
 		function(data) {
@@ -176,6 +179,7 @@ function change_feed(link, p) {
 	);
 }
 
+//Show the button to change profile picture
 function show_pp_button(show) {
 	if (show) {
 		id("prof_pic_button").style.display = "block";
@@ -184,14 +188,17 @@ function show_pp_button(show) {
 	}
 }
 
+//Display file picker for profile picture
 function change_prof_pic() {
 	id("prof_pic_file").click();
 }
 
+//Submit profile picture file to the server
 function sub_prof_pic() {
 	id('prof_pic_form').submit();
 }
 
+//Add a post to the group or news feed
 function add_post(e) {
 	e.preventDefault();
 	content_input = $("#post_content");
@@ -211,6 +218,7 @@ function add_post(e) {
 	}
 }
 
+//Add a comment to a post
 function add_comment(e, post_id, page) {
 	e.preventDefault();
 
@@ -227,8 +235,8 @@ function add_comment(e, post_id, page) {
 	}
 }
 
+//Send a member a request to join this group by email
 function add_member(member_id) {
-	//Send a member a request to join this group by email
 	ajax_push(
 		"script/grouping/request.php",
 		{group_id:group.group_id,user_id:member_id},
@@ -241,6 +249,7 @@ function add_member(member_id) {
 	);
 }
 
+//Enable the comment input box for this post
 function comment_enable(e, post_id) {
 	e.preventDefault();
 	comment_form = id("comment_form" + post_id);
@@ -251,6 +260,7 @@ function comment_enable(e, post_id) {
 	input.focus();
 }
 
+//Send feedback to the developer
 function send_feedback(e) {
 	e.preventDefault();
 	feedback_content = $("#feedback_content");

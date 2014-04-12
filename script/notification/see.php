@@ -1,5 +1,5 @@
 <?php
-	//Delete a notifcation from the database
+	//Delete a notifcation from the database and then redirect to its link
 	include_once("../util/mysql.php");
 	include_once("../util/redirect.php");
 	// include_once("../util/status.php");

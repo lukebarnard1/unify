@@ -21,7 +21,7 @@
 
 	$request = DataObject::select_one($dao, "friend_request", array("req_id"), $connection);
 	if ($request == NULL) {
-		//Check if they are friends
+		//Check if they are friends now
 
 		$friendship = DataObject::select_one($dao, "connection", array("connection_id"), $connection_rev);
 		if ($friendship != NULL) {

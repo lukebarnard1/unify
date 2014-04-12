@@ -1,5 +1,5 @@
 <?php
-	//Add a comment to a post on a cohort/user's feed
+	//Add a comment to a post
 	
 	include "../util/session.php";
 	include_once("../util/mysql.php");
@@ -21,7 +21,7 @@
 			)
 		);
 		if ($comment->commit()){
-			//Comment has been added, notifier the orignal poster
+			//Comment has been added, notify the orignal poster
 
 			//Find the original poster
 			$post = DataObject::select_one($dao,"post",array("post_id","user_id"), array("post_id"=>$post_id));

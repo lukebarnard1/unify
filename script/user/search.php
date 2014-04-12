@@ -1,4 +1,6 @@
 <?php
+	//Search for people that the user might be refering to when
+	// a partial name is given
 	include_once("../util/mysql.php");
 	include "../util/session.php";
 

@@ -1,4 +1,5 @@
 <?php
+	// Change the user's profile picture
 	include "../util/session.php";
 	include_once("../util/mysql.php");
 	include "../util/redirect.php";

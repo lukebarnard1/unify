@@ -1,4 +1,5 @@
 <?php
+	// Get all of the friends of a user
 	include_once("../util/session.php");
 	include_once("../util/mysql.php");
 	$friends_query = "SELECT user_id,user_name,user_picture,course.course_name,university.university_name,cohort.cohort_start FROM user ".
